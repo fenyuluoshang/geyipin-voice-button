@@ -1,14 +1,49 @@
 import { renderToString } from 'vue/server-renderer'
 import createSSRApp from '../dist/server/entry-server.js'
+import fs from 'fs/promises'
+import { existsSync } from 'fs'
+import { JSDOM } from 'jsdom'
+import path from 'path'
 
-const renderPages = ['/', '/about']
+const __dirname = path.resolve()
 
-async function render(path: string) {
-  const html = await renderToString(await createSSRApp(path), {})
+const renderPaths = ['/', '/about']
 
-  console.log(html)
+async function readHTML() {
+  const htmlFile = await fs.readFile(path.resolve(__dirname, './dist/client/index.html'))
+  const html = new JSDOM(htmlFile)
+  return html
 }
 
-renderPages.forEach((item) => {
-  render(item)
-})
+async function renderVue(path: string) {
+  const dom = await readHTML()
+  const entry = dom.window.document.getElementById('app') || dom.window.document.body
+  const html = await renderToString(await createSSRApp(path), {})
+  entry.innerHTML = html
+  return dom
+}
+
+async function render() {
+  if (existsSync(path.resolve(__dirname, `./dist/generator/`))) {
+    await fs.rm(path.resolve(__dirname, `./dist/generator/`), { recursive: true })
+  }
+  await fs.cp(path.resolve(__dirname, './dist/client/'), path.resolve(__dirname, `./dist/generator/`), {
+    recursive: true
+  })
+  await Promise.all(
+    renderPaths.map(async (item) => {
+      const dom = await renderVue(item)
+      fs.writeFile(
+        path.resolve(__dirname, `./dist/generator/${pathToFileName(item)}.html`),
+        dom.window.document.documentElement.outerHTML
+      )
+    })
+  )
+}
+
+function pathToFileName(path: string) {
+  return path.replace(/\/$/, 'index').replace(/^\//, '')
+}
+
+console.log("start to generator static page")
+render()
