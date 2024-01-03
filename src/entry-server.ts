@@ -1,17 +1,9 @@
-import './assets/main.css'
-
-import { createSSRApp } from 'vue'
-import { createPinia } from 'pinia'
-
-import App from './App.vue'
 import createRouter from './router/server'
+import createApp from './main'
 
-export default async function createApp(path = '/') {
-  const app = createSSRApp(App)
-
+export default async function (path = '/') {
   const router = createRouter(path)
-
-  app.use(createPinia())
+  const app = createApp()
   app.use(router)
 
   await new Promise<void>((resolve, reject) => {

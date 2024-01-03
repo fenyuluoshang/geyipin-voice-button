@@ -18,32 +18,36 @@ async function readHTML() {
 async function renderVue(path: string) {
   const dom = await readHTML()
   const entry = dom.window.document.getElementById('app') || dom.window.document.body
-  const html = await renderToString(await createSSRApp(path), {})
+  const app = await createSSRApp(path)
+  const html = await renderToString(app, {})
   entry.innerHTML = html
-  return dom
+  return { dom, app }
 }
 
 async function render() {
   if (existsSync(path.resolve(__dirname, `./dist/generator/`))) {
     await fs.rm(path.resolve(__dirname, `./dist/generator/`), { recursive: true })
   }
-  await fs.cp(path.resolve(__dirname, './dist/client/'), path.resolve(__dirname, `./dist/generator/`), {
-    recursive: true
-  })
-  await Promise.all(
-    renderPaths.map(async (item) => {
-      const dom = await renderVue(item)
-      fs.writeFile(
-        path.resolve(__dirname, `./dist/generator/${pathToFileName(item)}.html`),
-        dom.window.document.documentElement.outerHTML
-      )
-    })
+  await fs.cp(
+    path.resolve(__dirname, './dist/client/'),
+    path.resolve(__dirname, `./dist/generator/`),
+    {
+      recursive: true
+    }
   )
+
+  for (const item of renderPaths) {
+    const { dom, app } = await renderVue(item)
+    fs.writeFile(
+      path.resolve(__dirname, `./dist/generator/${pathToFileName(item)}.html`),
+      dom.window.document.documentElement.outerHTML
+    )
+  }
 }
 
 function pathToFileName(path: string) {
   return path.replace(/\/$/, 'index').replace(/^\//, '')
 }
 
-console.log("start to generator static page")
+console.log('start to generator static page')
 render()
