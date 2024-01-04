@@ -4,7 +4,8 @@ const props = defineProps<{
 }>()
 
 async function playAudio() {
-  const audio_url = (await import(`../../assets/voices/${props.path}.MP3?url`)).default as string
+  console.log(import.meta)
+  const audio_url = `${import.meta.env.VITE_VOICE_PATH}${props.path}.MP3`
   const audio = new Audio(audio_url)
   audio.load()
   audio.play()
