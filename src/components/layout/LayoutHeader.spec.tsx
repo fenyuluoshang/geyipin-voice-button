@@ -20,7 +20,7 @@ describe('HelloWorld', () => {
         }
       }
     })
-    expect(wrapper.text()).toContain('鸽一品按钮')
+    expect(wrapper.text()).toContain('天才鸽按钮')
 
     const searchInput = wrapper.findComponent(ElInput)
     expect(searchInput.exists()).toBe(true)

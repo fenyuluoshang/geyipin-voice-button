@@ -1,0 +1,26 @@
+name: 投稿
+description: 投稿音频
+title: "[投稿]: "
+labels: ["投稿"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你的投稿支持
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: 这段音频的标题是什么
+    validations:
+      required: false
+  - type: input
+    id: keywords
+    attributes:
+      label: Keywords
+      description: 这段音频的分组建议
+  - type: textarea
+    id: contact
+    attributes:
+      label: Contact
+      description: 音频文件和更多内容
