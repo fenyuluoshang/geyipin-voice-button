@@ -3,7 +3,17 @@ import BG from '@/assets/bg.jpg'
 </script>
 
 <template>
-  <main>
-    <img :src="BG">
-  </main>
+  <el-main>
+    <img :src="BG" class="bg" />
+  </el-main>
 </template>
+
+<style lang="scss" scoped>
+.bg {
+  height: calc(100vh - 48px);
+  width: 100%;
+  position: fixed;
+  top: 48px;
+  object-fit: cover;
+}
+</style>

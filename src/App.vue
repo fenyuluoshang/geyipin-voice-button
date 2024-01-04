@@ -8,7 +8,7 @@ provide(CONFIG_KEY, config)
 
 <template>
   <layout-header></layout-header>
-  <router-view />
+  <div class="mt-[48px] flex-1 relative"><router-view /></div>
+  <layout-footer></layout-footer>
 </template>
 
-<style scoped></style>

@@ -46,9 +46,10 @@ const searchInput = computed({
   z-index: 5;
   display: flex;
   align-items: center;
-  position: sticky;
   top: 0;
   height: 48px;
   background: var(--header-color);
+  position: absolute;
+  width: 100%;
 }
 </style>
