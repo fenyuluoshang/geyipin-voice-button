@@ -8,19 +8,26 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
   base: './',
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/assets/element/style.scss" as *;`,
+      },
+    },
+  },
   plugins: [
     vue(),
     AutoImport({
       resolvers: [
         ElementPlusResolver({
-          importStyle: !env.isSsrBuild
+          importStyle: !env.isSsrBuild && 'sass'
         })
       ]
     }),
     Components({
       resolvers: [
         ElementPlusResolver({
-          importStyle: !env.isSsrBuild
+          importStyle: !env.isSsrBuild && 'sass'
         })
       ]
     })

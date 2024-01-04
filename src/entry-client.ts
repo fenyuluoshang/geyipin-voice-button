@@ -1,6 +1,6 @@
 import router from './router/client'
 import createApp from './main'
-import './assets/main.css'
+import './assets/main.scss'
 
 const app = createApp()
 

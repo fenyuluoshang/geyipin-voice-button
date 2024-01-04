@@ -1,0 +1,11 @@
+@tailwind base;
+/* @tailwind components; */
+@tailwind utilities;
+@import './base';
+
+:root {
+  --primary-color: #{$primary-color};
+  --second-color: #{$second-color};
+
+  --header-color: linear-gradient(90deg, var(--primary-color), var(--second-color));
+}
