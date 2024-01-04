@@ -6,6 +6,29 @@ import BG from '@/assets/bg.jpg'
   <el-main>
     <img :src="BG" class="bg" />
     <voice-panel />
+    <div class="mt-[32px]">
+      <h2 class="text-white font-[MuYao] text-4xl select-none">投稿</h2>
+      <el-divider />
+      <el-button
+        class="submit-link"
+        type="success"
+        round
+        href="mailto:gzj0078@icloud.com?subject=[天才鸽按钮]投稿"
+        tag="a"
+        target="_blank"
+        >邮件投稿</el-button
+      >
+      <el-button
+        class="submit-link"
+        type="success"
+        round
+        tag="a"
+        href="https://wj.qq.com/s2/13991165/8aa2/"
+        target="_blank"
+        >腾讯问卷</el-button
+      >
+      <!-- <el-button class="submit-link" type="success" round tag="a" target="_blank">Github</el-button> -->
+    </div>
   </el-main>
 </template>
 

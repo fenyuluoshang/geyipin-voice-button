@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Logo from '@/assets/logo.jpg'
 import { useSearchStore } from '@/stores/search'
-import { computed, inject } from 'vue'
+import { computed, inject, ref } from 'vue'
 import { Search } from '@element-plus/icons-vue'
 import { CONFIG_KEY } from '@/types/provide_keys'
 
@@ -13,11 +13,13 @@ const searchInput = computed({
   get: () => searchStore.search,
   set: (val: string) => searchStore.increment(val)
 })
+
+const showInfo = ref(false)
 </script>
 
 <template>
   <el-header class="header">
-    <div class="flex items-center">
+    <div class="flex items-center cursor-pointer" @click="showInfo = !showInfo">
       <div class="w-[30px] h-[30px] mr-2">
         <img alt="鸽一品" class="w-full h-full" :src="Logo" />
       </div>
@@ -39,6 +41,7 @@ const searchInput = computed({
     <div>
       <el-input v-model="searchInput" class="w-50 m-2" :prefix-icon="Search" />
     </div>
+    <info-panel v-model="showInfo" />
   </el-header>
 </template>
 
