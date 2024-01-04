@@ -13,6 +13,7 @@ import BG from '@/assets/bg.jpg'
   height: calc(100vh - 48px);
   width: 100%;
   position: fixed;
+  left: 0;
   top: 48px;
   object-fit: cover;
 }
