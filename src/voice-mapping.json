@@ -1,3 +1,67 @@
 {
-  "bili-link": "https://space.bilibili.com/11399495"
+  "bili_link": "https://space.bilibili.com/11399495",
+  "voices": [
+    {
+      "group_name": "博美",
+      "title": "博美 1.0",
+      "file": "博美 1.0"
+    },
+    {
+      "group_name": "博美",
+      "title": "博美 2.0",
+      "file": "博美 2.0"
+    },
+    {
+      "group_name": "博美",
+      "title": "博美 3.0",
+      "file": "啾啾啾 啊"
+    },
+    {
+      "group_name": "博美",
+      "title": "博美 4.0",
+      "file": "wawawawawa"
+    },
+    {
+      "group_name": "博美",
+      "title": "惨叫 1.0",
+      "file": "惨叫 1.0"
+    },
+    {
+      "group_name": "小黄毛",
+      "title": "奶茶星你大爷的(暴怒版)",
+      "file": "奶茶星你大爷的（暴怒）"
+    },
+    {
+      "group_name": "小黄毛",
+      "title": "奶茶星你大爷的(温柔版)",
+      "file": "奶茶星你大爷的（温柔版）"
+    },
+    {
+      "group_name": "小黄毛",
+      "title": "嘻嘻，奶茶星",
+      "file": "嘻嘻，奶茶星"
+    },
+    {
+      "group_name": "小黄毛",
+      "title": "打完这场胜仗我就回来娶你",
+      "file": "打完这场胜仗我就回来娶你"
+    },
+    {
+      "group_name": "?",
+      "title": "我就不是SP了吗",
+      "file": "我就不是SP了吗"
+    },
+    {
+      "group_name": "?",
+      "title": "我靠 单防我呢",
+      "file": "我靠 单防我呢"
+    },
+    {
+      "group_name": "?",
+      "title": "NTM",
+      "file": "NTM"
+    },
+    { "group_name": "?", "title": "我多希望那一刻我是个备胎", "file": "我多希望那一刻我是个备胎" },
+    { "group_name": "?", "title": "嚣张笑", "file": "嚣张笑" }
+  ]
 }

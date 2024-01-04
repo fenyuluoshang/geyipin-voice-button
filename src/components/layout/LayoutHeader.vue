@@ -5,13 +5,13 @@ import { computed, inject } from 'vue'
 import { Search } from '@element-plus/icons-vue'
 import { CONFIG_KEY } from '@/types/provide_keys'
 
-const { search, increment } = useSearchStore()
+const searchStore = useSearchStore()
 
 const config = inject(CONFIG_KEY)
 
 const searchInput = computed({
-  get: () => search,
-  set: (val: string) => increment(val)
+  get: () => searchStore.search,
+  set: (val: string) => searchStore.increment(val)
 })
 </script>
 
@@ -21,14 +21,14 @@ const searchInput = computed({
       <div class="w-[30px] h-[30px] mr-2">
         <img alt="鸽一品" class="w-full h-full" :src="Logo" />
       </div>
-      <span class="text-white font-semibold">鸽一品按钮</span>
+      <span class="text-white font-semibold">天才鸽按钮</span>
     </div>
     <div class="btn-groups ml-[4px] flex gap-[4px]">
       <a
-        v-if="config?.['bili-link']"
-        :href="config?.['bili-link']"
+        v-if="config?.bili_link"
+        :href="config.bili_link"
         class="h-[26px] w-[26px] rounded-full bg-opacity-75 bg-white flex items-center justify-center"
-        data-test-id="bili-link"
+        data-test-id="bili_link"
         alt="哔哩哔哩"
       >
         <el-icon size="18">

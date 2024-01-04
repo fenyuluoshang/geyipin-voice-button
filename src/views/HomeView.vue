@@ -5,6 +5,7 @@ import BG from '@/assets/bg.jpg'
 <template>
   <el-main>
     <img :src="BG" class="bg" />
+    <voice-panel />
   </el-main>
 </template>
 
@@ -16,5 +17,6 @@ import BG from '@/assets/bg.jpg'
   left: 0;
   top: 48px;
   object-fit: cover;
+  z-index: -2;
 }
 </style>

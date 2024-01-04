@@ -31,13 +31,13 @@ describe('HelloWorld', () => {
 
     expect(searchStore.search).toEqual('test')
 
-    if (config['bili-link']) {
-      const biliLink = wrapper.find('[data-test-id="bili-link"]')
+    if (config.bili_link) {
+      const biliLink = wrapper.find('[data-test-id="bili_link"]')
       expect(biliLink.exists()).toBe(true)
 
-      expect(biliLink.attributes('href')).toBe(config['bili-link'])
+      expect(biliLink.attributes('href')).toBe(config['bili_link'])
     } else {
-      const biliLink = wrapper.find('[data-test-id="bili-link"]')
+      const biliLink = wrapper.find('[data-test-id="bili_link"]')
       expect(biliLink.exists()).toBe(false)
     }
   })
