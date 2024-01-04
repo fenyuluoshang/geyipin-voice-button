@@ -28,6 +28,7 @@ const searchInput = computed({
         v-if="config?.['bili-link']"
         :href="config?.['bili-link']"
         class="h-[26px] w-[26px] rounded-full bg-opacity-75 bg-white flex items-center justify-center"
+        data-test-id="bili-link"
         alt="哔哩哔哩"
       >
         <el-icon size="18">
