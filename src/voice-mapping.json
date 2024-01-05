@@ -47,7 +47,7 @@
       "file": "打完这场胜仗我就回来娶你"
     },
     {
-      "group_name": "?",
+      "group_name": "下头雷达",
       "title": "我就不是SP了吗",
       "file": "我就不是SP了吗"
     },
@@ -61,9 +61,13 @@
       "title": "NTM",
       "file": "NTM"
     },
-    { "group_name": "?", "title": "我多希望那一刻我是个备胎", "file": "我多希望那一刻我是个备胎" },
-    { "group_name": "?", "title": "嚣张笑", "file": "嚣张笑" },
-    { "group_name": "?", "title": "一夜20次", "file": "一夜20次" },
-    { "group_name": "?", "title": "杀掉你 可恶啊", "file": "杀掉你 可恶啊" }
+    { "group_name": "下头雷达", "title": "我多希望那一刻我是个备胎", "file": "我多希望那一刻我是个备胎" },
+    { "group_name": "?", "title": "嚣张笑(音量警告)", "file": "嚣张笑" },
+    { "group_name": "下头雷达", "title": "一夜20次", "file": "一夜20次" },
+    { "group_name": "?", "title": "杀掉你 可恶啊", "file": "杀掉你 可恶啊" },
+    { "group_name": "?", "title": "下地狱，下地狱！", "file": "下地狱，下地狱！" },
+    { "group_name": "下头雷达", "title": "主包这不是膝盖主包这是欧派喵", "file": "主包这不是膝盖主包这是欧派喵" },
+    { "group_name": "下头雷达", "title": "你已经是女孩子了", "file": "你已经是女孩子了" },
+    { "group_name": "下头雷达", "title": "别太变态喵", "file": "别太变态喵" }
   ]
 }
