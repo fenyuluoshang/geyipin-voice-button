@@ -1,13 +1,16 @@
 <script lang="ts" setup>
+import { useConfigStore } from '@/stores/config'
 import { useSearchStore } from '@/stores/search'
+import { usePlayingStore } from '@/stores/playing'
 import { computed } from 'vue'
-
 const props = defineProps<{
   name: string
   path: string
 }>()
 
 const searchStore = useSearchStore()
+const configData = useConfigStore()
+const playingStore = usePlayingStore()
 
 const matched = computed(() => {
   if (!searchStore.search) {
@@ -18,14 +21,18 @@ const matched = computed(() => {
 
 async function playAudio() {
   const audio_url = `${import.meta.env.VITE_VOICE_PATH}${props.path}.MP3`
-  const audio = new Audio(audio_url)
-  audio.load()
-  audio.play()
+  playingStore.play(audio_url)
 }
 </script>
 
 <template>
-  <el-button :class="{ unmatched: !matched }" type="primary" @click="playAudio" round>
+  <el-button
+    :color="configData.config.btn_color"
+    :class="{ unmatched: !matched }"
+    type="primary"
+    @click="playAudio"
+    round
+  >
     <slot>
       {{ name }}
     </slot>
@@ -33,7 +40,7 @@ async function playAudio() {
 </template>
 
 <style lang="scss" scoped>
-.unmatched{
+.unmatched {
   background-color: var(--el-button-disabled-bg-color);
   border-color: var(--el-button-disabled-border-color);
 }
