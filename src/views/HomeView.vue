@@ -59,6 +59,7 @@ const isDark = useDark()
       >
       <!-- <el-button class="submit-link" type="success" round tag="a" target="_blank">Github</el-button> -->
     </div>
+    <easter-egg />
   </el-main>
 </template>
 

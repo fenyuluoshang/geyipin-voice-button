@@ -2,11 +2,11 @@
 import { useConfigStore } from '@/stores/config'
 import { useSearchStore } from '@/stores/search'
 import { usePlayingStore } from '@/stores/playing'
-import { getAudioUrl } from '@/util/index'
 import { computed } from 'vue'
+import type { Voice } from '@/types'
 const props = defineProps<{
   name: string
-  path: string
+  voice: Voice
 }>()
 
 const searchStore = useSearchStore()
@@ -21,8 +21,7 @@ const matched = computed(() => {
 })
 
 async function playAudio() {
-  const audio_url = getAudioUrl(props.path)
-  playingStore.play(audio_url)
+  playingStore.play(props.voice)
 }
 </script>
 

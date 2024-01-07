@@ -63,10 +63,10 @@ onMounted(() => {
 <template>
   <div>
     <div
-      class="bg-[--bg-color] bg-opacity-80 p-[12px] rounded-[8px] flex config-panel max-sm:flex-col-reverse text-[--text-color-regular] font-[MuYao] text-lg"
+      class="bg-[--bg-color] p-[12px] rounded-[8px] flex config-panel max-sm:flex-col-reverse text-[--text-color-regular] font-[MuYao] text-lg"
     >
       <div class="flex-1 max-sm:hidden">
-        <h2 class="text-2xl">主包可爱喵 新视频求点赞</h2>
+        <h2 class="text-2xl">主包可爱喵 新视频求点赞喵</h2>
         <el-scrollbar ref="scrollbar" always class="!h-[180px]">
           <div class="flex h-[180px] pb-[10px]">
             <iframe

@@ -12,17 +12,15 @@
 :root {
   --primary-color: #{$primary-color};
   --second-color: #{$second-color};
-  --bg-color: #fff;
-
+  --bg-color: rgb(255 255 255 / 0.8);
   --header-color: linear-gradient(90deg, var(--primary-color), var(--second-color));
-
   --text-color-regular: #{getCssVar('text-color', 'regular')};
   --text-color-primary: #{getCssVar('text-color', 'primary')};
   --text-color-secondary: #{getCssVar('text-color', 'placeholder')};
 }
 
 .dark {
-  --bg-color: #333;
+  --bg-color: rgb(3 3 3 / 0.8);
   --second-color: #{$second-color-dark};
   --header-color: linear-gradient(90deg, var(--primary-color), var(--second-color));
 }
@@ -35,7 +33,9 @@ body {
 
 .el-button,
 .el-switch__core,
-.el-slider__runway {
+.el-slider__runway,
+.el-scrollbar__thumb,
+.el-slider__button {
   cursor: url('@/assets/mouse-pointer.gif'), pointer !important;
 }
 

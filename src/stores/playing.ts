@@ -2,12 +2,15 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useConfigStore } from './config'
 import { getAudioUrl } from '@/util/index'
+import type { Voice } from '@/types'
 
 export const usePlayingStore = defineStore('playing', () => {
   const configStore = useConfigStore()
   const playingList = ref<HTMLAudioElement[]>([])
+  const playedList = ref<Voice[]>([])
 
-  function play(path: string) {
+  function play(voice: Voice) {
+    const path = getAudioUrl(voice.file)
     const audio = new Audio(path)
     if (configStore.config.only_one_play_mode) {
       playingList.value.forEach((item) => {
@@ -20,6 +23,7 @@ export const usePlayingStore = defineStore('playing', () => {
     audio.addEventListener('pause', () => {
       const index = playingList.value.findIndex((v) => v === audio)
       playingList.value.splice(index, 1)
+      playedList.value.push(voice)
     })
     audio.play()
   }
@@ -28,9 +32,9 @@ export const usePlayingStore = defineStore('playing', () => {
     const key = ev.key
     const audio = configStore.config.keyboard_binding_map[key]
     if (audio && audio !== -1) {
-      play(getAudioUrl(audio.voice.file))
+      play(audio.voice)
     }
   }
 
-  return { playingList, play, onKeyDown }
+  return { playingList, playedList, play, onKeyDown }
 })
