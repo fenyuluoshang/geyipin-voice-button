@@ -41,7 +41,6 @@ export default defineConfig((env) => ({
   },
   experimental: {
     renderBuiltUrl(filename: string, { hostType }: { hostType: 'js' | 'css' | 'html' }) {
-      console.log(import.meta)
       if (env.mode !== 'production') {
         return { relative: true }
       }

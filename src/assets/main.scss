@@ -1,6 +1,7 @@
 @use "./base.scss" as *;
 @use 'element-plus/theme-chalk/src/mixins/function.scss' as *;
 @use "element-plus/theme-chalk/src/common/var.scss" as *;
+@use "element-plus/theme-chalk/el-message.css" as *;
 
 @tailwind base;
 /* @tailwind components; */
@@ -14,6 +15,7 @@
 
   --text-color-regular: #{getCssVar('text-color', 'regular')};
   --text-color-primary: #{getCssVar('text-color', 'primary')};
+  --text-color-secondary: #{getCssVar('text-color', 'placeholder')};
 }
 
 body {
