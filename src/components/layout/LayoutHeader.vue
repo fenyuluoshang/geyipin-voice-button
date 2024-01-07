@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import Logo from '@/assets/logo.jpg'
 import { useSearchStore } from '@/stores/search'
-import { computed, inject } from 'vue'
+import { useConfigStore } from '@/stores/config'
+import { computed } from 'vue'
 import { Search } from '@element-plus/icons-vue'
-import { CONFIG_KEY } from '@/types/provide_keys'
 
 const searchStore = useSearchStore()
-
-const config = inject(CONFIG_KEY)
+const config = useConfigStore()
 
 const searchInput = computed({
   get: () => searchStore.search,
@@ -26,8 +25,8 @@ const searchInput = computed({
       </div>
       <div class="btn-groups ml-[4px] flex gap-[4px] items-center">
         <a
-          v-if="config?.bili_link"
-          :href="config.bili_link"
+          v-if="config.config.bili_link"
+          :href="config.config.bili_link"
           class="h-[26px] w-[26px] max-md:h-[22px] max-md:w-[22px] rounded-full bg-opacity-75 bg-white flex items-center justify-center"
           data-test-id="bili_link"
           alt="哔哩哔哩"

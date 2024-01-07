@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { computed, inject } from 'vue'
-import { CONFIG_KEY } from '@/types/provide_keys'
+import { computed } from 'vue'
 import type { Voice } from '@/types/index'
 import VoiceGroup from './VoiceGroup.vue';
+import { useConfigStore } from '@/stores/config';
 
-const config = inject(CONFIG_KEY)
+const config = useConfigStore()
 
 const voiceGroup = computed(() => {
   const groups: Record<
@@ -15,7 +15,7 @@ const voiceGroup = computed(() => {
     }
   > = {}
 
-  config?.voices.forEach((item: Voice) => {
+  config.config.voices.forEach((item: Voice) => {
     if (!groups[item.group_name]) {
       groups[item.group_name] = {
         name: item.group_name,

@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="mt-[32px] first:mt-0" :data-test-id="`voice-group-${name}`">
+  <div class="mt-[32px]" :data-test-id="`voice-group-${name}`">
     <h2 class="text-white font-[MuYao] text-4xl select-none">{{ name }}</h2>
     <el-divider />
     <div class="leading-[54px] flex gap-[6px] flex-wrap">

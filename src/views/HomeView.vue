@@ -5,6 +5,7 @@ import BG from '@/assets/bg.jpg'
 <template>
   <el-main>
     <img :src="BG" class="bg" />
+    <config-panel />
     <voice-panel />
     <div class="mt-[32px]">
       <h2 class="text-white font-[MuYao] text-4xl select-none">投稿</h2>
