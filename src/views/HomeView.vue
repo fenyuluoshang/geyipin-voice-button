@@ -1,5 +1,30 @@
 <script setup lang="ts">
 import BG from '@/assets/bg.jpg'
+import { useConfigStore } from '@/stores/config'
+import { usePlayingStore } from '@/stores/playing'
+import { onBeforeUnmount, onMounted } from 'vue'
+
+const configStore = useConfigStore()
+const playingStore = usePlayingStore()
+
+function onKeyDown(ev: KeyboardEvent) {
+  if (configStore.config.in_setting) {
+    return ev
+  }
+  if (!configStore.config.keyboard_binding_mode) {
+    return ev
+  }
+  playingStore.onKeyDown(ev)
+}
+
+onMounted(() => {
+  configStore.loadStore()
+  window.addEventListener('keydown', onKeyDown)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKeyDown)
+})
 </script>
 
 <template>
