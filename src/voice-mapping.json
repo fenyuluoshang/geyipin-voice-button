@@ -92,7 +92,11 @@
     { "group_name": "鹅", "title": "鹅鹅鹅2.0", "file": "鹅鹅鹅 2.0" },
     { "group_name": "博美", "title": "鸽叫1.0", "file": "鸽叫" },
     { "group_name": "博美", "title": "鸽叫2.0", "file": "鸽叫1" },
-    { "group_name": "混沌鸽鸽", "title": "真的不可以一夜十次吗？", "file": "真的不可以一夜十次吗？" },
+    {
+      "group_name": "混沌鸽鸽",
+      "title": "真的不可以一夜十次吗？",
+      "file": "真的不可以一夜十次吗？"
+    },
     { "group_name": "混沌鸽鸽", "title": "玩星铁玩的", "file": "玩星铁玩的" },
     { "group_name": "混沌鸽鸽", "title": "流眼泪了", "file": "流眼泪了" },
     { "group_name": "混沌鸽鸽", "title": "我不是钢板我不是钢板", "file": "我不是钢板我不是钢板" },
@@ -101,6 +105,17 @@
     { "group_name": "混沌鸽鸽", "title": "祝老板早生贵子", "file": "祝老板早生贵子" },
     { "group_name": "混沌鸽鸽", "title": "不是钢板喵", "file": "不是钢板喵" },
     { "group_name": "混沌鸽鸽", "title": "不准色色不准色色", "file": "不准色色不准色色" },
-    { "group_name": "小黄毛", "title": "奶茶星是猪", "file": "奶茶星是猪" }
+    { "group_name": "混沌鸽鸽", "title": "假哭", "file": "假哭" },
+    { "group_name": "混沌鸽鸽", "title": "八嘎", "file": "八嘎" },
+    { "group_name": "混沌鸽鸽", "title": "变态", "file": "变态" },
+    { "group_name": "混沌鸽鸽", "title": "可恶", "file": "可恶" },
+    { "group_name": "混沌鸽鸽", "title": "我是钢板喵", "file": "我是钢板喵" },
+    { "group_name": "混沌鸽鸽", "title": "揍你喵揍你喵", "file": "揍你喵揍你喵" },
+    { "group_name": "博美", "title": "笑", "file": "笑" },
+    { "group_name": "混沌鸽鸽", "title": "笨蛋", "file": "笨蛋" },
+    { "group_name": "混沌鸽鸽", "title": "谁是钢板？乌拉拉", "file": "谁是钢板？乌拉拉" },
+    { "group_name": "混沌鸽鸽", "title": "进局子你也这么说好吗", "file": "进局子你也这么说好吗" },
+    { "group_name": "博美", "title": "鸽叫3.0", "file": "鸽叫2" },
+    { "group_name": "博美", "title": "防空警报", "file": "防空警报" }
   ]
 }
