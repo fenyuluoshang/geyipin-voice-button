@@ -6,7 +6,6 @@ import { createPinia, setActivePinia } from 'pinia'
 import { useSearchStore } from '@/stores/search'
 import { ElInput } from 'element-plus'
 import config from '@/voice-mapping.json'
-import { CONFIG_KEY } from '@/types/provide_keys'
 
 describe('HelloWorld', () => {
   it('renders properly', () => {
@@ -15,9 +14,6 @@ describe('HelloWorld', () => {
     const wrapper = mount(LayoutHeader, {
       global: {
         plugins: [store],
-        provide: {
-          [CONFIG_KEY as symbol]: config
-        }
       }
     })
     expect(wrapper.text()).toContain('天才鸽按钮')

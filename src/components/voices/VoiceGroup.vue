@@ -15,8 +15,8 @@ defineProps<{
       <voice-button
         v-for="item in list"
         :key="item.title"
-        :path="item.file"
         :name="item.title"
+        :voice="item"
         type="primary"
         round
       />
