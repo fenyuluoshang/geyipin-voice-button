@@ -38,12 +38,18 @@ const searchInput = computed({
       </div>
     </div>
     <div class="max-md:flex-1">
-      <el-input v-model="searchInput" class="w-50 max-md:w-full m-2" :prefix-icon="Search" />
+      <el-input
+        v-model="searchInput"
+        class="w-50 max-md:w-full m-2 search-input"
+        :prefix-icon="Search"
+      />
     </div>
   </el-header>
 </template>
 
 <style lang="scss" scoped>
+@use 'element-plus/theme-chalk/src/mixins/function.scss' as *;
+
 .header {
   z-index: 5;
   display: flex;
@@ -53,5 +59,9 @@ const searchInput = computed({
   background: var(--header-color);
   position: fixed;
   width: 100%;
+}
+
+.dark .search-input {
+  #{getCssVarName("input", "bg-color")}: #333;
 }
 </style>

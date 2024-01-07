@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import BG from '@/assets/bg.jpg'
+import BG_DARK from '@/assets/bg-dark.jpg'
 import { useConfigStore } from '@/stores/config'
 import { usePlayingStore } from '@/stores/playing'
+import { useDark } from '@vueuse/core'
 import { onBeforeUnmount, onMounted } from 'vue'
 
 const configStore = useConfigStore()
@@ -25,11 +27,13 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', onKeyDown)
 })
+
+const isDark = useDark()
 </script>
 
 <template>
   <el-main>
-    <img :src="BG" class="bg" />
+    <img :src="isDark ? BG_DARK : BG" class="bg" />
     <config-panel />
     <voice-panel />
     <div class="mt-[32px]">
