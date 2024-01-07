@@ -21,6 +21,13 @@
 body {
   color: var(--text-color-primary);
   font-size: 16px;
+  cursor: url('@/assets/mouse.gif'), auto;
+}
+
+.el-button,
+.el-switch__core,
+.el-slider__runway {
+  cursor: url('@/assets/mouse-pointer.gif'), pointer !important;
 }
 
 @font-face {
