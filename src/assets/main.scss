@@ -2,6 +2,8 @@
 @use 'element-plus/theme-chalk/src/mixins/function.scss' as *;
 @use "element-plus/theme-chalk/src/common/var.scss" as *;
 @use "element-plus/theme-chalk/el-message.css" as *;
+@use 'element-plus/theme-chalk/dark/css-vars.css' as *;
+
 
 @tailwind base;
 /* @tailwind components; */
@@ -10,12 +12,19 @@
 :root {
   --primary-color: #{$primary-color};
   --second-color: #{$second-color};
+  --bg-color: #fff;
 
   --header-color: linear-gradient(90deg, var(--primary-color), var(--second-color));
 
   --text-color-regular: #{getCssVar('text-color', 'regular')};
   --text-color-primary: #{getCssVar('text-color', 'primary')};
   --text-color-secondary: #{getCssVar('text-color', 'placeholder')};
+}
+
+.dark {
+  --bg-color: #333;
+  --second-color: #{$second-color-dark};
+  --header-color: linear-gradient(90deg, var(--primary-color), var(--second-color));
 }
 
 body {
