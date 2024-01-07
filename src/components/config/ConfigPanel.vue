@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import { useConfigStore } from '@/stores/config'
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { ElScrollbar } from 'element-plus'
 
 const configStore = useConfigStore()
+
+const scrollbar = ref<typeof ElScrollbar>()
 
 const voiceSetting = computed({
   get() {
@@ -47,6 +50,14 @@ const keyboardSettingVisible = computed({
     configStore.increment({ in_setting: val })
   }
 })
+
+onMounted(() => {
+  setTimeout(() => {
+    if (scrollbar.value) {
+      scrollbar.value.update()
+    }
+  }, 1000)
+})
 </script>
 
 <template>
@@ -56,8 +67,8 @@ const keyboardSettingVisible = computed({
     >
       <div class="flex-1 max-sm:hidden">
         <h2 class="text-2xl">主包可爱喵 新视频求点赞</h2>
-        <el-scrollbar always class="!h-[180px]">
-          <div class="flex h-[180px]">
+        <el-scrollbar ref="scrollbar" always class="!h-[180px]">
+          <div class="flex h-[180px] pb-[10px]">
             <iframe
               src="//player.bilibili.com/player.html?aid=368343925&bvid=BV1494y1M7tM&cid=1393239820&p=1"
               scrolling="no"
