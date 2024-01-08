@@ -22,15 +22,15 @@ export const usePlayingStore = defineStore('playing', () => {
     const path = getAudioUrl(voice.file)
     const audio = new Audio(path)
     audio.style.display = 'none'
-    document.body.appendChild(audio)
     if (configStore.config.only_one_play_mode) {
       playingList.value.forEach((item) => {
         item.pause()
       })
     }
-    audio.crossOrigin = "anonymous"
-    changeAudioVolumeFixed(audio, configStore.config.low_voice_mode / 100)
+    audio.crossOrigin = 'anonymous'
     audio.load()
+    playingList.value.push(audio)
+    changeAudioVolumeFixed(audio, configStore.config.low_voice_mode / 100)
     audio.addEventListener('pause', () => {
       const index = playingList.value.findIndex((v) => v === audio)
       playingList.value.splice(index, 1)

@@ -6,11 +6,11 @@ let audioCtx: AudioContext
 
 /**
  * Fix change volume for AudioElement, volume is not work in ios safari
- * 
- * @param audio 
- * @param volume 
+ *
+ * @param audio
+ * @param volume
  */
-export async function changeAudioVolumeFixed(audio: HTMLAudioElement, volume: number) {
+export function changeAudioVolumeFixed(audio: HTMLAudioElement, volume: number) {
   if (!audioCtx)
     // @ts-ignore
     audioCtx = new (window.AudioContext || window.webkitAudioContext)()
@@ -23,6 +23,8 @@ export async function changeAudioVolumeFixed(audio: HTMLAudioElement, volume: nu
     // @ts-ignore
     audio.gainNode = gainNode
   }
+  // @ts-ignore
+  console.log('gain-node', audio.gainNode)
 
   // @ts-ignore
   audio.gainNode.gain.value = volume
