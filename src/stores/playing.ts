@@ -28,12 +28,11 @@ export const usePlayingStore = defineStore('playing', () => {
         item.pause()
       })
     }
-    audio.load()
-    playingList.value.push(audio)
+    audio.crossOrigin = "anonymous"
     changeAudioVolumeFixed(audio, configStore.config.low_voice_mode / 100)
+    audio.load()
     audio.addEventListener('pause', () => {
       const index = playingList.value.findIndex((v) => v === audio)
-      document.body.removeChild(audio)
       playingList.value.splice(index, 1)
       playedList.value.push(voice)
     })
