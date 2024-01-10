@@ -73,7 +73,7 @@
       "file": "我多希望那一刻我是个备胎"
     },
     { "group_name": "鹅", "title": "嚣张笑(音量警告)", "file": "嚣张笑" },
-    { "group_name": "下头雷达", "title": "一夜20次", "file": "一夜20次" },
+    { "group_name": "舰长奖励", "title": "一夜20次", "file": "一夜20次" },
     { "group_name": "混沌鸽鸽", "title": "杀掉你 可恶啊", "file": "杀掉你 可恶啊" },
     { "group_name": "混沌鸽鸽", "title": "下地狱，下地狱！", "file": "下地狱，下地狱！" },
     {
@@ -98,7 +98,7 @@
     { "group_name": "博美", "title": "鸽叫1.0", "file": "鸽叫" },
     { "group_name": "博美", "title": "鸽叫2.0", "file": "鸽叫1" },
     {
-      "group_name": "混沌鸽鸽",
+      "group_name": "舰长奖励",
       "title": "真的不可以一夜十次吗？",
       "file": "真的不可以一夜十次吗？"
     },
@@ -107,10 +107,11 @@
     { "group_name": "混沌鸽鸽", "title": "我不是钢板我不是钢板", "file": "我不是钢板我不是钢板" },
     { "group_name": "混沌鸽鸽", "title": "就爱你了就要爱你", "file": "就爱你了就要爱你" },
     { "group_name": "小黄毛", "title": "你烦死了受不了你了", "file": "你烦死了受不了你了" },
-    { "group_name": "混沌鸽鸽", "title": "祝老板早生贵子", "file": "祝老板早生贵子" },
+    { "group_name": "舰长奖励", "title": "祝老板早生贵子", "file": "祝老板早生贵子" },
     { "group_name": "混沌鸽鸽", "title": "不是钢板喵", "file": "不是钢板喵" },
     { "group_name": "混沌鸽鸽", "title": "不准色色不准色色", "file": "不准色色不准色色" },
     { "group_name": "混沌鸽鸽", "title": "假哭", "file": "假哭" },
+    { "group_name": "混沌鸽鸽", "title": "假哭2.0", "file": "假哭2.0" },
     { "group_name": "混沌鸽鸽", "title": "八嘎", "file": "八嘎" },
     { "group_name": "混沌鸽鸽", "title": "变态", "file": "变态" },
     { "group_name": "混沌鸽鸽", "title": "可恶", "file": "可恶" },
@@ -130,6 +131,14 @@
     { "group_name": "朋友圈大家", "title": "紫色茄子", "file": "紫色茄子" },
     { "group_name": "礼貌鸽鸽", "title": "padoru 但忘了", "file": "padoru 但忘了" },
     { "group_name": "礼貌鸽鸽", "title": "padoru padoru", "file": "padoru padoru" },
-    { "group_name": "博美", "title": "啊↘啊↗啊↗", "file": "啊↘啊↗啊↗" }
+    { "group_name": "博美", "title": "啊↘啊↗啊↗", "file": "啊↘啊↗啊↗" },
+    { "group_name": "博美", "title": "防空警报2.0", "file": "防空警报2.0" },
+    { "group_name": "舰长奖励", "title": "哼，你们说我是狗，你们就是小狗", "file": "哼，你们说我是狗，你们就是小狗" },
+    { "group_name": "下头雷达", "title": "不对鸽一品色难道要对奶茶星色嘛", "file": "不对鸽一品色难道要对奶茶星色嘛" },
+    { "group_name": "下头雷达", "title": "你的地下室里好多小男孩哦", "file": "你的地下室里好多小男孩哦" },
+    { "group_name": "混沌鸽鸽", "title": "小小的也很可爱捏", "file": "小小的也很可爱捏" },
+    { "group_name": "礼貌鸽鸽", "title": "傻笑", "file": "嘿嘿" },
+    { "group_name": "舰长奖励", "title": "果子哥1.0", "file": "果子哥" },
+    { "group_name": "舰长奖励", "title": "果子哥2.0", "file": "果子哥下头" }
   ]
 }

@@ -70,14 +70,14 @@ onMounted(() => {
         <el-scrollbar ref="scrollbar" always class="!h-[180px]">
           <div class="flex h-[180px] pb-[10px]">
             <iframe
-              src="//player.bilibili.com/player.html?aid=368343925&bvid=BV1494y1M7tM&cid=1393239820&p=1"
+              src="//player.bilibili.com/player.html?aid=878559781&bvid=BV1nN4y1v71d&cid=1400654290&p=1"
               scrolling="no"
               border="0"
               frameborder="no"
               framespacing="0"
               allowfullscreen="true"
-              class="float-left"
-            />
+            >
+            </iframe>
             <img src="@/assets/qwq1.gif" class="float-left ml-[12px] select-none" />
             <img src="@/assets/qwq2.jpg" class="float-left ml-[12px] select-none" />
             <img src="@/assets/qwq3.jpg" class="float-left ml-[12px] select-none" />
