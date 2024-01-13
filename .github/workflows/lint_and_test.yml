@@ -8,6 +8,9 @@ on:
 
 jobs:
   lint:
+    defaults:
+      run:
+        working-directory: ./frontend
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -15,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.18.1
+          node-version: 20.10.0
       - name: Set up PNPM
         uses: pnpm/action-setup@v2
         with:
@@ -25,6 +28,9 @@ jobs:
       - name: Run Lint
         run: pnpm lint
   test:
+    defaults:
+      run:
+        working-directory: ./frontend
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -32,7 +38,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.18.1
+          node-version: 20.10.0
       - name: Set up PNPM
         uses: pnpm/action-setup@v2
         with:

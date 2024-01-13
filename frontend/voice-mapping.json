@@ -1,0 +1,148 @@
+{
+  "bili_link": "https://space.bilibili.com/11399495",
+  "primary_color": "#784fb5",
+  "second_color": "#c1adf4",
+  "primary_color_dark": "#784fb5",
+  "second_color_dark": "#6838b0",
+  "btn_color": "#784fb5",
+  "voices": [
+    {
+      "group_name": "博美",
+      "title": "博美 1.0",
+      "file": "博美 1.0"
+    },
+    {
+      "group_name": "博美",
+      "title": "博美 2.0",
+      "file": "博美 2.0"
+    },
+    {
+      "group_name": "博美",
+      "title": "博美 3.0",
+      "file": "啾啾啾 啊"
+    },
+    {
+      "group_name": "博美",
+      "title": "博美 4.0",
+      "file": "wawawawawa"
+    },
+    {
+      "group_name": "博美",
+      "title": "博美 5.0",
+      "file": "博美 5.0"
+    },
+    {
+      "group_name": "博美",
+      "title": "惨叫 1.0",
+      "file": "惨叫 1.0"
+    },
+    {
+      "group_name": "小黄毛",
+      "title": "奶茶星你大爷的(暴怒版)",
+      "file": "奶茶星你大爷的（暴怒）"
+    },
+    {
+      "group_name": "小黄毛",
+      "title": "奶茶星你大爷的(温柔版)",
+      "file": "奶茶星你大爷的（温柔版）"
+    },
+    {
+      "group_name": "小黄毛",
+      "title": "嘻嘻，奶茶星",
+      "file": "嘻嘻，奶茶星"
+    },
+    {
+      "group_name": "小黄毛",
+      "title": "打完这场胜仗我就回来娶你",
+      "file": "打完这场胜仗我就回来娶你"
+    },
+    {
+      "group_name": "下头雷达",
+      "title": "我就不是SP了吗",
+      "file": "我就不是SP了吗"
+    },
+    {
+      "group_name": "混沌鸽鸽",
+      "title": "我靠 单防我呢",
+      "file": "我靠 单防我呢"
+    },
+    {
+      "group_name": "混沌鸽鸽",
+      "title": "NTM",
+      "file": "NTM"
+    },
+    {
+      "group_name": "下头雷达",
+      "title": "我多希望那一刻我是个备胎",
+      "file": "我多希望那一刻我是个备胎"
+    },
+    { "group_name": "鹅", "title": "嚣张笑(音量警告)", "file": "嚣张笑" },
+    { "group_name": "舰长奖励", "title": "一夜20次", "file": "一夜20次" },
+    { "group_name": "混沌鸽鸽", "title": "杀掉你 可恶啊", "file": "杀掉你 可恶啊" },
+    { "group_name": "混沌鸽鸽", "title": "下地狱，下地狱！", "file": "下地狱，下地狱！" },
+    {
+      "group_name": "下头雷达",
+      "title": "主包这不是膝盖主包这是欧派喵",
+      "file": "主包这不是膝盖主包这是欧派喵"
+    },
+    { "group_name": "下头雷达", "title": "你已经是女孩子了", "file": "你已经是女孩子了" },
+    { "group_name": "下头雷达", "title": "别太变态喵", "file": "别太变态喵" },
+    { "group_name": "礼貌鸽鸽", "title": "你好你好", "file": "你好你好" },
+    { "group_name": "混沌鸽鸽", "title": "不好说了", "file": "不好说了" },
+    { "group_name": "博美", "title": "什么", "file": "什么" },
+    { "group_name": "博美", "title": "什么意思", "file": "什么意思" },
+    { "group_name": "混沌鸽鸽", "title": "否定三连", "file": "否定三连" },
+    { "group_name": "混沌鸽鸽", "title": "啊↑↓↑↓", "file": "啊↑↓↑↓" },
+    { "group_name": "混沌鸽鸽", "title": "天才鸽才不是南通", "file": "天才鸽才不是南通" },
+    { "group_name": "小黄毛", "title": "奶茶星是我的挂件", "file": "奶茶星是我的挂件" },
+    { "group_name": "混沌鸽鸽", "title": "急了", "file": "急了" },
+    { "group_name": "混沌鸽鸽", "title": "我是不能忘记的人啊", "file": "我是不能忘记的人啊" },
+    { "group_name": "鹅", "title": "鹅鹅鹅1.0", "file": "鹅鹅鹅" },
+    { "group_name": "鹅", "title": "鹅鹅鹅2.0", "file": "鹅鹅鹅 2.0" },
+    { "group_name": "博美", "title": "鸽叫1.0", "file": "鸽叫" },
+    { "group_name": "博美", "title": "鸽叫2.0", "file": "鸽叫1" },
+    {
+      "group_name": "舰长奖励",
+      "title": "真的不可以一夜十次吗？",
+      "file": "真的不可以一夜十次吗？"
+    },
+    { "group_name": "混沌鸽鸽", "title": "玩星铁玩的", "file": "玩星铁玩的" },
+    { "group_name": "混沌鸽鸽", "title": "流眼泪了", "file": "流眼泪了" },
+    { "group_name": "混沌鸽鸽", "title": "我不是钢板我不是钢板", "file": "我不是钢板我不是钢板" },
+    { "group_name": "混沌鸽鸽", "title": "就爱你了就要爱你", "file": "就爱你了就要爱你" },
+    { "group_name": "小黄毛", "title": "你烦死了受不了你了", "file": "你烦死了受不了你了" },
+    { "group_name": "舰长奖励", "title": "祝老板早生贵子", "file": "祝老板早生贵子" },
+    { "group_name": "混沌鸽鸽", "title": "不是钢板喵", "file": "不是钢板喵" },
+    { "group_name": "混沌鸽鸽", "title": "不准色色不准色色", "file": "不准色色不准色色" },
+    { "group_name": "混沌鸽鸽", "title": "假哭", "file": "假哭" },
+    { "group_name": "混沌鸽鸽", "title": "假哭2.0", "file": "假哭2.0" },
+    { "group_name": "混沌鸽鸽", "title": "八嘎", "file": "八嘎" },
+    { "group_name": "混沌鸽鸽", "title": "变态", "file": "变态" },
+    { "group_name": "混沌鸽鸽", "title": "可恶", "file": "可恶" },
+    { "group_name": "混沌鸽鸽", "title": "我是钢板喵", "file": "我是钢板喵" },
+    { "group_name": "混沌鸽鸽", "title": "揍你喵揍你喵", "file": "揍你喵揍你喵" },
+    { "group_name": "博美", "title": "笑", "file": "笑" },
+    { "group_name": "混沌鸽鸽", "title": "笨蛋", "file": "笨蛋" },
+    { "group_name": "朋友圈大家", "title": "谁是钢板？乌拉拉", "file": "谁是钢板？乌拉拉" },
+    { "group_name": "混沌鸽鸽", "title": "进局子你也这么说好吗", "file": "进局子你也这么说好吗" },
+    { "group_name": "博美", "title": "鸽叫3.0", "file": "鸽叫2" },
+    { "group_name": "博美", "title": "防空警报", "file": "防空警报" },
+    { "group_name": "博美", "title": "啊~阿伊不要", "file": "啊~阿伊不要" },
+    { "group_name": "博美", "title": "鸽叫4.0", "file": "鸽叫3" },
+    { "group_name": "博美", "title": "鸽叫5.0", "file": "鸽叫4" },
+    { "group_name": "朋友圈大家", "title": "小肉包嘿嘿嘿", "file": "小肉包嘿嘿嘿" },
+    { "group_name": "朋友圈大家", "title": "我要为乌拉拉鸣不平", "file": "我要为乌拉拉鸣不平" },
+    { "group_name": "朋友圈大家", "title": "紫色茄子", "file": "紫色茄子" },
+    { "group_name": "礼貌鸽鸽", "title": "padoru 但忘了", "file": "padoru 但忘了" },
+    { "group_name": "礼貌鸽鸽", "title": "padoru padoru", "file": "padoru padoru" },
+    { "group_name": "博美", "title": "啊↘啊↗啊↗", "file": "啊↘啊↗啊↗" },
+    { "group_name": "博美", "title": "防空警报2.0", "file": "防空警报2.0" },
+    { "group_name": "舰长奖励", "title": "哼，你们说我是狗，你们就是小狗", "file": "哼，你们说我是狗，你们就是小狗" },
+    { "group_name": "下头雷达", "title": "不对鸽一品色难道要对奶茶星色嘛", "file": "不对鸽一品色难道要对奶茶星色嘛" },
+    { "group_name": "下头雷达", "title": "你的地下室里好多小男孩哦", "file": "你的地下室里好多小男孩哦" },
+    { "group_name": "混沌鸽鸽", "title": "小小的也很可爱捏", "file": "小小的也很可爱捏" },
+    { "group_name": "礼貌鸽鸽", "title": "傻笑", "file": "嘿嘿" },
+    { "group_name": "舰长奖励", "title": "果子哥1.0", "file": "果子哥" },
+    { "group_name": "舰长奖励", "title": "果子哥2.0", "file": "果子哥下头" }
+  ]
+}
