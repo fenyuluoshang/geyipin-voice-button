@@ -5,6 +5,7 @@ export type Voice = {
 }
 
 export type Config = {
+  page_name: string
   low_voice_mode: number
   only_one_play_mode: boolean
   keyboard_binding_mode: boolean

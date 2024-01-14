@@ -1,7 +1,11 @@
 export function getAudioUrl(path: string) {
   const config = useRuntimeConfig()
-  
   return `${config.public.VOICE_PATH}${path}.MP3`
+}
+
+export function getMemsUrl(path: string) {
+  const config = useRuntimeConfig()
+  return `${config.public.MEMS_PATH}${path}`
 }
 
 let audioCtx: AudioContext
