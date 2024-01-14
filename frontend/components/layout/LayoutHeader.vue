@@ -11,6 +11,8 @@ const searchInput = computed({
   get: () => searchStore.search,
   set: (val: string) => searchStore.increment(val)
 })
+
+const route = useRoute()
 </script>
 
 <template>
@@ -20,7 +22,7 @@ const searchInput = computed({
         <div class="w-[30px] h-[30px] mr-2">
           <img alt="鸽一品" class="w-full h-full" :src="Logo" />
         </div>
-        <span class="text-white font-semibold max-md:text-[14px]">天才鸽按钮</span>
+        <span class="text-white font-semibold max-md:text-[14px]">{{ route.meta.title }}</span>
       </div>
       <div class="btn-groups ml-[4px] flex gap-[4px] items-center">
         <a

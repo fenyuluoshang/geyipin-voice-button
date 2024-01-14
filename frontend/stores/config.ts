@@ -7,6 +7,7 @@ type mergedConfig = Readonly<typeof staticConfig> & Config
 
 export const useConfigStore = defineStore('config', () => {
   const config = ref<Config>({
+    page_name: '',
     low_voice_mode: 80,
     only_one_play_mode: false,
     keyboard_binding_mode: false,

@@ -45,11 +45,13 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <el-dialog title="键盘绑定(Beta)" v-model="visible">
-    <div>
-      <keyboard-setting-item v-for="item in bindingKeys" :key="item" :current-key="item" />
-      <el-button @click="second_dialog_visible = true" class="mt-[22px]">+</el-button>
-    </div>
-    <el-dialog v-model="second_dialog_visible">请点击 A-Z 任意按键，目前不支持组合键</el-dialog>
-  </el-dialog>
+  <client-only>
+    <el-dialog title="键盘绑定(Beta)" v-model="visible">
+      <div>
+        <keyboard-setting-item v-for="item in bindingKeys" :key="item" :current-key="item" />
+        <el-button @click="second_dialog_visible = true" class="mt-[22px]">+</el-button>
+      </div>
+      <el-dialog v-model="second_dialog_visible">请点击 A-Z 任意按键，目前不支持组合键</el-dialog>
+    </el-dialog>
+  </client-only>
 </template>

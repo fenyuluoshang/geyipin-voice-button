@@ -7,7 +7,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       CDN_URL: process.env.cdnURL || '/',
-      VOICE_PATH: process.env.voicePATH || (process.env.cdnURL || '/').replace(/\/$/, '') + '/voices/'
+      VOICE_PATH:
+        process.env.voicePATH || (process.env.cdnURL || '/').replace(/\/$/, '') + '/voices/',
+      MEMS_PATH: process.env.voicePATH || (process.env.cdnURL || '/').replace(/\/$/, '') + '/mems/'
     }
   },
   devtools: { enabled: true },
@@ -17,7 +19,8 @@ export default defineNuxtConfig({
     '@element-plus/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/eslint-module',
-    '@nuxt/test-utils/module'
+    '@nuxt/test-utils/module',
+    '@vite-pwa/nuxt'
   ],
   css: ['~/assets/main.scss'],
   vite: {
@@ -27,6 +30,9 @@ export default defineNuxtConfig({
           additionalData: `@use "@/assets/element/style.scss" as *;`
         }
       }
+    },
+    build: {
+      target: ['es2015']
     }
   },
   postcss: {
@@ -46,4 +52,8 @@ export default defineNuxtConfig({
   features: {
     inlineStyles: false
   },
+  pwa: {
+    registerType: 'autoUpdate'
+  },
+  plugins: [{ src: '~/plugins/vConsole', mode: 'client' }],
 })
