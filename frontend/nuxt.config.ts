@@ -52,8 +52,13 @@ export default defineNuxtConfig({
   features: {
     inlineStyles: false
   },
+  experimental: {
+    inlineSSRStyles: false
+  },
   pwa: {
     registerType: 'autoUpdate'
   },
-  plugins: [{ src: '~/plugins/vConsole', mode: 'client' }],
+  plugins: [
+    { src: '~/plugins/vConsole.client', mode: 'client' }
+  ]
 })

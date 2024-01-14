@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import { useDark } from '@vueuse/core'
-
-useDark()
+useSharedDark()
 </script>
 
 <template>
