@@ -3,6 +3,7 @@ import Logo from '@/assets/logo.jpg'
 import { useSearchStore } from '@/stores/search'
 import { useConfigStore } from '@/stores/config'
 import { computed } from 'vue'
+import { useToggle } from '@vueuse/core'
 
 const searchStore = useSearchStore()
 const config = useConfigStore()
@@ -13,11 +14,35 @@ const searchInput = computed({
 })
 
 const route = useRoute()
+
+const [menuVisible, toggleMenuVisible] = useToggle()
+
+const menuOnshowing = ref(false)
+
+watch(menuVisible, (val) => {
+  if (val) {
+    menuOnshowing.value = val
+  } else {
+    setTimeout(() => {
+      if (!menuVisible.value) {
+        menuOnshowing.value = false
+      }
+    }, 500)
+  }
+}, {
+  immediate: true
+})
 </script>
 
 <template>
-  <el-header class="header max-md:justify-between">
-    <div class="flex h-full">
+  <el-header
+    class="header max-md:justify-between"
+    :class="{
+      'show-menu': menuOnshowing
+    }"
+  >
+    <el-icon-menu class="w-[18px] text-white mr-[4px]" @click="toggleMenuVisible()" />
+    <div class="flex h-full ml-[6px]">
       <div class="flex items-center">
         <div class="w-[30px] h-[30px] mr-2">
           <img alt="鸽一品" class="w-full h-full" :src="Logo" />
@@ -46,6 +71,7 @@ const route = useRoute()
       />
     </div>
   </el-header>
+  <layout-menu v-model:show="menuVisible" />
 </template>
 
 <style lang="scss" scoped>
@@ -60,6 +86,10 @@ const route = useRoute()
   background: var(--header-color);
   position: fixed;
   width: 100%;
+
+  &.show-menu {
+    z-index: 1010;
+  }
 }
 
 .dark .search-input {

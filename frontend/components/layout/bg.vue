@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import BG from '@/assets/bg.jpg'
 import BG_DARK from '@/assets/bg-dark.jpg'
-import { useDark } from '@vueuse/core'
 
-const isDark = useDark()
+const isDark = useSharedDark()
 
 const bg_img = computed(() => (isDark.value ? BG_DARK : BG))
 </script>
