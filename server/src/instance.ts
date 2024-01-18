@@ -42,6 +42,7 @@ async function startup(app: express.Express) {
   Container.set('AppDataSource', AppDataSource)
 
   const config: RoutingControllersOptions = {
+    defaultErrorHandler: false,
     controllers: [path.resolve(__dirname, './controllers/**/*.controller.{ts,js}')],
     middlewares: [path.resolve(__dirname, './middlewares/**/*.middleware.{ts,js}')],
     routePrefix: '/api'
