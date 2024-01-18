@@ -15,7 +15,14 @@
     "useDefineForClassFields": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts"],
   "exclude": ["node_modules"],
+  "ts-node": {
+    "transpileOnly": true,
+    "require": ["typescript-transform-paths/register", "tsconfig-paths/register"]
+  }
 }
