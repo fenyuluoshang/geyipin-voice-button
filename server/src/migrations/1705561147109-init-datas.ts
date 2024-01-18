@@ -1,4 +1,4 @@
-import { MD5 } from 'crypto-js'
+import { createHash } from 'node:crypto'
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class InitDatas1705561147109 implements MigrationInterface {
@@ -10,15 +10,19 @@ export class InitDatas1705561147109 implements MigrationInterface {
     )
 
     const salt = Math.floor(1000 + Math.random() * 9000).toString()
+    const Md5Password = createHash('md5').update(`admin:${salt}`).digest('hex').toString()
     queryRunner.query(
-      `INSERT INTO "user"("name", "nickName", "pass", "salt") VALUES('admin', 'Admin', $1, $2)`,
-      [MD5(`admin:${salt}`).toString(), salt]
+      `INSERT INTO "user"("name", "nickName", "pass", "salt") VALUES('admin', '系统超级管理员', $1, $2)`,
+      [Md5Password, salt]
     )
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     queryRunner.query(`
-        DELETE FROM "anchor" WHERE anchorName='鸽一品'
-        `)
+    DELETE FROM "anchor" WHERE anchorName='鸽一品'
+    `)
+    queryRunner.query(`
+    DELETE FROM "user" WHERE name='admin'
+    `)
   }
 }
