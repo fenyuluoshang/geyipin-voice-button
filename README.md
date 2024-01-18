@@ -1,6 +1,6 @@
 
 <h1 align="center">
-    <img width="100" height="100" src="src/assets/logo.jpg" alt=""><br>
+    <img width="100" height="100" src="frontend/assets/logo.jpg" alt=""><br>
     鸽一品按钮 [in Developing]
 </h1>
 

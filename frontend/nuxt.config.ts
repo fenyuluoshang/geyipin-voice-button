@@ -41,9 +41,6 @@ export default defineNuxtConfig({
       autoprefixer: {}
     }
   },
-  pinia: {
-    storesDirs: ['./stores/**']
-  },
   elementPlus: {
     importStyle: 'scss',
     components: [],
