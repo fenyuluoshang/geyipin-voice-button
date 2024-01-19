@@ -15,6 +15,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@alicloud/dysmsapi20170525": "^2.0.24",
+    "@alicloud/tea-util": "^1.4.7",
+    "@growthbook/growthbook": "^0.32.0",
     "body-parser": "^1.20.2",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
@@ -32,8 +35,7 @@
     "routing-controllers": "^0.10.4",
     "routing-controllers-openapi": "^4.0.0",
     "typedi": "^0.10.0",
-    "typeorm": "0.3.19",
-    "unleash-server": "^5.8.1"
+    "typeorm": "0.3.19"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.5",
