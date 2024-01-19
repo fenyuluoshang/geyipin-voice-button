@@ -1,7 +1,7 @@
 
 <h1 align="center">
     <img width="100" height="100" src="frontend/assets/logo.jpg" alt=""><br>
-    鸽一品按钮 [in Developing]
+    天才鸽按钮 [in Developing]
 </h1>
 
 鸽鸽的语音按钮，关注鸽鸽谢谢喵
@@ -18,3 +18,11 @@ Made with ♥ by fenyu
 ## 特别感谢
 
 [xrb_button](https://github.com/pipilapilayu/xrb_button)
+
+## Getiing Start
+
+Project has base on node.js, postgresql, pnpm, to getting start, you may need install them
+
+Also you can use `asdf` or `dev-continer` to install them
+
+Project Frontend has base on `Nuxt.js` and backend base on `express` and `routing-controller`, you need use `pnpm` to install them
