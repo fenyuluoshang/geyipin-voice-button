@@ -35,6 +35,21 @@ class UserServices {
       return await UserModel.findOneBy({ id: uid })
     }
   }
+
+  async getUserInfoWithRoleByJwt(jwt: string) {
+    const uid = await this.jwtService.readJWT(jwt)
+    if (uid) {
+      return await UserModel.findOne({
+        where: { id: uid },
+        relations: {
+          group: {
+            roles: true
+          },
+          roles: true
+        }
+      })
+    }
+  }
 }
 
 export default UserServices

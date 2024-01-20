@@ -1,8 +1,13 @@
+import { AnchorCreateRequest, AnchorEditRequest } from '@/dtos/anchor'
 import Anchor from '@/models/anchor.model'
-import { Service } from 'typedi'
+import { Inject, Service } from 'typedi'
+import { DataSource } from 'typeorm'
 
 @Service()
 class AnchorService {
+  @Inject('AppDataSource')
+  private declare AppDataSource: DataSource
+
   async getAnchorInfo(anchorPathName: string) {
     const anchor = await Anchor.findOneBy({ pathName: anchorPathName })
     return anchor
@@ -30,6 +35,48 @@ class AnchorService {
       }
     })
     return anchor
+  }
+
+  async create(anchor: AnchorCreateRequest) {
+    const result = await this.AppDataSource.createQueryBuilder()
+      .insert()
+      .into(Anchor)
+      .values({
+        anchorName: anchor.anchorName,
+        anchorTitle: anchor.anchorTitle,
+        pathName: anchor.pathName,
+        biliId: anchor.biliId,
+        biliveId: anchor.biliveId,
+        lastVideoBV: anchor.lastVideoBV,
+        primaryColor: anchor.primaryColor,
+        secondColor: anchor.secondColor,
+        primaryColorDark: anchor.primaryColorDark,
+        secondColorDark: anchor.secondColorDark,
+        btnColor: anchor.btnColor
+      })
+      .execute()
+    return result.identifiers[0].id as number
+  }
+
+  async edit(id: number, anchor: AnchorEditRequest) {
+    const result = await this.AppDataSource.createQueryBuilder()
+      .update(Anchor)
+      .set({
+        anchorName: anchor.anchorName,
+        anchorTitle: anchor.anchorTitle,
+        pathName: anchor.pathName,
+        biliId: anchor.biliId,
+        biliveId: anchor.biliveId,
+        lastVideoBV: anchor.lastVideoBV,
+        primaryColor: anchor.primaryColor,
+        secondColor: anchor.secondColor,
+        primaryColorDark: anchor.primaryColorDark,
+        secondColorDark: anchor.secondColorDark,
+        btnColor: anchor.btnColor
+      })
+      .whereInIds([id])
+      .execute()
+    return result.affected
   }
 }
 

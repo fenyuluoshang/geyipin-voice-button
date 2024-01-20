@@ -1,21 +1,24 @@
+import { IsString } from 'class-validator'
 import User from '../models/user.model'
 
 export class UserLoginRequest {
+  @IsString()
   declare userName: string
 
+  @IsString()
   declare password: string
 }
 
 export class UserModelDTO {
   id: number
 
-  nickName: string
+  nickName?: string
 
   name: string
 
-  phone: string
+  phone?: string
 
-  mail: string
+  mail?: string
 
   constructor(user: User) {
     this.id = user.id

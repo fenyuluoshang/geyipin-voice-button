@@ -9,7 +9,7 @@ class Voices extends BaseModel {
   declare title: string
 
   @Column({ nullable: true })
-  declare source: string
+  declare source?: string
 
   @ManyToOne(() => Anchor)
   declare anchor: Anchor
