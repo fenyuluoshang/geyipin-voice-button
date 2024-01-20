@@ -1,9 +1,10 @@
-import { Column, Entity } from 'typeorm'
+import { Column, Entity, Index } from 'typeorm'
 import { BaseModel } from './base'
 
 @Entity()
 class PhoneEncode extends BaseModel {
   @Column()
+  @Index()
   declare phone: string
 
   @Column()

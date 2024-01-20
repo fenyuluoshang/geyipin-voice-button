@@ -1,18 +1,19 @@
-import { Column, Entity, ManyToMany, ManyToOne } from 'typeorm'
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm'
 import Anchor from './anchor.model'
 import Emoticons from './emoticons.model'
 import { BaseModel } from './base'
 
 @Entity()
-export class VoiceTag extends BaseModel {
+export class EmoticonTag extends BaseModel {
   @Column()
   declare title: string
 
   @ManyToOne(() => Anchor)
   declare anchor: Anchor
 
-  @ManyToMany(() => Emoticons)
+  @ManyToMany(() => Emoticons, (emoticon) => emoticon.tags)
+  @JoinTable()
   declare emoticons: Emoticons[]
 }
 
-export default VoiceTag
+export default EmoticonTag

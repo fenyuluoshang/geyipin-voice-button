@@ -1,15 +1,9 @@
 import { setPolyfills } from '@growthbook/growthbook'
-import fetch from 'cross-fetch'
-import crypto from 'node:crypto'
 import { Request, Response } from 'express'
 import { ExpressMiddlewareInterface, Middleware } from 'routing-controllers'
 import { loadGrowthBook } from '@/utils/growthbook'
 
 setPolyfills({
-  // Required when using built-in feature loading and Node 17 or lower
-  fetch: fetch,
-  // Required when using encrypted feature flags and Node 18 or lower
-  SubtleCrypto: crypto.webcrypto.subtle,
   // Optional, can make feature rollouts faster
   EventSource: require('eventsource')
 })
