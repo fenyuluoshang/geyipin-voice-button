@@ -8,7 +8,7 @@ import path from 'path'
 import { DataSource } from 'typeorm'
 import { containerRegister } from './container'
 import session from 'express-session'
-import loadGrowthBook from './utils/growthbook'
+import cookieParser from 'cookie-parser'
 
 async function startup(app: express.Express) {
   loadEnv(process.env.NODE_ENV || 'production', path.resolve(__dirname, '../'), '')
@@ -20,14 +20,7 @@ async function startup(app: express.Express) {
     PG_UNLEASH_URL: process.env.PG_UNLEASH_URL
   })
 
-  if (process.env.USE_GROWTHBOOK === 'true') {
-    const growthbook = await loadGrowthBook()
-    Container.set('enable-growthbook', true)
-    Container.set('growthbook', growthbook)
-  } else {
-    Container.set('enable-growthbook', false)
-    Container.set('growthbook', undefined)
-  }
+  app.use(cookieParser())
 
   app.use(
     session({

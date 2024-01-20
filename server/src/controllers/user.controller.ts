@@ -5,6 +5,7 @@ import UserServices from '../services/user.services'
 import { HTTPResponseData } from '../dtos'
 import { NotFoundError, WrongUserOrPasswordError } from '../errors'
 import { Response } from 'express'
+
 @JsonController('/user')
 class UserController {
   @Inject()
