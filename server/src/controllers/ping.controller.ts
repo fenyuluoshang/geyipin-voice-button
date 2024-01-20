@@ -1,20 +1,14 @@
 import { Get, JsonController } from 'routing-controllers'
 import { HTTPResponseData } from '../dtos'
-import { Inject } from 'typedi'
-import FeatureFlagService from '@/services/ff.services'
+import { FeatureFlag } from '@/decorators/ff.decorator'
 
 @JsonController()
 class PingController {
-  @Inject()
-  private declare ffService: FeatureFlagService
-
   @Get('/ping')
-  async ping() {
-    const testFF = await this.ffService.isOn('test')
-
+  async ping(@FeatureFlag('test') testff: boolean) {
     return HTTPResponseData.success({
       message: 'pong',
-      ff_test: testFF
+      ff_test: testff
     })
   }
 }

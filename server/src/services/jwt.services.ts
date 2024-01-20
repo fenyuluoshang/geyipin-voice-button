@@ -58,7 +58,8 @@ class JWTServices {
     const token = sign(
       {
         sub: user.id,
-        exp: Math.floor(Date.now() / 1000) + 60 * 10,
+        // 1h
+        exp: Math.floor(Date.now() / 1000) + 60 * 60,
         iat: Math.floor(Date.now() / 1000)
       },
       {
@@ -72,21 +73,22 @@ class JWTServices {
   }
 
   async readJWT(jwt: string) {
-    const now = Date.now()
-    const keyPair = await this.getKey()
-    const data = verify(jwt, {
-      key: keyPair.publicKey,
-      passphrase: RSA_KEY_PASS_PHRASE
-    })
+    try {
+      const now = Date.now()
+      const keyPair = await this.getKey()
+      const data = verify(jwt, {
+        key: keyPair.publicKey,
+        passphrase: RSA_KEY_PASS_PHRASE
+      })
 
-    if (typeof data !== 'string') {
-      const uid = data.sub && Number(data.sub)
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      console.log(data.exp * 1000, now, uid)
-      if (uid && data.exp && data.exp * 1000 > now && (!data.nbf || data.nbf * 1000 < now)) {
-        return uid
+      if (typeof data !== 'string') {
+        const uid = data.sub && Number(data.sub)
+        if (uid && data.exp && data.exp * 1000 > now && (!data.nbf || data.nbf * 1000 < now)) {
+          return uid
+        }
       }
+    } catch (_e: unknown) {
+      return undefined
     }
   }
 }

@@ -1,7 +1,9 @@
-import { GrowthBook } from '@growthbook/growthbook'
+import { GrowthBook, type Attributes } from '@growthbook/growthbook'
 
-async function loadGrowthBook() {
+export async function loadGrowthBook(attributes?: Attributes) {
+  console.log(attributes)
   const growthbook = new GrowthBook({
+    attributes,
     apiHost: process.env.GROWTHBOOK_HOST,
     clientKey: process.env.GROWTHBOOK_CLIENT_KEY,
     enableDevMode: true,
@@ -19,5 +21,3 @@ async function loadGrowthBook() {
 
   return growthbook
 }
-
-export default loadGrowthBook
