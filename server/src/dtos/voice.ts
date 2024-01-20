@@ -18,7 +18,7 @@ export class VoiceTagDTO {
 
 export class VoiceDTO {
   title: string
-  source: string
+  source?: string
   anchor?: AnchorDTO
   tags?: VoiceTagDTO[]
   playTime: bigint

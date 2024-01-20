@@ -135,6 +135,9 @@ importers:
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
+      minimatch:
+        specifier: ^9.0.3
+        version: 9.0.3
       multer:
         specifier: 1.4.5-lts.1
         version: 1.4.5-lts.1

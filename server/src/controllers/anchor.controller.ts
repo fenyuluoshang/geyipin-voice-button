@@ -1,8 +1,10 @@
+import { RoleMatcher } from '@/decorators/user.decorator'
 import { HTTPResponseData } from '@/dtos'
-import { AnchorDTO } from '@/dtos/anchor'
+import { AnchorCreateRequest, AnchorDTO, AnchorEditRequest } from '@/dtos/anchor'
 import { NotFoundError } from '@/errors'
 import AnchorService from '@/services/anchor.services'
-import { Get, JsonController, Param } from 'routing-controllers'
+import { RoleMatcherFn } from '@/utils/role_match'
+import { Body, Get, JsonController, Param, Post, Put } from 'routing-controllers'
 import { Inject } from 'typedi'
 
 @JsonController('/anchor')
@@ -35,6 +37,27 @@ class AnchorController {
       throw NotFoundError()
     }
     return HTTPResponseData.success(new AnchorDTO(anchorWithEmoticons))
+  }
+
+  @Put('/')
+  async create(@RoleMatcher() roleMatcher: RoleMatcherFn, @Body() body: AnchorCreateRequest) {
+    roleMatcher('/anchor/create')
+    const result = await this.anchorService.create(body)
+    return HTTPResponseData.success(result)
+  }
+
+  @Post('/:anchorID')
+  async edit(
+    @Param('anchorID') anchorID: number,
+    @RoleMatcher() roleMatcher: RoleMatcherFn,
+    @Body() body: AnchorEditRequest
+  ) {
+    roleMatcher(`/anchor/${anchorID}/edit`)
+    const result = await this.anchorService.edit(anchorID, body)
+    if (!result) {
+      throw NotFoundError()
+    }
+    return HTTPResponseData.success(result)
   }
 }
 

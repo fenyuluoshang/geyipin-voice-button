@@ -32,6 +32,7 @@
     "express-session": "^1.17.3",
     "itertools-ts": "^1.27.0",
     "jsonwebtoken": "^9.0.2",
+    "minimatch": "^9.0.3",
     "multer": "1.4.5-lts.1",
     "pg": "^8.4.0",
     "reflect-metadata": "^0.1.13",

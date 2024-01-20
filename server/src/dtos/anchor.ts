@@ -1,5 +1,6 @@
 import Anchor from '@/models/anchor.model'
 import { VoiceDTO } from './voice'
+import { IsNumber, IsOptional, IsString } from 'class-validator'
 
 export class AnchorDTO {
   id: number
@@ -36,4 +37,93 @@ export class AnchorDTO {
 
     if (anchor.voices) this.voices = anchor.voices.map((item) => new VoiceDTO(item))
   }
+}
+
+export class AnchorCreateRequest {
+  @IsString()
+  declare anchorName: string
+
+  @IsString()
+  declare anchorTitle: string
+
+  @IsString()
+  declare pathName: string
+
+  @IsOptional()
+  @IsNumber()
+  declare biliId?: number
+
+  @IsOptional()
+  @IsNumber()
+  declare biliveId?: number
+
+  @IsOptional()
+  @IsString()
+  declare lastVideoBV?: string
+
+  @IsOptional()
+  @IsString()
+  declare primaryColor?: string
+
+  @IsOptional()
+  @IsString()
+  declare secondColor?: string
+
+  @IsOptional()
+  @IsString()
+  declare primaryColorDark?: string
+
+  @IsOptional()
+  @IsString()
+  declare secondColorDark?: string
+
+  @IsOptional()
+  @IsString()
+  declare btnColor?: string
+}
+
+export class AnchorEditRequest {
+  @IsOptional()
+  @IsString()
+  declare anchorName?: string
+
+  @IsOptional()
+  @IsString()
+  declare anchorTitle?: string
+
+  @IsOptional()
+  @IsString()
+  declare pathName?: string
+
+  @IsOptional()
+  @IsNumber()
+  declare biliId?: number
+
+  @IsOptional()
+  @IsNumber()
+  declare biliveId?: number
+
+  @IsOptional()
+  @IsString()
+  declare lastVideoBV?: string
+
+  @IsOptional()
+  @IsString()
+  declare primaryColor?: string
+
+  @IsOptional()
+  @IsString()
+  declare secondColor?: string
+
+  @IsOptional()
+  @IsString()
+  declare primaryColorDark?: string
+
+  @IsOptional()
+  @IsString()
+  declare secondColorDark?: string
+
+  @IsOptional()
+  @IsString()
+  declare btnColor?: string
 }
