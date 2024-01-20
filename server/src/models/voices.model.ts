@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, ManyToOne } from 'typeorm'
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm'
 import { BaseModel } from './base'
 import Anchor from './anchor.model'
 import VoiceTag from './voice-tag.model'
@@ -14,7 +14,8 @@ class Voices extends BaseModel {
   @ManyToOne(() => Anchor)
   declare anchor: Anchor
 
-  @ManyToMany(() => VoiceTag)
+  @ManyToMany(() => VoiceTag, (tag) => tag.voices)
+  @JoinTable()
   declare tags: VoiceTag[]
 
   @Column({ type: 'bigint' })

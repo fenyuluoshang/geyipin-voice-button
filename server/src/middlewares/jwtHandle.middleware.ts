@@ -1,5 +1,6 @@
 import UserServices from '@/services/user.services'
 import { Middleware, ExpressMiddlewareInterface } from 'routing-controllers'
+import { Request, Response } from 'express'
 import { Inject } from 'typedi'
 
 @Middleware({ type: 'before', priority: 100 })
@@ -8,7 +9,7 @@ export class OuthingHandle implements ExpressMiddlewareInterface {
   private declare userService: UserServices
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async use(request: any, response: any, next: (err?: any) => any) {
+  async use(request: Request, response: Response, next: (err?: any) => any) {
     const jwt = request.cookies?.jwt
     if (jwt) {
       const user = await this.userService.loginInfo(jwt)

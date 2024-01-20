@@ -1,5 +1,7 @@
-import { Column, Entity } from 'typeorm'
+import { Column, Entity, Index, OneToMany } from 'typeorm'
 import { BaseModel } from './base'
+import Voices from './voices.model'
+import Emoticons from './emoticons.model'
 
 @Entity()
 class Anchor extends BaseModel {
@@ -8,6 +10,10 @@ class Anchor extends BaseModel {
 
   @Column()
   declare anchorTitle: string
+
+  @Column()
+  @Index()
+  declare pathName: string
 
   @Column({ nullable: true })
   declare biliId: number
@@ -32,6 +38,12 @@ class Anchor extends BaseModel {
 
   @Column({ nullable: true })
   declare btnColor: string
+
+  @OneToMany(() => Voices, (voice) => voice.anchor)
+  declare voices: Voices[]
+
+  @OneToMany(() => Emoticons, (emoticon) => emoticon.anchor)
+  declare emoticons: Emoticons[]
 }
 
 export default Anchor

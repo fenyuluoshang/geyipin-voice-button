@@ -10,9 +10,11 @@ class User extends BaseModel {
   @Column({ nullable: true })
   declare nickName: string
 
+  @Index()
   @Column({ nullable: true })
   declare phone: string
 
+  @Index()
   @Column({ nullable: true })
   declare mail: string
 

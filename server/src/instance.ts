@@ -1,7 +1,10 @@
 import 'reflect-metadata'
 import express from 'express'
-import { RoutingControllersOptions, useExpressServer } from 'routing-controllers'
-import { useContainer as rcUseContainer } from 'routing-controllers'
+import {
+  RoutingControllersOptions,
+  useExpressServer,
+  useContainer as rcUseContainer
+} from 'routing-controllers'
 import { Container } from 'typedi'
 import { loadEnv } from './config'
 import path from 'path'
@@ -12,13 +15,6 @@ import cookieParser from 'cookie-parser'
 
 async function startup(app: express.Express) {
   loadEnv(process.env.NODE_ENV || 'production', path.resolve(__dirname, '../'), '')
-
-  // Working Envs
-  console.log({
-    WORK_URL: process.env.WORK_URL,
-    PG_DATA_URL: process.env.PG_DATA_URL,
-    PG_UNLEASH_URL: process.env.PG_UNLEASH_URL
-  })
 
   app.use(cookieParser())
 

@@ -1,10 +1,12 @@
-import { Body, CookieParam, Get, JsonController, Post, Res } from 'routing-controllers'
+import { Body, Get, JsonController, Post, Res } from 'routing-controllers'
 import { UserLoginRequest, UserModelDTO } from '../dtos/user'
 import { Inject } from 'typedi'
 import UserServices from '../services/user.services'
 import { HTTPResponseData } from '../dtos'
 import { NotFoundError, WrongUserOrPasswordError } from '../errors'
 import { Response } from 'express'
+import { UserInject } from '@/decorators/user.decorator'
+import User from '@/models/user.model'
 
 @JsonController('/user')
 class UserController {
@@ -22,8 +24,7 @@ class UserController {
   }
 
   @Get('/status')
-  async status(@CookieParam('jwt') jwt: string) {
-    const user = await this.userService.loginInfo(jwt)
+  async status(@UserInject() user: User) {
     if (!user) {
       throw NotFoundError()
     }

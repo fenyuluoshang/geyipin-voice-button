@@ -9,11 +9,11 @@ declare module 'express-session' {
   }
 }
 
-export type ExpressSession = Request['session']
-
 declare module 'express' {
   interface Request {
     user?: User
     growthbook: GrowthBook
   }
 }
+
+export type ExpressSession = Request['session']

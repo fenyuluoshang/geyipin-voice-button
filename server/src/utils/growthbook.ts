@@ -1,7 +1,6 @@
 import { GrowthBook, type Attributes } from '@growthbook/growthbook'
 
 export async function loadGrowthBook(attributes?: Attributes) {
-  console.log(attributes)
   const growthbook = new GrowthBook({
     attributes,
     apiHost: process.env.GROWTHBOOK_HOST,
