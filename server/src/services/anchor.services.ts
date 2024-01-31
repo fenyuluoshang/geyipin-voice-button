@@ -78,6 +78,13 @@ class AnchorService {
       .execute()
     return result.affected
   }
+
+  async delete(id: number) {
+    const result = await Anchor.delete({
+      id
+    })
+    return result.affected === 1
+  }
 }
 
 export default AnchorService

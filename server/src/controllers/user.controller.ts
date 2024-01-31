@@ -1,5 +1,5 @@
 import { Body, Get, JsonController, Post, Res } from 'routing-controllers'
-import { UserLoginRequest, UserModelDTO } from '../dtos/user'
+import { UserLoginRequest, UserModelDTO, UserWithJWTDTO } from '../dtos/user'
 import { Inject } from 'typedi'
 import UserServices from '../services/user.services'
 import { HTTPResponseData } from '../dtos'
@@ -20,7 +20,7 @@ class UserController {
       throw WrongUserOrPasswordError()
     }
     response.cookie('jwt', data.token)
-    return HTTPResponseData.success(new UserModelDTO(data.user))
+    return HTTPResponseData.success(new UserWithJWTDTO(data.token, data.user))
   }
 
   @Get('/status')

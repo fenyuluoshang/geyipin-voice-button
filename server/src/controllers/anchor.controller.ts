@@ -4,7 +4,7 @@ import { AnchorCreateRequest, AnchorDTO, AnchorEditRequest } from '@/dtos/anchor
 import { NotFoundError } from '@/errors'
 import AnchorService from '@/services/anchor.services'
 import { RoleMatcherFn } from '@/utils/role_match'
-import { Body, Get, JsonController, Param, Post, Put } from 'routing-controllers'
+import { Body, Delete, Get, JsonController, Param, Post, Put } from 'routing-controllers'
 import { Inject } from 'typedi'
 
 @JsonController('/anchor')
@@ -54,6 +54,16 @@ class AnchorController {
   ) {
     roleMatcher(`/anchor/${anchorID}/edit`)
     const result = await this.anchorService.edit(anchorID, body)
+    if (!result) {
+      throw NotFoundError()
+    }
+    return HTTPResponseData.success(result)
+  }
+
+  @Delete('/:anchorID')
+  async delete(@Param('anchorID') anchorID: number, @RoleMatcher() roleMatcher: RoleMatcherFn) {
+    roleMatcher('/anchor/del')
+    const result = await this.anchorService.delete(anchorID)
     if (!result) {
       throw NotFoundError()
     }

@@ -28,3 +28,12 @@ export class UserModelDTO {
     this.mail = user.mail
   }
 }
+
+export class UserWithJWTDTO extends UserModelDTO {
+  jwt: string
+
+  constructor(jwt: string, user: User) {
+    super(user)
+    this.jwt = jwt
+  }
+}
