@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import axios from 'axios'
+
 defineOptions({
   name: 'VoiceButtonPage'
 })
@@ -36,10 +38,15 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', onKeyDown)
 })
+
+const { data } = await useAsyncData(async () => {
+  return (await axios.get('http://127.0.0.1:5173/api/ping')).data
+})
+
 </script>
 
 <template>
-  <el-main>
+  <el-main :data-test="data.data.ff_test">
     <layout-bg />
     <config-panel />
     <voices-panel />

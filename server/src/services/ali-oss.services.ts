@@ -1,6 +1,7 @@
 import { Service } from 'typedi'
 import oss from 'ali-oss'
 import { NotFoundError } from '@/errors'
+import { NotAllowSTS } from '@/errors/file'
 
 class OSSConfigError extends Error {
   constructor(message: string) {
@@ -44,7 +45,10 @@ class AliOssService {
     return this.client_cache as oss
   }
 
-  async ossCreateSTS() {
+  async ossCreateSTS(allowPutFile = '*') {
+    if (process.env.STS_UPLOAD !== 'true') {
+      throw NotAllowSTS()
+    }
     if (
       !process.env.ALI_ACCESS_KEY_ID ||
       !process.env.ALI_ACCESS_KEY_SECRET ||
@@ -59,6 +63,8 @@ class AliOssService {
       accessKeySecret: process.env.ALI_ACCESS_KEY_SECRET
     })
 
+    const path = /^\//.test(allowPutFile) ? allowPutFile : `/${allowPutFile}`
+
     const key = await sts.assumeRole(
       process.env.STS_USER_ROLE_ARN,
       JSON.stringify({
@@ -67,10 +73,7 @@ class AliOssService {
           {
             Effect: 'Allow',
             Action: ['oss:PutObject'],
-            Resource: [
-              `acs:oss:*:*:${process.env.ALI_OSS_BUCKET}`,
-              `acs:oss:*:*:${process.env.ALI_OSS_BUCKET}/*`
-            ]
+            Resource: [`acs:oss:*:*:${process.env.ALI_OSS_BUCKET}${path}`]
           }
         ]
       }),

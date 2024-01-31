@@ -55,7 +55,11 @@ export default defineNuxtConfig({
   pwa: {
     registerType: 'autoUpdate'
   },
-  plugins: [
-    { src: '~/plugins/vConsole.client', mode: 'client' }
-  ]
+  plugins: [{ src: '~/plugins/vConsole.client', mode: 'client' }],
+  devServer: {
+    port: 5173
+  },
+  routeRules: {
+    '/api/**': { proxy: 'http://localhost:3000/api/**' }
+  }
 })
