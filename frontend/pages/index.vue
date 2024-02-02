@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import axios from 'axios'
+import useDomain from '~/composables/useDomain'
 
 defineOptions({
   name: 'VoiceButtonPage'
@@ -39,14 +40,21 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', onKeyDown)
 })
 
+const domainData = useDomain()
+
 const { data } = await useAsyncData(async () => {
-  return (await axios.get('http://127.0.0.1:5173/api/ping')).data
+  return (await axios.get('/api/ping')).data
 })
 
+const { data: anchorData } = await useAsyncData(async () => {
+  const result = (await axios.get(`/api/anchor/${domainData.value.anchor}`)).data
+  if (result.code === 1) return result.data
+  return undefined
+})
 </script>
 
 <template>
-  <el-main :data-test="data.data.ff_test">
+  <el-main :data-test="data.data.ff_test" :data-anchor="domainData.anchor">
     <layout-bg />
     <config-panel />
     <voices-panel />

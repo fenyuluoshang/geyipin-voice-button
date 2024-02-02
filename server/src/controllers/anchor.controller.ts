@@ -12,6 +12,12 @@ class AnchorController {
   @Inject()
   declare anchorService: AnchorService
 
+  @Get('/all')
+  async getAllAnchor() {
+    const anchors = await this.anchorService.getAllAnchor()
+    return HTTPResponseData.success(anchors.map((item) => new AnchorDTO(item)))
+  }
+
   @Get('/:anchorPathName')
   async getAnchor(@Param('anchorPathName') anchorPathName: string) {
     const anchor = await this.anchorService.getAnchorInfo(anchorPathName)
