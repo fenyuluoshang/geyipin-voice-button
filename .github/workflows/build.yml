@@ -1,0 +1,16 @@
+name: LintAndTest
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: build docker
+      run: |
+        docker build -t tiancaige-voice-button .

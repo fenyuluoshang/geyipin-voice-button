@@ -12,6 +12,7 @@ import { DataSource } from 'typeorm'
 import { containerRegister } from './container'
 import session from 'express-session'
 import cookieParser from 'cookie-parser'
+import { CorsOptionData, CorsWhiteListUpdate } from './cache/cors-white-list'
 
 async function startup(app: express.Express) {
   loadEnv(process.env.NODE_ENV || 'production', path.resolve(__dirname, '../'), '')
@@ -37,11 +38,14 @@ async function startup(app: express.Express) {
   await AppDataSource.initialize()
   Container.set('AppDataSource', AppDataSource)
 
+  await CorsWhiteListUpdate()
+
   const config: RoutingControllersOptions = {
     defaultErrorHandler: false,
     controllers: [path.resolve(__dirname, './controllers/**/*.controller.{ts,js}')],
     middlewares: [path.resolve(__dirname, './middlewares/**/*.middleware.{ts,js}')],
-    routePrefix: '/api'
+    routePrefix: '/api',
+    cors: CorsOptionData
   }
 
   useExpressServer(app, config)
