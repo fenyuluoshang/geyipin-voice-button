@@ -1,5 +1,5 @@
-import { Body, Get, JsonController, Post, Res } from 'routing-controllers'
-import { UserLoginRequest, UserModelDTO, UserWithJWTDTO } from '../dtos/user'
+import { Body, Get, JsonController, Post, Put, QueryParams, Res } from 'routing-controllers'
+import { SendSmsRequestDTO, UserLoginRequest, UserModelDTO, UserWithJWTDTO } from '../dtos/user'
 import { Inject } from 'typedi'
 import UserServices from '../services/user.services'
 import { HTTPResponseData } from '../dtos'
@@ -7,11 +7,14 @@ import { NotFoundError, WrongUserOrPasswordError } from '../errors'
 import { Response } from 'express'
 import { UserInject } from '@/decorators/user.decorator'
 import User from '@/models/user.model'
+import SMSService from '@/services/sms.services'
 
 @JsonController('/user')
 class UserController {
   @Inject()
   private declare userService: UserServices
+  @Inject()
+  private declare smsService: SMSService
 
   @Post('/login')
   async login(@Body() login: UserLoginRequest, @Res() response: Response) {
@@ -21,6 +24,12 @@ class UserController {
     }
     response.cookie('jwt', data.token)
     return HTTPResponseData.success(new UserWithJWTDTO(data.token, data.user))
+  }
+
+  @Put('/send_sms')
+  async requestPhoneEncode(@QueryParams() query: SendSmsRequestDTO) {
+    this.smsService.sendSMSVerifyCodeWithPhone(query.phone)
+    return HTTPResponseData.success(true)
   }
 
   @Get('/status')

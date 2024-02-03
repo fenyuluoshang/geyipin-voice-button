@@ -63,7 +63,10 @@ class AliOssService {
       accessKeySecret: process.env.ALI_ACCESS_KEY_SECRET
     })
 
-    const path = /^\//.test(allowPutFile) ? allowPutFile : `/${allowPutFile}`
+    let path = /^\//.test(allowPutFile) ? allowPutFile : `/${allowPutFile}`
+    if (!/\*/.test(path)) {
+      path += '.*'
+    }
 
     const key = await sts.assumeRole(
       process.env.STS_USER_ROLE_ARN,

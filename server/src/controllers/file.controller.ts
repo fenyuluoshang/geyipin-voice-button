@@ -1,4 +1,5 @@
 import { RoleMatcher, UserInject } from '@/decorators/user.decorator'
+import { HTTPResponseData } from '@/dtos'
 import User from '@/models/user.model'
 import AliOssService from '@/services/ali-oss.services'
 import FileServices from '@/services/file.services'
@@ -12,6 +13,14 @@ class FileController {
   private declare aliOssService: AliOssService
   @Inject()
   private declare fileService: FileServices
+
+  @Get('/upload_config')
+  async getUploadConfig() {
+    return HTTPResponseData.success({
+      useSTS: process.env.STS_UPLOAD,
+      mode: process.env.FILE_SAVE_MODE
+    })
+  }
 
   @Get('/admin_view')
   async getFileWithAdmin(

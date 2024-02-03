@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator'
+import { IsString, Length } from 'class-validator'
 import User from '../models/user.model'
 
 export class UserLoginRequest {
@@ -36,4 +36,10 @@ export class UserWithJWTDTO extends UserModelDTO {
     super(user)
     this.jwt = jwt
   }
+}
+
+export class SendSmsRequestDTO {
+  @IsString()
+  @Length(11)
+  declare phone: string
 }

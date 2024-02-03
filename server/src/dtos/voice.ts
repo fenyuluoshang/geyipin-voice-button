@@ -1,6 +1,7 @@
 import VoiceTag from '@/models/voice-tag.model'
 import { AnchorDTO } from './anchor'
 import Voices from '@/models/voices.model'
+import { IsArray, IsInt, Length, Max, Min } from 'class-validator'
 
 export class VoiceTagDTO {
   title: string
@@ -32,4 +33,22 @@ export class VoiceDTO {
 
     if (voice.tags) this.tags = voice.tags.map((item) => new VoiceTagDTO(item))
   }
+}
+
+export class PlayRequestPlayed {
+  @IsInt()
+  @Min(0)
+  @Max(10)
+  declare voiceId: number
+
+  @IsInt()
+  @Min(0)
+  @Max(20)
+  declare time: number
+}
+
+export class PlayRequestDTO {
+  @IsArray()
+  @Length(1, 12)
+  declare played: PlayRequestPlayed[]
 }
