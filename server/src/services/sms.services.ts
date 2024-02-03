@@ -82,7 +82,7 @@ class SMSService {
       await this.sendSMSVerifyCode(phone, code)
       transaction.insert(PhoneEncode, {
         phone,
-        code: Number(code),
+        code: code,
         expirTime: moment().add(5, 'minute').toDate()
       })
     })

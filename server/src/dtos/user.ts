@@ -1,4 +1,4 @@
-import { IsString, Length } from 'class-validator'
+import { IsString, Length, Matches } from 'class-validator'
 import User from '../models/user.model'
 
 export class UserLoginRequest {
@@ -42,4 +42,14 @@ export class SendSmsRequestDTO {
   @IsString()
   @Length(11)
   declare phone: string
+}
+
+export class SmsLoginRequestDTO {
+  @IsString()
+  @Length(11)
+  declare phone: string
+
+  @IsString()
+  @Matches(/\d{6}/)
+  declare code: string
 }

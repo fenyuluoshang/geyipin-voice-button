@@ -31,6 +31,9 @@ class FileController {
     roleMatcher('/admin/file_view')
     return this.fileService.getFile(path)
   }
+
+  @Get('/sts')
+  async getSTS(@UserInject(true) _user: User) {}
 }
 
 export default FileController

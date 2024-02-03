@@ -7,8 +7,8 @@ class PhoneEncode extends BaseModel {
   @Index()
   declare phone: string
 
-  @Column()
-  declare code: number
+  @Column({ length: 12 })
+  declare code: string
 
   @Column()
   declare expirTime: Date

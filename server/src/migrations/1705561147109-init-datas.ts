@@ -11,7 +11,8 @@ export class InitDatas1705561147109 implements MigrationInterface {
 
     queryRunner.query(`SELECT setval('anchor_id_seq', max(id)) FROM "anchor"`)
 
-    queryRunner.query(`INSERT INTO "user_group"("id", "title") VALUES(1, '')`)
+    queryRunner.query(`INSERT INTO "user_group"("id", "title") VALUES(1, 'admin')`)
+    queryRunner.query(`INSERT INTO "user_group"("id", "title") VALUES(2, 'guest')`)
 
     queryRunner.query(`SELECT setval('user_group_id_seq', max(id)) FROM "user_group"`)
 
