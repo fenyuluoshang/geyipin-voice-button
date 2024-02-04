@@ -1,16 +1,14 @@
 import { RoleMatcher, UserInject } from '@/decorators/user.decorator'
 import { HTTPResponseData } from '@/dtos'
+import { FileSTSRequestParams } from '@/dtos/file'
 import User from '@/models/user.model'
-import AliOssService from '@/services/ali-oss.services'
 import FileServices from '@/services/file.services'
 import { RoleMatcherFn } from '@/utils/role_match'
-import { Controller, Get, QueryParam } from 'routing-controllers'
+import { Controller, Get, QueryParam, QueryParams } from 'routing-controllers'
 import { Inject } from 'typedi'
 
 @Controller('/file')
 class FileController {
-  @Inject()
-  private declare aliOssService: AliOssService
   @Inject()
   private declare fileService: FileServices
 
@@ -33,7 +31,9 @@ class FileController {
   }
 
   @Get('/sts')
-  async getSTS(@UserInject(true) _user: User) {}
+  async getSTS(@QueryParams() params: FileSTSRequestParams, @UserInject(true) _user: User) {
+    return HTTPResponseData.success(this.fileService.makeSTS(params.type))
+  }
 }
 
 export default FileController
