@@ -7,7 +7,7 @@ export class HttpResponseError extends Error {
   }
 }
 
-function errorCreater(code: number, message: string) {
+export function errorCreater(code: number, message: string) {
   return () => new HttpResponseError(code, message)
 }
 

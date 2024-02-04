@@ -2,9 +2,9 @@ import User from '@/models/user.model'
 import { RoleMatcherFn } from '@/utils/role_match'
 import { createParamDecorator } from 'routing-controllers'
 
-export function UserInject() {
+export function UserInject(required = false) {
   return createParamDecorator({
-    required: false,
+    required,
     value: (action) => {
       return action.request.user as User
     }

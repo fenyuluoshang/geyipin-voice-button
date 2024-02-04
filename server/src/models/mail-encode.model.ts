@@ -7,8 +7,8 @@ class MailEncode extends BaseModel {
   @Index()
   declare mail: string
 
-  @Column()
-  declare code: number
+  @Column({ length: 12 })
+  declare code: string
 
   @Column()
   declare expirTime: Date

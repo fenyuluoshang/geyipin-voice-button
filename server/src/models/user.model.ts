@@ -6,7 +6,7 @@ import Role from './role.model'
 @Entity()
 class User extends BaseModel {
   @Index()
-  @Column()
+  @Column({ nullable: true })
   declare name: string
 
   @Column({ nullable: true })
@@ -28,6 +28,9 @@ class User extends BaseModel {
 
   @ManyToOne(() => UserGroup)
   declare group?: UserGroup
+
+  @Column({ nullable: true, foreignKeyConstraintName: 'group' })
+  declare groupId?: number
 
   @OneToMany(() => Role, (role) => role.user)
   declare roles: Role[]

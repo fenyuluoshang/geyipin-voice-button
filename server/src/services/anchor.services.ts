@@ -8,6 +8,13 @@ class AnchorService {
   @Inject('AppDataSource')
   private declare AppDataSource: DataSource
 
+  async getAllAnchor() {
+    const anchor = await Anchor.find({
+      select: ['anchorName', 'anchorTitle', 'pathName']
+    })
+    return anchor
+  }
+
   async getAnchorInfo(anchorPathName: string) {
     const anchor = await Anchor.findOneBy({ pathName: anchorPathName })
     return anchor
@@ -77,6 +84,13 @@ class AnchorService {
       .whereInIds([id])
       .execute()
     return result.affected
+  }
+
+  async delete(id: number) {
+    const result = await Anchor.delete({
+      id
+    })
+    return result.affected === 1
   }
 }
 
