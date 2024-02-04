@@ -43,11 +43,14 @@ onBeforeUnmount(() => {
 const domainData = useDomain()
 
 const { data } = await useAsyncData(async () => {
-  return (await axios.get('/api/ping')).data
+  const result = await axios.get('/api/ping', { baseURL: process.env.API_DOMAIN })
+  return result.data
 })
 
 const { data: anchorData } = await useAsyncData(async () => {
-  const result = (await axios.get(`/api/anchor/${domainData.value.anchor}`)).data
+  const result = (
+    await axios.get(`/api/anchor/${domainData.value.anchor}`, { baseURL: process.env.API_DOMAIN })
+  ).data
   if (result.code === 1) return result.data
   return undefined
 })

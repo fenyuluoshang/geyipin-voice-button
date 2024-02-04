@@ -16,8 +16,8 @@ class FileServices {
   }
 
   async makeSTS(type: string) {
-    const fileUUID = `${type}/${UUID().replace('-', '')}`
-    const sts = this.aliOssService.ossCreateSTS(fileUUID)
+    const fileUUID = `${process.env.ALI_OSS_PREFIX}${type}/${UUID().replace('-', '')}`
+    const sts = await this.aliOssService.ossCreateSTS(fileUUID)
     return {
       ...sts,
       path: fileUUID
