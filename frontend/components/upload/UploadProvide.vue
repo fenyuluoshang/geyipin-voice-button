@@ -17,5 +17,6 @@ provide(HAS_LOGIN, () => userInfo.value?.data?.code === 1)
 provide(REFRESH_HAS_LOGIN, refreshUserStatus)
 </script>
 <template>
-  <slot />
+  <slot v-if="userInfo?.data?.code === 1" />
+  <upload-login-form v-else />
 </template>

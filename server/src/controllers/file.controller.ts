@@ -31,7 +31,7 @@ class FileController {
   }
 
   @Get('/sts')
-  async getSTS(@QueryParams() params: FileSTSRequestParams, @UserInject() _user: User) {
+  async getSTS(@QueryParams() params: FileSTSRequestParams, @UserInject(true) _user: User) {
     return HTTPResponseData.success(await this.fileService.makeSTS(params.type))
   }
 }

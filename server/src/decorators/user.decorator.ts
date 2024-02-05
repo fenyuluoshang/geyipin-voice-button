@@ -1,12 +1,16 @@
 import User from '@/models/user.model'
+import UserServices from '@/services/user.services'
 import { RoleMatcherFn } from '@/utils/role_match'
 import { createParamDecorator } from 'routing-controllers'
+import Container from 'typedi'
 
 export function UserInject(required = false) {
+  const userService = Container.get(UserServices)
   return createParamDecorator({
     required,
-    value: (action) => {
-      return action.request.user as User
+    value: async (action) => {
+      const jwt = action.request.cookies?.jwt || action.request.headers?.jwt
+      return (action.request.user as User) || (jwt && (await userService.loginInfo(jwt)))
     }
   })
 }

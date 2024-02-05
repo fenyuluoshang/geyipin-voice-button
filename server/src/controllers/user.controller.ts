@@ -28,14 +28,14 @@ class UserController {
     if (!data?.user) {
       throw WrongUserOrPasswordError()
     }
-    response.cookie('jwt', data.token)
+    response.cookie('jwt', data.token, { path: process.env.BASE_DOMAIN || '/', httpOnly: true })
     return HTTPResponseData.success(new UserWithJWTDTO(data.token, data.user))
   }
 
   @Post('/login/phone')
   async loginByPhone(@Body() login: SmsLoginRequestDTO, @Res() response: Response) {
     const data = await this.userService.loginByPhone(login)
-    response.cookie('jwt', data.token)
+    response.cookie('jwt', data.token, { path: process.env.BASE_DOMAIN || '/', httpOnly: true })
     return HTTPResponseData.success(new UserWithJWTDTO(data.token, data.user))
   }
 

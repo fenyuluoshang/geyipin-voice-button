@@ -71,7 +71,7 @@ onMounted(() => {
         <el-scrollbar ref="scrollbar" always class="!h-[180px]">
           <div class="flex h-[180px] pb-[10px]">
             <iframe
-              src="//player.bilibili.com/player.html?aid=878559781&bvid=BV1nN4y1v71d&cid=1400654290&p=1"
+              src="//player.bilibili.com/player.html?bvid=BV18u4m1K7qa"
               scrolling="no"
               border="0"
               frameborder="no"
