@@ -8,7 +8,7 @@ COPY . .
 
 RUN cd frontend && pnpm install && pnpm build
 
-RUN cd server && pnpm build
+RUN cd server && pnpm install
 
 WORKDIR /app
 
