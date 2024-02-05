@@ -6,11 +6,9 @@ RUN npm install -g pnpm
 
 COPY . .
 
-WORKDIR /app/frontend
+RUN cd frontend && pnpm install && pnpm build
 
-RUN pnpm install
-
-RUN pnpm build
+RUN cd server && pnpm build
 
 WORKDIR /app
 
