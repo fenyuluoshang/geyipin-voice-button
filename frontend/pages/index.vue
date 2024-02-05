@@ -46,14 +46,6 @@ const { data } = await useAsyncData(async () => {
   const result = await axios.get('/api/ping', { baseURL: process.env.API_DOMAIN })
   return result.data
 })
-
-const { data: anchorData } = await useAsyncData(async () => {
-  const result = (
-    await axios.get(`/api/anchor/${domainData.value.anchor}`, { baseURL: process.env.API_DOMAIN })
-  ).data
-  if (result.code === 1) return result.data
-  return undefined
-})
 </script>
 
 <template>

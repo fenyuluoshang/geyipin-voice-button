@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { axiosInstance } from '~/composables/useAxiosData'
 import OSS from 'ali-oss'
 
+const nuxtApp = useNuxtApp()
+const anchorStore = useAnchorConfigStore()
 const fileInput = ref<HTMLInputElement>()
 
 function onClick() {
@@ -9,17 +10,18 @@ function onClick() {
 }
 
 const file = ref<File>()
+const title = ref<string>('')
 
 function onFileSelected() {
   file.value = fileInput.value?.files?.[0]
 }
 
 async function onSubmit() {
-  if (!file.value) {
+  if (!file.value || !title.value) {
     return
   }
 
-  const sts = await axiosInstance.get('/api/file/sts?type=audio')
+  const sts = await nuxtApp.$axios.get('/api/file/sts?type=audio')
   const fileNameSub = file.value.name.split('.')
   const suffix = fileNameSub[fileNameSub.length - 1]
   const fileName = `${sts.data.data.path}.${suffix}`
@@ -31,7 +33,16 @@ async function onSubmit() {
     bucket: sts.data.data.bucket,
     stsToken: sts.data.data.SecurityToken
   })
-  client.multipartUpload(fileName, file.value, {})
+  const result = await client.put(fileName, file.value, {})
+  console.log(result)
+  
+  await nuxtApp.$axios.put('/api/voice/uploaded_sts', {
+    file: fileName,
+    title: title.value,
+    anchor: anchorStore.config?.id
+  })
+
+  ElMessage.success('上传成功，请等待人工审核')
 }
 </script>
 <template>
@@ -39,7 +50,7 @@ async function onSubmit() {
     <template #header><h2 class="ml-[16px] text-lg">上传音频</h2></template>
     <el-form label-width="100px">
       <el-form-item label="音频标题">
-        <el-input />
+        <el-input v-model="title" />
       </el-form-item>
       <el-form-item label="选择音频">
         <el-button @click="onClick">选择音频</el-button>

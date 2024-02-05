@@ -1,11 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios"
 
-const runtimeConfig = useRuntimeConfig()
-
-export const axiosInstance = axios.create({
-  baseURL: runtimeConfig.public.API_DOMAIN
-})
-
 export async function useAxiosData<T = any>(config: AxiosRequestConfig) {
   const runtimeConfig = useRuntimeConfig()
 

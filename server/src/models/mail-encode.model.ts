@@ -1,5 +1,5 @@
 import { Column, Entity, Index } from 'typeorm'
-import { BaseModel } from './base'
+import { BaseModel } from './index.base'
 
 @Entity()
 class MailEncode extends BaseModel {

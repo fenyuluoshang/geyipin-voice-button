@@ -1,5 +1,5 @@
 import { Column, Entity, Index, OneToMany } from 'typeorm'
-import { BaseModel } from './base'
+import { BaseModel } from './index.base'
 import Voices from './voices.model'
 import Emoticons from './emoticons.model'
 

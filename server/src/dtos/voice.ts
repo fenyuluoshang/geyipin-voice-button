@@ -1,14 +1,16 @@
 import VoiceTag from '@/models/voice-tag.model'
 import { AnchorDTO } from './anchor'
 import Voices from '@/models/voices.model'
-import { IsArray, IsInt, Length, Max, Min } from 'class-validator'
+import { IsArray, IsInt, IsString, Length, Max, Min } from 'class-validator'
 
 export class VoiceTagDTO {
+  id: number
   title: string
   anchor?: AnchorDTO
   voices?: VoiceDTO[]
 
   constructor(voice_tag: VoiceTag) {
+    this.id = voice_tag.id
     this.title = voice_tag.title
 
     if (voice_tag.anchor) this.anchor = new AnchorDTO(voice_tag.anchor)
@@ -18,6 +20,7 @@ export class VoiceTagDTO {
 }
 
 export class VoiceDTO {
+  id: number
   title: string
   source?: string
   anchor?: AnchorDTO
@@ -25,6 +28,7 @@ export class VoiceDTO {
   playTime: bigint
 
   constructor(voice: Voices) {
+    this.id = voice.id
     this.title = voice.title
     this.source = voice.source
     this.playTime = voice.playTime
@@ -51,4 +55,13 @@ export class PlayRequestDTO {
   @IsArray()
   @Length(1, 12)
   declare played: PlayRequestPlayed[]
+}
+
+export class UploadSTSRequest {
+  @IsString()
+  declare title: string
+  @IsString()
+  declare file: string
+  @IsInt()
+  declare anchor: number
 }

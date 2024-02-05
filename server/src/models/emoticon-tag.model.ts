@@ -1,7 +1,7 @@
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm'
 import Anchor from './anchor.model'
 import Emoticons from './emoticons.model'
-import { BaseModel } from './base'
+import { BaseModel } from './index.base'
 
 @Entity()
 export class EmoticonTag extends BaseModel {
