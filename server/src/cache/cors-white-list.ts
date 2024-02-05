@@ -9,6 +9,8 @@ export async function CorsWhiteListUpdate() {
     CorsWhiteList.push(process.env.MAIN_DOMAIN)
     paths.forEach((item) => {
       CorsWhiteList.push(`${item.pathName}.${process.env.BASE_DOMAIN}`)
+      CorsWhiteList.push(`http://${item.pathName}.${process.env.BASE_DOMAIN}`)
+      CorsWhiteList.push(`https://${item.pathName}.${process.env.BASE_DOMAIN}`)
     })
   }
 }
