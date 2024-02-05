@@ -1,4 +1,4 @@
-name: LintAndTest
+name: Docker Image Build
 
 on:
   push:
@@ -14,3 +14,6 @@ jobs:
     - name: build docker
       run: |
         docker build -t tiancaige-voice-button .
+        docker login --username=${{ secrets.ALIYUN_DOCKER_REGISTRY_EMAIL }} registry.cn-hangzhou.aliyuncs.com --password=${{ secrets.ALIYUN_DOCKER_REGISTRY_PASSWORD }}
+        docker tag tiancaige-voice-button:latest registry.cn-hangzhou.aliyuncs.com/fenyu-shine/tiancaige-voice-button:latest
+        docker push registry.cn-hangzhou.aliyuncs.com/fenyu-shine/tiancaige-voice-button

@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
+  frontend-lint:
     defaults:
       run:
         working-directory: ./frontend
@@ -27,7 +27,27 @@ jobs:
         run: pnpm install
       - name: Run Lint
         run: pnpm lint
-  test:
+  server-lint:
+    defaults:
+      run:
+        working-directory: ./server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.10.0
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.14.0
+      - name: Install Dependency
+        run: pnpm install
+      - name: Run Lint
+        run: pnpm lint
+  frontend-test:
     defaults:
       run:
         working-directory: ./frontend
