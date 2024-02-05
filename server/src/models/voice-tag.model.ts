@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToMany, ManyToOne } from 'typeorm'
 import Anchor from './anchor.model'
 import Voices from './voices.model'
-import { BaseModel } from './base'
+import { BaseModel } from './index.base'
 
 @Entity()
 export class VoiceTag extends BaseModel {

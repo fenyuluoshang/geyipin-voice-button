@@ -9,7 +9,9 @@ export default defineNuxtConfig({
       CDN_URL: process.env.cdnURL || '/',
       VOICE_PATH:
         process.env.voicePATH || (process.env.cdnURL || '/').replace(/\/$/, '') + '/voices/',
-      MEMS_PATH: process.env.voicePATH || (process.env.cdnURL || '/').replace(/\/$/, '') + '/mems/'
+      MEMS_PATH: process.env.voicePATH || (process.env.cdnURL || '/').replace(/\/$/, '') + '/mems/',
+      API_DOMAIN: process.env.API_DOMAIN,
+      MAIN_DOMAIN: process.env.MAIN_DOMAIN
     }
   },
   devtools: { enabled: true },
@@ -57,9 +59,9 @@ export default defineNuxtConfig({
   },
   plugins: [{ src: '~/plugins/vConsole.client', mode: 'client' }],
   devServer: {
-    port: 5173
+    port: 80
   },
   routeRules: {
-    '/api/**': { proxy: 'http://localhost:3000/api/**' }
+    '/api/**': { proxy: 'http://localhost:3100/api/**' }
   }
 })

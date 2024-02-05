@@ -32,6 +32,12 @@ watch(menuVisible, (val) => {
 }, {
   immediate: true
 })
+
+const anchorStore = useAnchorConfigStore()
+
+useAsyncData(async () => {
+  await anchorStore.load()
+})
 </script>
 
 <template>

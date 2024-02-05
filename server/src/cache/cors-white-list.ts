@@ -8,7 +8,7 @@ export async function CorsWhiteListUpdate() {
   if (process.env.MAIN_DOMAIN && process.env.BASE_DOMAIN) {
     CorsWhiteList.push(process.env.MAIN_DOMAIN)
     paths.forEach((item) => {
-      CorsWhiteList.push(`${item}.${process.env.BASE_DOMAIN}`)
+      CorsWhiteList.push(`${item.pathName}.${process.env.BASE_DOMAIN}`)
     })
   }
 }
@@ -18,7 +18,7 @@ export const CorsOptionData: CorsOptions = {
     if (origin && CorsWhiteList.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(null, false)
     }
   }
 }

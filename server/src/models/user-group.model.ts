@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany } from 'typeorm'
-import { BaseModel } from './base'
+import { BaseModel } from './index.base'
 import User from './user.model'
 import Role from './role.model'
 

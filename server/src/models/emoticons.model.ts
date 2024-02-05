@@ -1,10 +1,10 @@
 import { Column, Entity, ManyToMany, ManyToOne } from 'typeorm'
-import { BaseModel } from './base'
+import { UploadModel } from './upload.base'
 import Anchor from './anchor.model'
 import EmoticonTag from './emoticon-tag.model'
 
 @Entity()
-class Emoticons extends BaseModel {
+class Emoticons extends UploadModel {
   @Column()
   declare title: string
 

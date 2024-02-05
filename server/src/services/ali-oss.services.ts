@@ -68,6 +68,7 @@ class AliOssService {
       path += '.*'
     }
 
+    // console.log(`acs:oss:*:*:${process.env.ALI_OSS_BUCKET}${path}`)
     const key = await sts.assumeRole(
       process.env.STS_USER_ROLE_ARN,
       JSON.stringify({
@@ -85,7 +86,8 @@ class AliOssService {
     )
     return {
       ...key.credentials,
-      Bucket: process.env.ALI_OSS_BUCKET
+      bucket: process.env.ALI_OSS_BUCKET,
+      endpoint: process.env.ALI_OSS_ENDPOINT
     }
   }
 

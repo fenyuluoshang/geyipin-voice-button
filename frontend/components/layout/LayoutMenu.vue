@@ -24,12 +24,14 @@ const isMobile = useMobile()
       :show-close="false"
       :z-index="1000"
       class="menu-drawer"
+      :size="isMobile? 'auto': 350"
     >
       <div class="mt-[48px]">
         <el-menu router :default-active="route.path" @click="show = false">
           <el-menu-item index="/" route="/">天才鸽按钮</el-menu-item>
           <el-menu-item index="/emoticons" route="/emoticons">天才鸽表情</el-menu-item>
           <el-menu-item index="/changelog" route="/changelog">更新日志</el-menu-item>
+          <el-menu-item index="/upload" route="/upload">投稿</el-menu-item>
         </el-menu>
       </div>
     </el-drawer>
