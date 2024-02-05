@@ -42,3 +42,5 @@ coverage
 .env.local
 .env.*.local
 !.env.example
+
+/data
