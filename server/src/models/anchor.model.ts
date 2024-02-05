@@ -1,7 +1,8 @@
-import { Column, Entity, Index, OneToMany } from 'typeorm'
+import { Column, Entity, Index, OneToMany, OneToOne } from 'typeorm'
 import { BaseModel } from './index.base'
 import Voices from './voices.model'
 import Emoticons from './emoticons.model'
+import BliveCaptainModel from './bilive-captain.model'
 
 @Entity()
 class Anchor extends BaseModel {
@@ -44,6 +45,9 @@ class Anchor extends BaseModel {
 
   @OneToMany(() => Emoticons, (emoticon) => emoticon.anchor)
   declare emoticons: Emoticons[]
+
+  @OneToOne(() => BliveCaptainModel, (bliveCaptain) => bliveCaptain.anchor)
+  declare biliveCaptain?: BliveCaptainModel
 }
 
 export default Anchor

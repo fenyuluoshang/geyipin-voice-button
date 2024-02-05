@@ -1,6 +1,7 @@
 import Anchor from '@/models/anchor.model'
 import { VoiceDTO } from './voice'
 import { IsNumber, IsOptional, IsString } from 'class-validator'
+import BliveCaptainModel from '@/models/bilive-captain.model'
 
 export class AnchorDTO {
   id: number
@@ -18,6 +19,7 @@ export class AnchorDTO {
   createAt?: Date
   updateAt?: Date
   voices?: VoiceDTO[]
+  biliveCaptain?: BliveCaptainDTO
 
   constructor(anchor: Anchor) {
     this.id = anchor.id
@@ -36,6 +38,25 @@ export class AnchorDTO {
     this.updateAt = anchor.updateAt
 
     if (anchor.voices) this.voices = anchor.voices.map((item) => new VoiceDTO(item))
+    this.biliveCaptain = anchor.biliveCaptain && new BliveCaptainDTO(anchor.biliveCaptain)
+  }
+}
+
+export class BliveCaptainDTO {
+  id: number
+  anchor?: AnchorDTO
+  anchorId: number
+  sums: number
+  createAt?: Date
+  updateAt?: Date
+  constructor(data: BliveCaptainModel) {
+    this.id = data.id
+    this.anchorId = data.anchorId
+    this.sums = data.sums
+    this.createAt = data.createAt
+    this.updateAt = data.updateAt
+
+    this.anchor = data.anchor && new AnchorDTO(data.anchor)
   }
 }
 

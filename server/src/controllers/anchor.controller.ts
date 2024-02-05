@@ -18,6 +18,12 @@ class AnchorController {
     return HTTPResponseData.success(anchors.map((item) => new AnchorDTO(item)))
   }
 
+  @Get('/:anchorId/captain')
+  async getAnchorCaptain(@Param('anchorId') anchorId: number) {
+    const result = await this.anchorService.getCaptainNum(anchorId)
+    return HTTPResponseData.success(result)
+  }
+
   @Get('/:anchorPathName')
   async getAnchor(@Param('anchorPathName') anchorPathName: string) {
     const anchor = await this.anchorService.getAnchorInfo(anchorPathName)
