@@ -6,7 +6,7 @@ RUN npm install -g pnpm
 
 COPY . .
 
-RUN cd frontend && pnpm install && pnpm build
+RUN cd frontend && pnpm install
 
 RUN cd server && pnpm install
 

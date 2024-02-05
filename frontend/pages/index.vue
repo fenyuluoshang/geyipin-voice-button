@@ -49,7 +49,7 @@ const { data } = await useAsyncData(async () => {
 </script>
 
 <template>
-  <el-main :data-test="data.data.ff_test" :data-anchor="domainData.anchor">
+  <el-main :data-test="data?.data?.ff_test" :data-anchor="domainData.anchor">
     <layout-bg />
     <config-panel />
     <voices-panel />
