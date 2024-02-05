@@ -12,7 +12,7 @@ RUN cd server && pnpm install
 
 WORKDIR /app
 
-CMD ['node' 'run.js']
+CMD ["node", "run.js"]
 
 EXPOSE 3000
 
