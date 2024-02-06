@@ -129,6 +129,7 @@ class AnchorService {
       const biliveCaptain = anchor.biliveCaptain || new BliveCaptainModel()
       biliveCaptain.anchorId = anchor?.id
       biliveCaptain.sums = await this.getCaptainNumReq(anchor)
+      biliveCaptain.updateAt = new Date()
       await biliveCaptain.save()
       return biliveCaptain
     }

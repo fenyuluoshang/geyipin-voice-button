@@ -1,0 +1,37 @@
+version: '3'
+services:
+  db:
+    image: postgres:15
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_DB: "tiancaige-voice-button"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+      POSTGRES_PASSWORD: "Postgres"
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "--username=postgres",
+          "--dbname=tiancaige-voice-button",
+          "--host=127.0.0.1",
+          "--port=5432"
+        ]
+      interval: 2s
+      timeout: 1m
+      retries: 5
+      start_period: 10s
+  main:
+    image: tiancaige-voice-button:latest
+    ports:
+      - "3005:3000"
+      - "3006:3100"
+    volumes:
+      - ./data/server.env:/app/server/.env.local
+    depends_on:
+      db:
+        condition:
+          service_healthy

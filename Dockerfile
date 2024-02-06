@@ -2,17 +2,19 @@ FROM node:20
 
 WORKDIR /app
 
-RUN npm install -g pnpm
+RUN npm install -g pnpm --registry https://registry.npmmirror.com/
+
+RUN npm install -g pm2 --registry https://registry.npmmirror.com/
 
 COPY . .
 
-RUN cd frontend && pnpm install
+RUN cd frontend && pnpm install && pnpm build
 
 RUN cd server && pnpm install
 
 WORKDIR /app
 
-CMD ["node", "run.js"]
+CMD ["sh", "./start.sh"]
 
 EXPOSE 3000
 
