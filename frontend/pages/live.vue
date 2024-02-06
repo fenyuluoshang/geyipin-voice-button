@@ -5,7 +5,7 @@ definePageMeta({
 
 const egg1List = [200, 250, 300, 400, 500, 600, 700, 800, 900, 1000]
 const scale = ref(1)
-const count = ref(0)
+const count = ref(-1)
 const showEggNum = ref(0)
 
 const addAnimationList = ref<
@@ -22,7 +22,7 @@ function setScale() {
 
 function showAdd(num: number) {
   const add = num - count.value
-  if (add <= 0) {
+  if (add <= 0 || count.value === -1) {
     return
   }
   showEgg(num)
@@ -68,7 +68,7 @@ onUnmounted(() => {
 <template>
   <div class="w-full h-[100vh]">
     <div class="scale-box" :style="{ transform: `scale(${scale})` }">
-      <div class="number-text numbox z-2">{{ count }}/1000</div>
+      <div v-if="count !== -1" class="number-text numbox z-2">{{ count }}/1000</div>
       <div class="z-3">
         <div v-for="item in addAnimationList" :key="item.id" class="number-text add-box">
           +{{ item.size }}

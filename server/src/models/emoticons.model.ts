@@ -5,9 +5,6 @@ import EmoticonTag from './emoticon-tag.model'
 
 @Entity()
 class Emoticons extends UploadModel {
-  @Column()
-  declare title: string
-
   @Column({ nullable: true })
   declare source: string
 

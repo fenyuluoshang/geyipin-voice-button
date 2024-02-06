@@ -13,7 +13,7 @@ useSeoMeta({
   <client-only>
     <el-main>
       <upload-provide>
-        <upload-voice></upload-voice>
+        <upload-content></upload-content>
       </upload-provide>
     </el-main>
   </client-only>

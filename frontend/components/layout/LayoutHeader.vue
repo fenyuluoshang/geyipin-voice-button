@@ -19,24 +19,28 @@ const [menuVisible, toggleMenuVisible] = useToggle()
 
 const menuOnshowing = ref(false)
 
-watch(menuVisible, (val) => {
-  if (val) {
-    menuOnshowing.value = val
-  } else {
-    setTimeout(() => {
-      if (!menuVisible.value) {
-        menuOnshowing.value = false
-      }
-    }, 500)
+watch(
+  menuVisible,
+  (val) => {
+    if (val) {
+      menuOnshowing.value = val
+    } else {
+      setTimeout(() => {
+        if (!menuVisible.value) {
+          menuOnshowing.value = false
+        }
+      }, 500)
+    }
+  },
+  {
+    immediate: true
   }
-}, {
-  immediate: true
-})
+)
 
 const anchorStore = useAnchorConfigStore()
 
-useAsyncData(async () => {
-  await anchorStore.load()
+await useAsyncData('anchorConfigStore', async () => {
+  return await anchorStore.get()
 })
 </script>
 

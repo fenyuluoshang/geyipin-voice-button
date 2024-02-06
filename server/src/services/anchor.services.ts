@@ -102,6 +102,7 @@ class AnchorService {
       {
         headers: {
           Accept: 'application/json, text/plain, */*',
+          Host: 'live.bilibili.com',
           Origin: 'https://live.bilibili.com',
           Referer: 'https://live.bilibili.com',
           Connection: 'keep-alive',
