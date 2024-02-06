@@ -3,7 +3,9 @@ import DefaultLayout from './default.vue'
 </script>
 <template>
   <default-layout>
-    <layout-header />
-    <slot></slot>
+    <div class="mt-[48px] flex-1 relative pb-[80px]">
+      <layout-header />
+      <slot></slot>
+    </div>
   </default-layout>
 </template>

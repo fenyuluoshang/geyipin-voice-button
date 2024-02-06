@@ -112,7 +112,6 @@ class AnchorService {
         }
       }
     )
-    console.log('request captain')
     return (await captainResp.json())?.data?.info?.num || 0
   }
 
@@ -126,7 +125,7 @@ class AnchorService {
       (anchor.biliveCaptain.updateAt.getTime() || 0) <
         moment().subtract(2, 'second').toDate().getTime()
     ) {
-      const biliveCaptain = new BliveCaptainModel()
+      const biliveCaptain = anchor.biliveCaptain || new BliveCaptainModel()
       biliveCaptain.anchorId = anchor?.id
       biliveCaptain.sums = await this.getCaptainNumReq(anchor)
       await biliveCaptain.save()
