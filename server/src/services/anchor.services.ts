@@ -116,15 +116,15 @@ class AnchorService {
     return (await captainResp.json())?.data?.info?.num || 0
   }
 
-  async getCaptainNum(id: number) {
+  async getCaptainNum(id: number, live: boolean) {
     const anchor = await Anchor.findOne({ where: { id }, relations: ['biliveCaptain'] })
     if (!anchor || !anchor.biliId || !anchor.biliveId) {
       throw NotFoundError()
     }
+    const expTime = live ? moment().subtract(2, 'second') : moment().subtract(1, 'minute')
     if (
       !anchor.biliveCaptain ||
-      (anchor.biliveCaptain.updateAt.getTime() || 0) <
-        moment().subtract(2, 'second').toDate().getTime()
+      (anchor.biliveCaptain.updateAt.getTime() || 0) < expTime.toDate().getTime()
     ) {
       const biliveCaptain = anchor.biliveCaptain || new BliveCaptainModel()
       biliveCaptain.anchorId = anchor?.id

@@ -1,6 +1,16 @@
 <template>
   <el-main>
     <el-timeline>
+      <el-timeline-item timestamp="2024-02-3">
+        <el-card>
+          <h2 class="text-lg text-[--text-color-regular] font-bold mb-2">V0.0.1-alpha-4</h2>
+          <h2 class="mb-2">增加鸽一品的直播舰长计数器</h2>
+          <ul class="list-inside list-disc leading-6 mt-2 text-[--text-color-primary]">
+            <li>Add Menu For New Feature 增加了下拉菜单以实现功能子页</li>
+            <li>Add Emoticons Page 增加表情包站点</li>
+          </ul>
+        </el-card>
+      </el-timeline-item>
       <el-timeline-item timestamp="2024-01-15">
         <el-card>
           <h2 class="text-lg text-[--text-color-regular] font-bold mb-2">V0.0.1-alpha-3</h2>

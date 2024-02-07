@@ -60,8 +60,14 @@ function showEgg(num: number) {
 
 const nuxtApp = useNuxtApp()
 
+const route = useRoute()
+
+const isLive = computed(() => route.query.type !== '1')
+
 async function loadCaptainNum() {
-  const data = await nuxtApp.$axios.get('/api/anchor/1/captain')
+  const data = await nuxtApp.$axios.get(
+    isLive.value ? '/api/anchor/1/captain/live' : '/api/anchor/1/captain'
+  )
   const sums = data.data.data.sums
   showAdd(sums)
   count.value = sums
@@ -73,7 +79,7 @@ onMounted(() => {
   setScale()
   window.addEventListener('resize', setScale)
   loadCaptainNum()
-  interval.value = setInterval(() => loadCaptainNum(), 3000)
+  interval.value = setInterval(() => loadCaptainNum(), isLive.value ? 3000 : 60000)
 })
 
 onUnmounted(() => {

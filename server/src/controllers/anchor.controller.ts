@@ -20,7 +20,13 @@ class AnchorController {
 
   @Get('/:anchorId/captain')
   async getAnchorCaptain(@Param('anchorId') anchorId: number) {
-    const result = await this.anchorService.getCaptainNum(anchorId)
+    const result = await this.anchorService.getCaptainNum(anchorId, false)
+    return HTTPResponseData.success(result)
+  }
+
+  @Get('/:anchorId/captain/live')
+  async getAnchorCaptainLive(@Param('anchorId') anchorId: number) {
+    const result = await this.anchorService.getCaptainNum(anchorId, true)
     return HTTPResponseData.success(result)
   }
 
