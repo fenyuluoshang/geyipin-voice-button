@@ -47,7 +47,7 @@ const interval = ref<ReturnType<typeof setInterval>>()
 
 function setScale() {
   const width = window.screen.width
-  scale.value = width / 2560
+  scale.value = width / 1242
 }
 
 onMounted(() => {
