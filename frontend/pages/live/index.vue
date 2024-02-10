@@ -60,9 +60,7 @@ function showEgg(num: number) {
 
 const nuxtApp = useNuxtApp()
 
-const route = useRoute()
-
-const isLive = computed(() => route.query.type !== '1')
+const isLive = computed(() => true)
 
 async function loadCaptainNum() {
   const data = await nuxtApp.$axios.get(
