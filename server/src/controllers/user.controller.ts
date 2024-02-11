@@ -1,4 +1,4 @@
-import { Body, Get, JsonController, Post, Put, QueryParams, Res } from 'routing-controllers'
+import { Body, Get, JsonController, Param, Post, Put, QueryParams, Res } from 'routing-controllers'
 import {
   SendSmsRequestDTO,
   SmsLoginRequestDTO,
@@ -11,9 +11,10 @@ import UserServices from '../services/user.services'
 import { HTTPResponseData } from '../dtos'
 import { NotFoundError, WrongUserOrPasswordError } from '../errors'
 import { Response } from 'express'
-import { UserInject } from '@/decorators/user.decorator'
+import { RoleMatcher, UserInject } from '@/decorators/user.decorator'
 import User from '@/models/user.model'
 import SMSService from '@/services/sms.services'
+import { RoleMatcherFn } from '@/utils/role_match'
 
 @JsonController('/user')
 class UserController {
@@ -51,6 +52,11 @@ class UserController {
       throw NotFoundError()
     }
     return HTTPResponseData.success(new UserModelDTO(user))
+  }
+
+  @Get('/roletest')
+  async role(@Param('role') role: string, @RoleMatcher() roleMatcher: RoleMatcherFn) {
+    return HTTPResponseData.success(roleMatcher(role))
   }
 }
 

@@ -3,7 +3,7 @@
     "target": "ESNext",
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "./dist",
+    "outDir": "./dtos",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
@@ -19,10 +19,6 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+  "include": ["src/dtos/*.ts"],
   "exclude": ["node_modules"],
-  "ts-node": {
-    "transpileOnly": true,
-    "require": ["typescript-transform-paths/register", "tsconfig-paths/register"]
-  }
 }

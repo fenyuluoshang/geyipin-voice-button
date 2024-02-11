@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "migration:create": "npm run typeorm migration:create",
     "migration:generate": "npm run typeorm migration:generate -d ./src/data-source.ts",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "build": "tsc",
+    "build:dto": "tsc --project tsconfig.dto.json --declaration --emitDeclarationOnly"
   },
   "keywords": [],
   "author": "",

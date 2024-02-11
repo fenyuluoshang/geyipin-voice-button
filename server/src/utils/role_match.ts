@@ -4,6 +4,9 @@ import User from '@/models/user.model'
 import { minimatch } from 'minimatch'
 
 export interface RoleMatcherFn {
+  /**
+   * @param allow_false default false
+   */
   (role: string, allow_false?: boolean): boolean
 }
 
