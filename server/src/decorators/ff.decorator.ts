@@ -1,3 +1,4 @@
+import { envIsTrue } from '@/utils/env'
 import { GrowthBook as GrowthBookSDK } from '@growthbook/growthbook'
 import { createParamDecorator } from 'routing-controllers'
 
@@ -14,7 +15,7 @@ export function FeatureFlag(ff: string, defaultValue = true) {
   return createParamDecorator({
     required: false,
     value: async (action) => {
-      if (process.env.USE_GROWTHBOOK !== 'true') {
+      if (!envIsTrue('USE_GROWTHBOOK')) {
         return defaultValue
       }
       const client = action.request.growthbook as GrowthBookSDK
@@ -27,7 +28,7 @@ export function FeatureFlags(ff: string[], defaultValue = true) {
   return createParamDecorator({
     required: false,
     value: async (action) => {
-      if (process.env.USE_GROWTHBOOK !== 'true') {
+      if (!envIsTrue('USE_GROWTHBOOK')) {
         return ff.map(() => defaultValue)
       }
       const client = action.request.growthbook as GrowthBookSDK
@@ -40,7 +41,7 @@ export function FeatureFlagValue<T>(ff: string, defaultValue: T) {
   return createParamDecorator({
     required: false,
     value: async (action) => {
-      if (process.env.USE_GROWTHBOOK !== 'true') {
+      if (!envIsTrue('USE_GROWTHBOOK')) {
         return defaultValue
       }
       const client = action.request.growthbook as GrowthBookSDK

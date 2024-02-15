@@ -2,6 +2,7 @@ import { Service } from 'typedi'
 import oss from 'ali-oss'
 import { NotFoundError } from '@/errors'
 import { NotAllowSTS } from '@/errors/file'
+import { envIsTrue } from '@/utils/env'
 
 class OSSConfigError extends Error {
   constructor(message: string) {
@@ -46,7 +47,7 @@ class AliOssService {
   }
 
   async ossCreateSTS(allowPutFile = '*') {
-    if (process.env.STS_UPLOAD !== 'true') {
+    if (!envIsTrue('STS_UPLOAD')) {
       throw NotAllowSTS()
     }
     if (
@@ -67,8 +68,6 @@ class AliOssService {
     if (!/\*/.test(path)) {
       path += '.*'
     }
-
-    // console.log(`acs:oss:*:*:${process.env.ALI_OSS_BUCKET}${path}`)
     const key = await sts.assumeRole(
       process.env.STS_USER_ROLE_ARN,
       JSON.stringify({

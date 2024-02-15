@@ -6,25 +6,29 @@ onBeforeMount(() => {
   const mainDomain = nuxtApp.$config.public.MAIN_DOMAIN
   if (location.host !== mainDomain) {
     const url = new URL('/admin', `http://${mainDomain}`)
-    console.log(url)
     location.replace(url)
   }
 })
 
+const router = useRouter()
 const userStore = useUserStore()
 
-const { pending } = await useAsyncData(async () => {
-  await userStore.loadUserStatus()
-})
+watch(
+  () => userStore.pending,
+  (val) => {
+    if (!val && !userStore.userStatus) {
+      router.replace('/admin/sigin')
+    }
+  }
+)
 
 onMounted(() => {
-  
+  userStore.loadUserStatus()
 })
 </script>
 <template>
   <div class="admin-layout h-[100vh]">
-    <slot v-if="userStore.userStatus && !pending" />
-    <el-container v-else-if="!pending">
+    <el-container class="h-full" v-loading="userStore.pending">
       <el-aside width="200px">
         <el-menu class="h-full">
           <el-menu-item index="2">

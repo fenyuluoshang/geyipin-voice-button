@@ -7,6 +7,7 @@ import { DataSource, MoreThan } from 'typeorm'
 import { v4 as UUID } from 'uuid'
 import PhoneEncode from '@/models/phone-encode.model'
 import { EncodeVerifyFailed } from '@/errors/user'
+import CaptchaService from './captcha.services'
 
 @Service()
 class UserServices {
@@ -14,10 +15,46 @@ class UserServices {
   private declare AppDataSource: DataSource
   @Inject()
   private declare jwtService: JWTServices
+  @Inject()
+  private declare captchaService: CaptchaService
+
+  async loginByPasswordWithCaptcha(login: UserLoginRequest) {
+    const verifyResult = await this.captchaService.aliCapchaVerify(login.captchaVerifyParam)
+    if (verifyResult) {
+      const user = await this.loginByPassword(login)
+      if (user) {
+        return {
+          verifyResult,
+          user: user.user,
+          token: user.token
+        }
+      }
+      return {
+        verifyResult,
+        user: null,
+        token: null
+      }
+    }
+    return {
+      verifyResult,
+      user: null,
+      token: null
+    }
+  }
 
   async loginByPassword(login: UserLoginRequest) {
-    const user = await UserModel.findOneBy({
-      name: login.userName
+    const user = await UserModel.findOne({
+      where: [
+        {
+          name: login.userName
+        },
+        {
+          phone: login.userName
+        },
+        {
+          mail: login.userName
+        }
+      ]
     })
 
     if (
@@ -29,7 +66,8 @@ class UserServices {
 
       return {
         user,
-        token
+        token,
+        verifyResult: true
       }
     }
     return null
