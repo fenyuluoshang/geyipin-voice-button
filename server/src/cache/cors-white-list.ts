@@ -7,6 +7,8 @@ export async function CorsWhiteListUpdate() {
   const paths = await Anchor.find({ select: ['pathName'] })
   if (process.env.MAIN_DOMAIN && process.env.BASE_DOMAIN) {
     CorsWhiteList.push(process.env.MAIN_DOMAIN)
+    CorsWhiteList.push(`http://${process.env.MAIN_DOMAIN}`)
+    CorsWhiteList.push(`https://${process.env.MAIN_DOMAIN}`)
     paths.forEach((item) => {
       CorsWhiteList.push(`${item.pathName}.${process.env.BASE_DOMAIN}`)
       CorsWhiteList.push(`http://${item.pathName}.${process.env.BASE_DOMAIN}`)
