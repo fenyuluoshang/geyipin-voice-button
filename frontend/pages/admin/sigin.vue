@@ -13,24 +13,7 @@ definePageMeta({
     :style="{ backgroundImage: `url(${BG})` }"
   >
     <div
-      :class="[
-        'w-1/4',
-        'h-3/5',
-        'min-w-[480px]',
-        'min-h-[600px]',
-        'absolute',
-        'top-1/2',
-        'left-1/2',
-        '-translate-x-1/2',
-        '-translate-y-1/2',
-        'bg-black',
-        'bg-opacity-55',
-        'rounded-3xl',
-        'z-10',
-        'backdrop-blur',
-        'p-[32px]',
-        'text-white'
-      ]"
+      class="w-1/4 h-3/5 min-w-[480px] min-h-[600px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-55 rounded-3xl z-10 backdrop-blur p-[32px] text-white"
     >
       <h2 class="pt-[16%] pb-[12px] text-center text-2xl font-bold">管理员登录</h2>
       <div class="pb-[8%] text-center">

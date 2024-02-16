@@ -10,13 +10,14 @@ onBeforeMount(() => {
   }
 })
 
+const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 
 watch(
   () => userStore.pending,
   (val) => {
-    if (!val && !userStore.userStatus) {
+    if (!val && !userStore.userStatus && route.path !== '/admin/sigin') {
       router.replace('/admin/sigin')
     }
   }
@@ -30,15 +31,14 @@ onMounted(() => {
   <div class="admin-layout h-[100vh]">
     <el-container class="h-full" v-loading="userStore.pending">
       <el-aside width="200px">
-        <el-menu class="h-full">
-          <el-menu-item index="2">
-            <el-icon><el-icon-menu /></el-icon>
-            <span>Navigator Two</span>
-          </el-menu-item>
-        </el-menu>
+        <layout-admin-layout-menu class="h-full" />
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header class="flex flex-col">
+          <div class="flex items-center h-full self-end">
+            <div>{{ userStore.userStatus?.nickName }}</div>
+          </div>
+        </el-header>
         <el-main>
           <slot />
         </el-main>
