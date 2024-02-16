@@ -1,5 +1,6 @@
-import { IsString, Length, Matches } from 'class-validator'
+import { IsString, Length, Matches, ValidateIf } from 'class-validator'
 import User from '../models/user.model'
+import { envIsTrue } from '@/utils/env'
 
 export class UserLoginRequest {
   @IsString()
@@ -8,6 +9,7 @@ export class UserLoginRequest {
   @IsString()
   declare password: string
 
+  @ValidateIf(() => envIsTrue('USE_CAPCHA'))
   @IsString()
   declare captchaVerifyParam: string
 }

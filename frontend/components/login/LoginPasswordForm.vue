@@ -1,14 +1,24 @@
 <script lang="ts" setup>
+import usePingStore from '~/stores/ping'
 import useUserStore from '~/stores/user'
 
+const pingStore = usePingStore()
+
+const scripts = computed(() => {
+  if (pingStore.config?.useCapcha) {
+    return [
+      {
+        src: 'https://o.alicdn.com/captcha-frontend/aliyunCaptcha/AliyunCaptcha.js',
+        type: 'text/javascript',
+        onload: () => initAliCaptcha()
+      }
+    ]
+  }
+  return []
+})
+
 useHead({
-  script: [
-    {
-      src: 'https://o.alicdn.com/captcha-frontend/aliyunCaptcha/AliyunCaptcha.js',
-      type: 'text/javascript',
-      onload: () => initAliCaptcha()
-    }
-  ]
+  script: scripts
 })
 
 defineProps<{ size: 'large' | 'default' | 'small' }>()
@@ -32,7 +42,7 @@ const userStore = useUserStore()
 
 const error = ref('')
 
-async function captchaVerifyCallback(captchaVerifyParam: string) {
+async function submitForm(captchaVerifyParam?: string) {
   try {
     pending.value = true
     const result = await nuxtApp.$axios.post('/api/user/login', {
@@ -56,6 +66,10 @@ async function captchaVerifyCallback(captchaVerifyParam: string) {
   } finally {
     pending.value = false
   }
+}
+
+async function captchaVerifyCallback(captchaVerifyParam: string) {
+  return await submitForm(captchaVerifyParam)
 }
 
 const router = useRouter()
@@ -95,7 +109,15 @@ onBeforeUnmount(() => {
 })
 
 function onEnterKeyDown() {
-  document.getElementById('login-button')?.click?.();
+  document.getElementById('login-button')?.click?.()
+}
+
+async function submit() {
+  if (pingStore.config?.useCapcha) {
+    return
+  }
+  const data = await submitForm()
+  onBizResultCallback(data.bizResult)
 }
 </script>
 <template>
@@ -119,7 +141,9 @@ function onEnterKeyDown() {
     </el-form-item>
     <el-form-item :error="error">
       <div id="captcha-element"></div>
-      <el-button :loading="pending" id="login-button" class="w-full" type="primary">登录</el-button>
+      <el-button :loading="pending" id="login-button" class="w-full" type="primary" @click="submit">
+        登录
+      </el-button>
     </el-form-item>
   </el-form>
 </template>

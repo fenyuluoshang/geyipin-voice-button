@@ -1,4 +1,4 @@
-import { Middleware, ExpressErrorMiddlewareInterface } from 'routing-controllers'
+import { Middleware, ExpressErrorMiddlewareInterface, HttpError } from 'routing-controllers'
 import { HttpResponseError } from '../errors'
 import { HTTPResponseData } from '../dtos'
 
@@ -9,6 +9,12 @@ export class HttpErrorHandler implements ExpressErrorMiddlewareInterface {
     if (error instanceof HttpResponseError) {
       response.status(200).json(HTTPResponseData.error(error.code, error.message))
       return
+    }
+
+    console.log('error', error)
+
+    if (error instanceof HttpError) {
+      response.status(error.httpCode).json(error)
     }
 
     console.error(error)

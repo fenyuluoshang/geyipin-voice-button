@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import usePingStore from '~/stores/ping'
 import useUserStore from '~/stores/user'
 
 const nuxtApp = useNuxtApp()
@@ -13,6 +14,7 @@ onBeforeMount(() => {
 const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
+const pingStore = usePingStore()
 
 watch(
   () => userStore.pending,
@@ -23,8 +25,8 @@ watch(
   }
 )
 
-onMounted(() => {
-  userStore.loadUserStatus()
+await useAsyncData(async () => {
+  return Promise.all([userStore.loadUserStatus(), pingStore.loadPing()])
 })
 </script>
 <template>

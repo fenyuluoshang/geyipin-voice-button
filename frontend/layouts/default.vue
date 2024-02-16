@@ -22,5 +22,4 @@ useHead({
     }
   ])
 })
-
 </script>
