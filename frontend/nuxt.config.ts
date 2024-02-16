@@ -62,6 +62,7 @@ export default defineNuxtConfig({
     port: 80
   },
   routeRules: {
-    '/api/**': { proxy: 'http://localhost:3100/api/**' }
+    '/api/**': { proxy: 'http://localhost:3100/api/**' },
+    '/admin/**': { ssr: false }
   }
 })

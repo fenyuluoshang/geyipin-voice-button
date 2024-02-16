@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
   type: 'postgres',
   url: process.env.PG_DATA_URL,
   synchronize: false,
-  logging: false,
+  logging: true,
   entities: [path.resolve(__dirname, './models', './*.model.{ts,js}')],
   migrations: [path.resolve(__dirname, './migrations', './*.{ts,js}')],
   subscribers: []

@@ -2,12 +2,12 @@ import { Inject, Service } from 'typedi'
 import AliShitDysmsapi, {
   SendSmsRequest as AliShitSendSmsRequest
 } from '@alicloud/dysmsapi20170525'
-import { Config as AliShitOpenApiConfig } from '@alicloud/openapi-client'
 import { DataSource, MoreThan } from 'typeorm'
 import PhoneEncode from '@/models/phone-encode.model'
 import moment from 'moment-timezone'
 import { LimitSendTimeInterval } from '@/errors/user'
 import { rendomCode } from '@/utils/random'
+import { getAliCloudOpenApiConfig } from '@/utils/ali-openapi'
 
 class SMSConfigError extends Error {
   constructor(message: string) {
@@ -23,12 +23,9 @@ class SMSService {
   private async sendSMSCodeByAli(phone: string, code: string) {
     // ali的SDK弄得和屎一样难用，创建一个Client需要用好多从不同库来的不同的东西
     // what a shit that ali's sdk made, I need include many dependencies to make a simple client
-    const config = new AliShitOpenApiConfig({
-      accessKeyId: process.env.ALI_ACCESS_KEY_ID,
-      accessKeySecret: process.env.ALI_ACCESS_KEY_SECRET
+    const config = getAliCloudOpenApiConfig({
+      endpoint: 'dysmsapi.aliyuncs.com'
     })
-    // so what the fuck of this `endpoint` not in constructor ??? why ????
-    config.endpoint = 'dysmsapi.aliyuncs.com'
     const client = new AliShitDysmsapi(config)
 
     // why I can't use new AliShitDysmsapi({xxx}) and client.sendSms({xxx}) What a shit design
@@ -45,7 +42,6 @@ class SMSService {
     if (result.statusCode === 200) {
       return true
     }
-    console.log(result)
     return false
   }
 

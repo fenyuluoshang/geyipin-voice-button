@@ -21,7 +21,9 @@ async function startup(app: express.Express) {
 
   app.use(
     session({
-      secret: 'voice_button'
+      secret: 'voice_button',
+      resave: false,
+      saveUninitialized: true
     })
   )
 
@@ -32,7 +34,7 @@ async function startup(app: express.Express) {
     migrations: [path.resolve(__dirname, './migrations', './*.{ts,js}')],
     synchronize: false,
     migrationsRun: true,
-    logging: true
+    logging: ['warn', 'error']
   })
 
   await AppDataSource.initialize()

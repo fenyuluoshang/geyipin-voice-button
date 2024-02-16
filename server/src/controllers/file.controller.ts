@@ -3,6 +3,7 @@ import { HTTPResponseData } from '@/dtos'
 import { FileSTSRequestParams } from '@/dtos/file'
 import User from '@/models/user.model'
 import FileServices from '@/services/file.services'
+import { envIsTrue } from '@/utils/env'
 import { RoleMatcherFn } from '@/utils/role_match'
 import { Controller, Get, QueryParam, QueryParams } from 'routing-controllers'
 import { Inject } from 'typedi'
@@ -15,7 +16,7 @@ class FileController {
   @Get('/upload_config')
   async getUploadConfig() {
     return HTTPResponseData.success({
-      useSTS: process.env.STS_UPLOAD,
+      useSTS: envIsTrue('STS_UPLOAD'),
       mode: process.env.FILE_SAVE_MODE
     })
   }

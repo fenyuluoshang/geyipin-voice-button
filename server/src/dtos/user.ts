@@ -7,6 +7,9 @@ export class UserLoginRequest {
 
   @IsString()
   declare password: string
+
+  @IsString()
+  declare captchaVerifyParam: string
 }
 
 export class UserModelDTO {

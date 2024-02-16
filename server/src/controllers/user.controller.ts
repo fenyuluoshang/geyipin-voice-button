@@ -1,4 +1,4 @@
-import { Body, Get, JsonController, Post, Put, QueryParams, Res } from 'routing-controllers'
+import { Body, Get, JsonController, Param, Post, Put, QueryParams, Res } from 'routing-controllers'
 import {
   SendSmsRequestDTO,
   SmsLoginRequestDTO,
@@ -9,11 +9,13 @@ import {
 import { Inject } from 'typedi'
 import UserServices from '../services/user.services'
 import { HTTPResponseData } from '../dtos'
-import { NotFoundError, WrongUserOrPasswordError } from '../errors'
+import { NotFoundError, WrongCaptachError, WrongUserOrPasswordError } from '../errors'
 import { Response } from 'express'
-import { UserInject } from '@/decorators/user.decorator'
+import { RoleMatcher, UserInject } from '@/decorators/user.decorator'
 import User from '@/models/user.model'
 import SMSService from '@/services/sms.services'
+import { RoleMatcherFn } from '@/utils/role_match'
+import { envIsTrue } from '@/utils/env'
 
 @JsonController('/user')
 class UserController {
@@ -24,7 +26,12 @@ class UserController {
 
   @Post('/login')
   async login(@Body() login: UserLoginRequest, @Res() response: Response) {
-    const data = await this.userService.loginByPassword(login)
+    const data = await (envIsTrue('USE_CAPCHA')
+      ? this.userService.loginByPasswordWithCaptcha(login)
+      : this.userService.loginByPassword(login))
+    if (!data?.verifyResult) {
+      throw WrongCaptachError()
+    }
     if (!data?.user) {
       throw WrongUserOrPasswordError()
     }
@@ -51,6 +58,11 @@ class UserController {
       throw NotFoundError()
     }
     return HTTPResponseData.success(new UserModelDTO(user))
+  }
+
+  @Get('/roletest')
+  async role(@Param('role') role: string, @RoleMatcher() roleMatcher: RoleMatcherFn) {
+    return HTTPResponseData.success(roleMatcher(role))
   }
 }
 

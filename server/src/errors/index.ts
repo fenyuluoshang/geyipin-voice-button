@@ -16,3 +16,4 @@ export const NotFoundError = errorCreater(4001, 'Not Found Resource')
 export const NoPermissionError = errorCreater(4002, 'No Permission')
 
 export const WrongUserOrPasswordError = errorCreater(10001, 'wrong user or password')
+export const WrongCaptachError = errorCreater(10002, 'wrong captach error')
