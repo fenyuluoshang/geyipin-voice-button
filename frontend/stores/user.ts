@@ -1,7 +1,6 @@
 const useUserStore = defineStore('user', () => {
   const nuxtApp = useNuxtApp()
 
-  const jwt = ref(localStorage.getItem('jwt'))
   const userStatus = ref()
   const init = ref(false)
   const loading = ref(false)
@@ -13,11 +12,7 @@ const useUserStore = defineStore('user', () => {
     init.value = true
     loading.value = true
     try {
-      const result = await nuxtApp.$axios.get('/api/user/status', {
-        headers: {
-          jwt: jwt.value
-        }
-      })
+      const result = await nuxtApp.$axios.get('/api/user/status')
       if (result.data.code === 1) {
         userStatus.value = result.data.data
       }
@@ -31,13 +26,11 @@ const useUserStore = defineStore('user', () => {
   const pending = computed(() => !init.value || loading.value)
 
   async function setToken(jwt_result: string) {
-    jwt.value = jwt_result
     localStorage.setItem('jwt', jwt_result)
     await loadUserStatus()
   }
 
   return {
-    jwt,
     userStatus,
     pending,
     loadUserStatus,

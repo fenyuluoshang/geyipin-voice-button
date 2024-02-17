@@ -26,7 +26,8 @@ watch(
 )
 
 await useAsyncData(async () => {
-  return Promise.all([userStore.loadUserStatus(), pingStore.loadPing()])
+  await pingStore.loadPing()
+  await userStore.loadUserStatus()
 })
 </script>
 <template>

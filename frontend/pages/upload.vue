@@ -10,11 +10,11 @@ useSeoMeta({
 </script>
 
 <template>
-  <client-only>
+  <!-- <client-only> -->
     <el-main>
       <upload-provide>
         <upload-content></upload-content>
       </upload-provide>
     </el-main>
-  </client-only>
+  <!-- </client-only> -->
 </template>

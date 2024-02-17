@@ -1,11 +1,32 @@
 <script setup lang="ts">
 import BG from '@/assets/wallhaven-85oy2j.png'
+import usePingStore from '~/stores/ping'
+import useUserStore from '~/stores/user'
 
-const radio1 = ref(0)
+const loginWay = ref(0)
 
 definePageMeta({
   layout: 'default'
 })
+
+const router = useRouter()
+
+function onSuccess() {
+  router.push('/admin/home')
+}
+
+const userStore = useUserStore()
+const pingStore = usePingStore()
+
+await useAsyncData(
+  async () => {
+    await pingStore.loadPing()
+    await userStore.loadUserStatus()
+  },
+  {
+    server: false
+  }
+)
 </script>
 <template>
   <div
@@ -19,13 +40,13 @@ definePageMeta({
       <div class="pb-[8%] text-center">
         管理员守则：为了保护各位虚拟主播及本站的安全，请各位管理员谨慎使用审核权力。
       </div>
-      <el-radio-group v-model="radio1" size="large" class="w-full flex mb-[6%]">
+      <el-radio-group v-model="loginWay" size="large" class="w-full flex mb-[6%]">
         <el-radio-button class="flex-1" :label="0">账号/邮箱密码</el-radio-button>
         <!-- <el-radio-button class="flex-1" :label="1">邮箱验证码</el-radio-button> -->
         <el-radio-button class="flex-1" :label="2">手机验证码</el-radio-button>
       </el-radio-group>
-      <login-password-form v-if="radio1 === 0" size="large" />
-      <login-phone v-else-if="radio1 === 2" size="large" />
+      <login-password-form v-if="loginWay === 0" size="large" @success="onSuccess" />
+      <login-phone v-else-if="loginWay === 2" size="large" @success="onSuccess" />
     </div>
   </div>
 </template>

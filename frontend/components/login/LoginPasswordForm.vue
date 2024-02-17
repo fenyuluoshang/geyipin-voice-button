@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { FormInstance } from 'element-plus'
 import usePingStore from '~/stores/ping'
 import useUserStore from '~/stores/user'
 
@@ -28,6 +29,8 @@ const form = ref({
   password: ''
 })
 
+const formRef = ref<FormInstance>()
+
 const captchaRef = ref<any>()
 
 const pending = ref(false)
@@ -43,6 +46,8 @@ const userStore = useUserStore()
 const error = ref('')
 
 async function submitForm(captchaVerifyParam?: string) {
+  const validate = await formRef.value?.validate()
+  console.log('validate',validate)
   try {
     pending.value = true
     const result = await nuxtApp.$axios.post('/api/user/login', {
@@ -72,11 +77,13 @@ async function captchaVerifyCallback(captchaVerifyParam: string) {
   return await submitForm(captchaVerifyParam)
 }
 
-const router = useRouter()
+const emits = defineEmits<{
+  (event: 'success'): void
+}>()
 
 function onBizResultCallback(bizResult: boolean) {
   if (bizResult) {
-    router.push('/admin/home')
+    emits('success')
   }
 }
 
@@ -121,8 +128,8 @@ async function submit() {
 }
 </script>
 <template>
-  <el-form :model="form" :size="size">
-    <el-form-item class="">
+  <el-form ref="formRef" :model="form" :size="size">
+    <el-form-item class="" required prop="userName">
       <el-input
         placeholder="账号/邮箱/手机号"
         v-model="form.userName"
@@ -130,7 +137,7 @@ async function submit() {
         @keydown.enter="onEnterKeyDown"
       />
     </el-form-item>
-    <el-form-item class="">
+    <el-form-item class="" required prop="password">
       <el-input
         type="password"
         placeholder="密码"
