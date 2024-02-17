@@ -28,10 +28,6 @@ class JWTServices {
       }
     })
 
-    if (!existsSync(DATA_DIR)) {
-      await mkdir(DATA_DIR)
-    }
-
     await Promise.all([
       writeFile(PRIVATE_KEY_LOCATION, keyPair.privateKey, { encoding: 'utf8' }),
       writeFile(PUBLIC_KEY_LOCATION, keyPair.publicKey, { encoding: 'utf8' })
@@ -39,6 +35,10 @@ class JWTServices {
   }
 
   async getKey() {
+    if (!existsSync(DATA_DIR)) {
+      await mkdir(DATA_DIR)
+    }
+
     const exists = [existsSync(PRIVATE_KEY_LOCATION), existsSync(PUBLIC_KEY_LOCATION)]
 
     if (!exists[0] || !exists[1]) {

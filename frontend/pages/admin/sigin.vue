@@ -27,6 +27,10 @@ await useAsyncData(
     server: false
   }
 )
+
+useHead({
+  title: 'DD 按钮站 管理员登录',
+})
 </script>
 <template>
   <div

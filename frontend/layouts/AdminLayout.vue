@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import usePingStore from '~/stores/ping'
 import useUserStore from '~/stores/user'
+import { useAdminAnchorDataStore } from '~/stores/admin'
 
 const nuxtApp = useNuxtApp()
 onBeforeMount(() => {
@@ -25,23 +26,22 @@ watch(
   }
 )
 
+const adminAnchorStore = useAdminAnchorDataStore()
+
 await useAsyncData(async () => {
-  await pingStore.loadPing()
-  await userStore.loadUserStatus()
+  await Promise.all([userStore.loadUserStatus(), pingStore.loadPing()])
+  if (userStore.userStatus) {
+    await adminAnchorStore.load()
+  }
 })
 </script>
 <template>
-  <div class="admin-layout h-[100vh]">
-    <el-container class="h-full" v-loading="userStore.pending">
+  <div class="admin-layout h-[100vh]" v-loading="userStore.pending">
+    <el-container class="h-full">
       <el-aside width="200px">
         <layout-admin-layout-menu class="h-full" />
       </el-aside>
       <el-container>
-        <el-header class="flex flex-col">
-          <div class="flex items-center h-full self-end">
-            <div>{{ userStore.userStatus?.nickName }}</div>
-          </div>
-        </el-header>
         <el-main>
           <slot />
         </el-main>

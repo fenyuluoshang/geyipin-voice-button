@@ -11,7 +11,7 @@ export class OuthingHandle implements ExpressMiddlewareInterface {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async use(request: Request, response: Response, next: (err?: any) => any) {
-    const jwt = request.cookies?.jwt
+    const jwt = request.cookies?.jwt || request.headers?.jwt
     if (jwt) {
       const user = await this.userService.getUserInfoWithRoleByJwt(jwt)
       if (user) {
