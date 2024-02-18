@@ -18,8 +18,13 @@ class AdminController {
   }
 
   @Put('/upload')
-  async fileUpload(@Body() body: UpdateFileRequestDTO, @RoleMatcher() roleMatcher: RoleMatcherFn) {
-    await this.adminServices.updateFile(body, roleMatcher)
+  async fileUpload(
+    @Body() body: UpdateFileRequestDTO,
+    @RoleMatcher() roleMatcher: RoleMatcherFn,
+    @UserInject() user: User
+  ) {
+    await this.adminServices.updateFile(body, roleMatcher, user)
+    return HTTPResponseData.success(true)
   }
 }
 

@@ -11,6 +11,7 @@ import { Inject, Service } from 'typedi'
 import FileServices from './file.services'
 import VoiceService from './voice.services'
 import { UploadStatus } from '@/models/upload.base'
+import User from '@/models/user.model'
 
 @Service()
 class AdminServices {
@@ -31,7 +32,7 @@ class AdminServices {
     })
   }
 
-  async updateFile(body: UpdateFileRequestDTO, roleMatcher: RoleMatcherFn) {
+  async updateFile(body: UpdateFileRequestDTO, roleMatcher: RoleMatcherFn, user: User) {
     const anchor = await Anchor.findOneBy({
       id: body.anchorId
     })
@@ -40,14 +41,19 @@ class AdminServices {
     }
     roleMatcher(`/anchor/${anchor.id}/${body.type}/update`)
     if (body.type === 'voice') {
-      const voice = await this.voiceService.saveFile({
-        title: body.title,
-        file: body.url,
-        anchorId: body.anchorId
-      })
+      const voice = await this.voiceService.createVoiceEntity(
+        {
+          title: body.title,
+          source: body.file
+        },
+        anchor,
+        user
+      )
+
       voice.status = UploadStatus.ALLOW
+      console.log(await voice.save())
     }
-    await this.fileServices.setFilePublicRead(body.url)
+    await this.fileServices.setFilePublicRead(body.file)
   }
 }
 

@@ -1,6 +1,18 @@
 <template>
   <el-main>
     <el-timeline>
+      <el-timeline-item timestamp="2024-02-16">
+        <el-card>
+          <h2 class="text-lg text-[--text-color-regular] font-bold mb-2">V0.0.1-alpha-4.1</h2>
+          <h2 class="mb-2">实现了部分后台功能</h2>
+          <ul class="list-inside list-disc leading-6 mt-2 text-[--text-color-primary]">
+            <li>Add Admin Login 增加了管理员登录</li>
+            <li>Add Voice Upload For Guest 增加了游客上传音频的功能</li>
+            <li>...(I have no idea to write more here because there are too many things todo or finished for the next release 因为下个版本有太多的事情在做或者被完成，这里不知道写什么了)</li>
+            <li>This update is a part for next version 这个更新是下个大版本的一部分</li>
+          </ul>
+        </el-card>
+      </el-timeline-item>
       <el-timeline-item timestamp="2024-02-3">
         <el-card>
           <h2 class="text-lg text-[--text-color-regular] font-bold mb-2">V0.0.1-alpha-4</h2>
