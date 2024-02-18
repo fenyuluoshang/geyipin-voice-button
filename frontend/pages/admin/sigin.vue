@@ -5,10 +5,6 @@ import useUserStore from '~/stores/user'
 
 const loginWay = ref(0)
 
-definePageMeta({
-  layout: 'default'
-})
-
 const router = useRouter()
 
 function onSuccess() {

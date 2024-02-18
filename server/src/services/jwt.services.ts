@@ -6,9 +6,9 @@ import User from '@/models/user.model'
 import { Service } from 'typedi'
 import { sign, verify } from 'jsonwebtoken'
 
-const DATA_DIR = path.resolve(__dirname, '../../')
-const PRIVATE_KEY_LOCATION = path.resolve(DATA_DIR, 'data/jwt-key')
-const PUBLIC_KEY_LOCATION = path.resolve(DATA_DIR, 'data/jwt-key.pub')
+const DATA_DIR = path.resolve(__dirname, '../../data')
+const PRIVATE_KEY_LOCATION = path.resolve(DATA_DIR, 'jwt-key')
+const PUBLIC_KEY_LOCATION = path.resolve(DATA_DIR, 'jwt-key.pub')
 const RSA_KEY_PASS_PHRASE = 'tiancaige'
 
 @Service()
