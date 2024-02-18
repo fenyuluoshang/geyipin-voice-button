@@ -49,8 +49,7 @@ class VoiceService {
     voice.title = data.title
     voice.source = data.file
     voice.anchor = anchor
-    await voice.save()
-    return voice
+    return await voice.save()
   }
 }
 

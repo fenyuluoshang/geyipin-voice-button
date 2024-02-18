@@ -4,7 +4,6 @@ export declare const AnchorRoles: readonly ["/voice/update", "/voice/check", "/v
 export declare type AnchorRoleMap = {
     [key in (typeof AnchorRoles)[number]]: boolean;
 };
-declare class AdminAnchorWithRoleDTO extends AnchorDTO {
+export declare class AdminAnchorWithRoleDTO extends AnchorDTO {
     role: AnchorRoleMap;
 }
-export default AdminAnchorWithRoleDTO;

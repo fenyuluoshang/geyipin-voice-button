@@ -132,6 +132,15 @@ class AliOssService {
       throw NotFoundError()
     }
   }
+
+  async ossSetPublicRead(filePath: string) {
+    const client = this.getOssClient()
+    try {
+      return await client.putACL(filePath, 'public-read')
+    } catch (e) {
+      throw NotFoundError()
+    }
+  }
 }
 
 export default AliOssService

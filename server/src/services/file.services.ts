@@ -23,6 +23,12 @@ class FileServices {
       path: fileUUID
     }
   }
+
+  async setFilePublicRead(path: string) {
+    if (process.env.FILE_SAVE_MODE === 'ali') {
+      return this.aliOssService.ossSetPublicRead(path)
+    }
+  }
 }
 
 export default FileServices

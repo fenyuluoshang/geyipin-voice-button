@@ -30,7 +30,7 @@ async function onSubmitAudio() {
     return
   }
 
-  const sts = await nuxtApp.$axios.get('/api/file/sts?type=audio')
+  const sts = await nuxtApp.$axios.get('/api/file/sts?type=voice')
   const fileNameSub = fileAudio.value.name.split('.')
   const suffix = fileNameSub[fileNameSub.length - 1]
   const fileName = `${sts.data.data.path}.${suffix}`

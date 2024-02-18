@@ -4,7 +4,7 @@ import useUserStore from '~/stores/user'
 const route = useRoute()
 const userStore = useUserStore()
 useHead({
-  title: 'DD 按钮站 管理面板',
+  title: 'DD 按钮站 管理面板'
 })
 </script>
 <template>
@@ -17,7 +17,7 @@ useHead({
   >
     <div class="px-[12px] py-[8px] text-center text-slate-100">
       <p>DD 按钮站 管理面板</p>
-      <p class="text-sm text-slate-300">make with ♥ by fenyu</p>
+      <p class="text-sm text-slate-300">make with <span class="text-red-600">♥</span> by fenyu</p>
       <p class="text-xs text-slate-300">© 2024</p>
       <p class="mt-[8px]">当前用户：</p>
       <p v-if="userStore.userStatus">

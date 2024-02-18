@@ -1,4 +1,4 @@
-import AdminAnchorWithRoleDTO from '~/dtos/admin'
+import { AdminAnchorWithRoleDTO } from '~/dtos/admin'
 
 export const AnchorRoles = [
   '/voice/update',
