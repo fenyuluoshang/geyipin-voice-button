@@ -31,7 +31,7 @@ class FileController {
     return this.fileService.getFile(path)
   }
 
-  @Get('/sts')
+  @Get('/upload/sts')
   async getSTS(@QueryParams() params: FileSTSRequestParams, @UserInject(true) _user: User) {
     return HTTPResponseData.success(await this.fileService.makeSTS(params.type))
   }

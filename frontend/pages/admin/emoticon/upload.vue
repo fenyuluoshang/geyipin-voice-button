@@ -21,21 +21,30 @@ function fileCheck() {
 const nuxtApp = useNuxtApp()
 
 async function submit() {
-  const verify = fileCheck()
-  if (!verify) {
-    return
+  try {
+    if (!fileCheck()) {
+      return
+    }
+    const file = await fileUploadComponent.value?.upload()
+    const data = await nuxtApp.$axios.put('/api/admin/upload', {
+      file: file,
+      anchorId: activeAnchor.value,
+      type: 'emoticon'
+    })
+    if (data.data.code === 1) {
+      ElMessage.success('上传成功')
+      fileUploadComponent.value?.resetField()
+    } else {
+      ElMessage.error('上传失败: ' + data.data.msg)
+    }
+  } catch (error) {
+    ElMessage.error('上传失败')
   }
-  const file = await fileUploadComponent.value?.upload()
-  const data = await nuxtApp.$axios.post('/api/admin/upload', {
-    file: file,
-    anchorId: activeAnchor.value,
-    type: 'emotion'
-  })
 }
 </script>
 <template>
   <div class="h-full">
-    <admin-target-anchor-selector v-model:active-anchor="activeAnchor" type="/emotion/update" />
+    <admin-target-anchor-selector v-model:active-anchor="activeAnchor" type="/emoticon/update" />
     <el-card class="mt-[12px]">
       <template #header>
         <h2 class="ml-[16px] text-lg">上传表情包</h2>
@@ -55,7 +64,7 @@ async function submit() {
           <el-button :disabled="!activeAnchor" type="primary" @click="submit">上传</el-button>
         </el-form-item>
       </el-form>
-      <file-upload ref="fileUploadComponent" file-type="emotion" />
+      <file-upload ref="fileUploadComponent" file-type="emoticon" />
     </el-card>
     <el-card class="mt-[12px]"></el-card>
   </div>

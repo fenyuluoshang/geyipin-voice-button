@@ -49,7 +49,7 @@ class AnchorController {
   }
 
   @Get('/:anchorPathName/emoticons')
-  async getEmotions(@Param('anchorPathName') anchorPathName: string) {
+  async getemoticons(@Param('anchorPathName') anchorPathName: string) {
     const anchorWithEmoticons = await this.anchorService.getEmoticonsByAnchor(anchorPathName)
     if (!anchorWithEmoticons) {
       throw NotFoundError()

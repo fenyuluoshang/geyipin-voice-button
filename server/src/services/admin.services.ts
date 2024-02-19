@@ -12,6 +12,7 @@ import FileServices from './file.services'
 import VoiceService from './voice.services'
 import { UploadStatus } from '@/models/upload.base'
 import User from '@/models/user.model'
+import EmoticonsService from './emoticons.services'
 
 @Service()
 class AdminServices {
@@ -19,6 +20,8 @@ class AdminServices {
   private declare fileServices: FileServices
   @Inject()
   private declare voiceService: VoiceService
+  @Inject()
+  private declare emoticonService: EmoticonsService
 
   async getAnchorWithRole(roleMatcher: RoleMatcherFn) {
     const anchors = await Anchor.find()
@@ -51,7 +54,19 @@ class AdminServices {
       )
 
       voice.status = UploadStatus.ALLOW
-      console.log(await voice.save())
+      await voice.save()
+    } else if (body.type === 'emoticon') {
+      const emoticon = await this.emoticonService.createemoticonEntity(
+        {
+          source: body.file
+        },
+        anchor,
+        user
+      )
+      emoticon.status = UploadStatus.ALLOW
+      await emoticon.save()
+    } else {
+      throw new Error('Not support type')
     }
     await this.fileServices.setFilePublicRead(body.file)
   }

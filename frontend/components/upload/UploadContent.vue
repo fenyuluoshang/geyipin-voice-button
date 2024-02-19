@@ -1,123 +1,109 @@
 <script setup lang="ts">
-import OSS from 'ali-oss'
+import { FormInstance } from 'element-plus'
+import FileUpload from './FileUpload.vue'
 
 const nuxtApp = useNuxtApp()
 const anchorStore = useAnchorConfigStore()
-const fileAudioInput = ref<HTMLInputElement>()
-const fileEmotionInput = ref<HTMLInputElement>()
 
-function onFileCheckAudio() {
-  fileAudioInput.value?.click()
+const fileVoiceUploadComponent = ref<InstanceType<typeof FileUpload>>()
+const fileEmoticonUploadComponent = ref<InstanceType<typeof FileUpload>>()
+
+function onVoiceFileClick() {
+  fileVoiceUploadComponent.value?.selectFile()
 }
 
-function onFileCheckEmotion() {
-  fileEmotionInput.value?.click()
+function onEmoticonFileClick() {
+  fileEmoticonUploadComponent.value?.selectFile()
 }
 
-const fileAudio = ref<File>()
-const fileEmotion = ref<File>()
-const title = ref<string>('')
+const voiceFileError = ref<string>()
+const emoticonFileError = ref<string>()
 
-function onFileSelectedAudio() {
-  fileAudio.value = fileAudioInput.value?.files?.[0]
-}
-function onFileSelectedEmotion() {
-  fileEmotion.value = fileEmotionInput.value?.files?.[0]
-}
+const voiceForm = ref({
+  title: ''
+})
 
-async function onSubmitAudio() {
-  if (!fileAudio.value || !title.value) {
+const voiceFormRef = ref<FormInstance>()
+
+async function onSubmit(type: 'voice' | 'emoticon') {
+  const fileUploadComponent =
+    type === 'voice' ? fileVoiceUploadComponent : fileEmoticonUploadComponent
+  const fileError = type === 'voice' ? voiceFileError : emoticonFileError
+  const form = type === 'voice' ? voiceForm : undefined
+  const formRef = type === 'voice' ? voiceFormRef : undefined
+
+  let check = true
+
+  if (!fileUploadComponent.value?.fileValue) {
+    fileError.value = '请选择文件'
+    check = false
+  } else {
+    fileError.value = ''
+  }
+
+  if (formRef) {
+    check = ((await formRef.value?.validate()) || false) && check
+  }
+
+  if (!check) {
     return
   }
 
-  const sts = await nuxtApp.$axios.get('/api/file/sts?type=voice')
-  const fileNameSub = fileAudio.value.name.split('.')
-  const suffix = fileNameSub[fileNameSub.length - 1]
-  const fileName = `${sts.data.data.path}.${suffix}`
+  const file = await fileUploadComponent.value?.upload()
 
-  const client = new OSS({
-    endpoint: sts.data.data.endpoint,
-    accessKeyId: sts.data.data.AccessKeyId,
-    accessKeySecret: sts.data.data.AccessKeySecret,
-    bucket: sts.data.data.bucket,
-    stsToken: sts.data.data.SecurityToken
-  })
-  await client.put(fileName, fileAudio.value, {})
-  await nuxtApp.$axios.put('/api/voice/uploaded_sts', {
-    file: fileName,
-    title: title.value,
-    anchor: (await anchorStore.get())?.id
-  })
-
-  ElMessage.success('上传成功，请等待人工审核')
-}
-
-async function onSubmitEmotion() {
-  if (!fileEmotion.value) {
-    return
+  const data = await nuxtApp.$axios.put(
+    `/api/${type === 'voice' ? 'voice' : 'emoticons'}/uploaded_sts`,
+    {
+      file,
+      title: form?.value.title,
+      anchor: (await anchorStore.get())?.id
+    }
+  )
+  if (data.data.code === 1) {
+    ElMessage.success('上传成功')
+    formRef?.value?.resetFields()
+    fileUploadComponent.value?.resetField()
+  } else {
+    ElMessage.error('上传失败: ' + data.data.msg)
   }
-
-  const sts = await nuxtApp.$axios.get('/api/file/sts?type=emotion')
-  const fileNameSub = fileEmotion.value.name.split('.')
-  const suffix = fileNameSub[fileNameSub.length - 1]
-  const fileName = `${sts.data.data.path}.${suffix}`
-
-  const client = new OSS({
-    endpoint: sts.data.data.endpoint,
-    accessKeyId: sts.data.data.AccessKeyId,
-    accessKeySecret: sts.data.data.AccessKeySecret,
-    bucket: sts.data.data.bucket,
-    stsToken: sts.data.data.SecurityToken
-  })
-  await client.put(fileName, fileEmotion.value, {})
-  await nuxtApp.$axios.put('/api/emoticons/uploaded_sts', {
-    file: fileName,
-    anchor: (await anchorStore.get())?.id
-  })
-
-  ElMessage.success('上传成功，请等待人工审核')
 }
 </script>
 <template>
   <el-card>
     <template #header><h2 class="ml-[16px] text-lg">上传音频</h2></template>
-    <el-form label-width="100px">
-      <el-form-item label="音频标题">
-        <el-input v-model="title" />
+    <el-form ref="voiceFormRef" label-width="100px" :model="voiceForm">
+      <el-form-item
+        label="音频标题"
+        prop="title"
+        :rules="[{ required: true, message: '请输入音频名称' }]"
+      >
+        <el-input v-model="voiceForm.title" />
       </el-form-item>
-      <el-form-item label="选择音频">
-        <el-button @click="onFileCheckAudio">选择音频</el-button
-        ><span v-if="fileAudio">{{ fileAudio.name }}</span>
+      <el-form-item label="选择音频" required :error="voiceFileError">
+        <div class="flex items-center">
+          <el-button @click="onVoiceFileClick">选择文件</el-button>
+          <span class="ml-[8px]">{{ fileVoiceUploadComponent?.fileValue?.name }}</span>
+          <file-upload ref="fileVoiceUploadComponent" file-type="voice" />
+        </div>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmitAudio">提交</el-button>
+        <el-button type="primary" @click="onSubmit('voice')">提交</el-button>
       </el-form-item>
-      <input
-        ref="fileAudioInput"
-        type="file"
-        style="display: none"
-        @change="onFileSelectedAudio"
-        accept="audio/*"
-      />
     </el-form>
   </el-card>
   <el-card class="mt-[24px]">
     <template #header><h2 class="ml-[16px] text-lg">上传表情包</h2></template>
     <el-form label-width="100px">
-      <el-form-item label="选择图片">
-        <el-button @click="onFileCheckEmotion">选择图片</el-button
-        ><span v-if="fileEmotion">{{ fileEmotion.name }}</span>
+      <el-form-item label="选择图片" required :error="emoticonFileError">
+        <div class="flex items-center">
+          <el-button @click="onEmoticonFileClick">选择文件</el-button>
+          <span class="ml-[8px]">{{ fileEmoticonUploadComponent?.fileValue?.name }}</span>
+          <file-upload ref="fileEmoticonUploadComponent" file-type="emoticon" />
+        </div>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmitEmotion">提交</el-button>
+        <el-button type="primary" @click="onSubmit('emoticon')">提交</el-button>
       </el-form-item>
-      <input
-        ref="fileEmotionInput"
-        type="file"
-        style="display: none"
-        @change="onFileSelectedEmotion"
-        accept="image/*"
-      />
     </el-form>
   </el-card>
 </template>

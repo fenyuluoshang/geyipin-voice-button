@@ -6,9 +6,9 @@ export const AnchorRoles = [
   '/voice/update',
   '/voice/check',
   '/voice/tags',
-  '/emotion/update',
-  '/emotion/check',
-  '/emotion/tags'
+  '/emoticon/update',
+  '/emoticon/check',
+  '/emoticon/tags'
 ] as const
 
 export type AnchorRoleMap = {
@@ -27,8 +27,8 @@ export class UpdateFileRequestDTO {
   @IsString()
   declare file: string
 
-  @IsIn(['voice', 'emotion', 'image'])
-  declare type: 'voice' | 'emotion' | 'image'
+  @IsIn(['voice', 'emoticon', 'image'])
+  declare type: 'voice' | 'emoticon' | 'image'
 
   @IsInt()
   declare anchorId: number

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
-import { fi } from 'element-plus/es/locale';
 import FileUpload from '~/components/upload/FileUpload.vue'
 
 const activeAnchor = ref<number>()
@@ -44,7 +43,8 @@ async function submit() {
     })
     if (data.data.code === 1) {
       ElMessage.success('上传成功')
-      // formRef.value?.resetFields()
+      formRef.value?.resetFields()
+      fileUploadComponent.value?.resetField()
     } else {
       ElMessage.error('上传失败: ' + data.data.msg)
     }

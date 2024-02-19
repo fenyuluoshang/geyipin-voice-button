@@ -41,14 +41,14 @@ useHead({
       <el-menu-item index="/admin/voice/check">审核</el-menu-item>
       <el-menu-item index="/admin/voice/tags">标签管理</el-menu-item>
     </el-sub-menu>
-    <el-sub-menu index="/admin/emotion">
+    <el-sub-menu index="/admin/emoticon">
       <template #title>
-        <el-icon><icon-emotion-icon /></el-icon>
+        <el-icon><icon-emoticon-icon /></el-icon>
         <span>表情包</span>
       </template>
-      <el-menu-item index="/admin/emotion/upload">上传</el-menu-item>
-      <el-menu-item index="/admin/emotion/check">审核</el-menu-item>
-      <el-menu-item index="/admin/emotion/tags">标签管理</el-menu-item>
+      <el-menu-item index="/admin/emoticon/upload">上传</el-menu-item>
+      <el-menu-item index="/admin/emoticon/check">审核</el-menu-item>
+      <el-menu-item index="/admin/emoticon/tags">标签管理</el-menu-item>
     </el-sub-menu>
     <el-menu-item index="/admin/user">
       <el-icon><el-icon-user /></el-icon>

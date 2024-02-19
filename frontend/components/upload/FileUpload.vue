@@ -4,7 +4,7 @@ import OSS from 'ali-oss'
 const nuxtApp = useNuxtApp()
 
 const props = defineProps<{
-  fileType: 'voice' | 'emotion' | 'image'
+  fileType: 'voice' | 'emoticon' | 'image'
 }>()
 
 const fileInput = ref<HTMLInputElement>()
@@ -22,7 +22,7 @@ const inputAccept = computed(() => {
   switch (props.fileType) {
     case 'voice':
       return 'audio/*'
-    case 'emotion':
+    case 'emoticon':
       return 'image/*'
     default:
       return 'image/*'
@@ -34,7 +34,7 @@ async function upload() {
     return undefined
   }
 
-  const sts = await nuxtApp.$axios.get('/api/file/sts?type=' + props.fileType)
+  const sts = await nuxtApp.$axios.get('/api/file/upload/sts?type=' + props.fileType)
   const fileNameSub = fileValue.value.name.split('.')
   const suffix = fileNameSub[fileNameSub.length - 1]
   const fileName = `${sts.data.data.path}.${suffix}`
@@ -49,10 +49,18 @@ async function upload() {
   return (await client.put(fileName, fileValue.value, {})).name
 }
 
+function resetField() {
+  fileValue.value = undefined
+  if(fileInput.value) {
+    fileInput.value.value = ''
+  }
+}
+
 defineExpose({
   fileValue,
   selectFile: clickFileInput,
-  upload
+  upload,
+  resetField
 })
 </script>
 
