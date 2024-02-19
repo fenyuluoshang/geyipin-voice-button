@@ -1,6 +1,6 @@
 import { IsIn } from 'class-validator'
 
 export class FileSTSRequestParams {
-  @IsIn(['audio', 'emotion', 'image'])
+  @IsIn(['voice', 'emoticon', 'image'])
   declare type: string
 }

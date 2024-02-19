@@ -1,12 +1,12 @@
-import AdminAnchorWithRoleDTO from '~/dtos/admin'
+import { AdminAnchorWithRoleDTO } from '~/dtos/admin'
 
 export const AnchorRoles = [
   '/voice/update',
   '/voice/check',
   '/voice/tags',
-  '/emotion/update',
-  '/emotion/check',
-  '/emotion/tags'
+  '/emoticon/update',
+  '/emoticon/check',
+  '/emoticon/tags'
 ] as const
 
 export const useAdminAnchorDataStore = defineStore('adminAnchorData', () => {
