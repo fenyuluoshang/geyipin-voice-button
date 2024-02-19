@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import useUserStore from '~/stores/user'
+import { useRoleBatch } from '~/composables/admin/useRole'
 
 const route = useRoute()
 const userStore = useUserStore()
 useHead({
   title: 'DD 按钮站 管理面板'
 })
+
+const roles = useRoleBatch(['anchor/list', 'user/list', 'system/view'])
 </script>
 <template>
   <el-menu
@@ -28,7 +31,7 @@ useHead({
       <el-icon><el-icon-house /></el-icon>
       <span>主页</span>
     </el-menu-item>
-    <el-menu-item index="/admin/anchor">
+    <el-menu-item v-if="roles[0]" index="/admin/anchor">
       <el-icon><el-icon-video-camera /></el-icon>
       <span>主播</span>
     </el-menu-item>
@@ -50,11 +53,11 @@ useHead({
       <el-menu-item index="/admin/emoticon/check">审核</el-menu-item>
       <el-menu-item index="/admin/emoticon/tags">标签管理</el-menu-item>
     </el-sub-menu>
-    <el-menu-item index="/admin/user">
+    <el-menu-item v-if="roles[1]" index="/admin/user">
       <el-icon><el-icon-user /></el-icon>
       <span>用户</span>
     </el-menu-item>
-    <el-menu-item index="/admin/system">
+    <el-menu-item v-if="roles[2]" index="/admin/system">
       <el-icon><el-icon-setting /></el-icon>
       <span>系统配置</span>
     </el-menu-item>

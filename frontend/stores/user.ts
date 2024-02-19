@@ -1,7 +1,9 @@
+import { UserModelDTO } from "~/dtos/user"
+
 const useUserStore = defineStore('user', () => {
   const nuxtApp = useNuxtApp()
 
-  const userStatus = ref()
+  const userStatus = ref<UserModelDTO>()
   const init = ref(false)
   const loading = ref(false)
 
