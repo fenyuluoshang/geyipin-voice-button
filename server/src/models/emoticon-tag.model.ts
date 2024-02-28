@@ -11,6 +11,9 @@ export class EmoticonTag extends BaseModel {
   @ManyToOne(() => Anchor)
   declare anchor: Anchor
 
+  @Column()
+  declare anchorId: number
+
   @ManyToMany(() => Emoticons, (emoticon) => emoticon.tags)
   @JoinTable()
   declare emoticons: Emoticons[]

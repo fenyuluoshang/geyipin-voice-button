@@ -14,6 +14,7 @@ import { UploadStatus } from '@/models/upload.base'
 import User from '@/models/user.model'
 import EmoticonsService from './emoticons.services'
 import { PageRequestDTO } from '@/dtos'
+import { getFindOptionsByPage } from '@/utils/page'
 
 @Service()
 class AdminServices {
@@ -78,9 +79,8 @@ class AdminServices {
       relations.push('roles', 'group.roles')
     }
     const users = await User.findAndCount({
-      skip: page.pageSize * (page.page - 1),
-      take: page.pageSize,
-      relations
+      relations,
+      ...getFindOptionsByPage(page)
     })
     return users
   }

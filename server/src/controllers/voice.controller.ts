@@ -1,9 +1,10 @@
 import { UserInject } from '@/decorators/user.decorator'
-import { HTTPResponseData } from '@/dtos'
+import { HTTPResponseData, PageRequestDTO } from '@/dtos'
+import { GetTagsFilter } from '@/dtos/tags'
 import { PlayRequestDTO, UploadSTSRequest, VoiceDTO } from '@/dtos/voice'
 import User from '@/models/user.model'
 import VoiceService from '@/services/voice.services'
-import { Body, JsonController, Post, Put } from 'routing-controllers'
+import { Body, Get, JsonController, Post, Put, QueryParams } from 'routing-controllers'
 import { Inject } from 'typedi'
 
 @JsonController('/voice')
@@ -31,6 +32,18 @@ class VoiceController {
   async play(@Body() body: PlayRequestDTO) {
     const res = await this.voiceService.play(body)
     return HTTPResponseData.success(res)
+  }
+
+  @Get('/tags')
+  async getTags(@QueryParams() filter: GetTagsFilter, @QueryParams() page: PageRequestDTO) {
+    const data = await this.voiceService.getTags(filter, page)
+    return HTTPResponseData.success(data)
+  }
+
+  @Post('/get_tags')
+  async postGetTags(@Body() filter: GetTagsFilter, @Body() page: PageRequestDTO) {
+    const data = await this.voiceService.getTags(filter, page)
+    return HTTPResponseData.success(data)
   }
 }
 

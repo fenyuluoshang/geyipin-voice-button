@@ -2,7 +2,7 @@
 const nuxtApp = useNuxtApp()
 import { HTTPResponseData, PageDTO } from '@/dtos'
 import { UserModelDTO } from '@/dtos/user'
-import { useRole } from '~/composables/admin/useRole';
+import { useRole } from '~/composables/admin/useRole'
 
 const page = ref(1)
 
@@ -19,14 +19,26 @@ const { data, refresh, pending } = await useAsyncData(async () => {
 const detailView = ref<UserModelDTO>()
 
 const editPasswordRole = useRole('/user/password')
+
+const createUserRole = useRole('/user/create')
+
+const createUserVisible = ref(false)
 </script>
 <template>
   <el-card>
     <template #header>
-      <h2 class="ml-[16px] text-lg">用户管理</h2>
-      <p class="ml-[16px] mt-[4px] text-sm text-[--text-color-secondary]">
-        为了保障使用者的隐私，请谨慎在展示隐私信息的情况下使用截图，以免造成不必要的麻烦
-      </p>
+      <div class="relative">
+        <h2 class="ml-[16px] text-lg">用户管理</h2>
+        <p class="ml-[16px] mt-[4px] text-sm text-[--text-color-secondary]">
+          为了保障使用者的隐私，请谨慎在展示隐私信息的情况下使用截图，以免造成不必要的麻烦
+        </p>
+        <el-button
+          type="primary"
+          class="absolute bottom-0 right-0"
+          @click="createUserVisible = true"
+          >新建用户</el-button
+        >
+      </div>
     </template>
     <el-table :data="data?.data || []" v-loading="pending">
       <el-table-column prop="id" label="ID" width="80"></el-table-column>
@@ -60,6 +72,7 @@ const editPasswordRole = useRole('/user/password')
       ></el-pagination>
     </div>
     <admin-user-detail v-model:user="detailView" />
+    <admin-user-create-user v-model="createUserVisible" v-if="createUserRole" />
   </el-card>
 </template>
 

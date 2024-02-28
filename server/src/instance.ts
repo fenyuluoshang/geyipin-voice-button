@@ -34,7 +34,7 @@ async function startup(app: express.Express) {
     migrations: [path.resolve(__dirname, './migrations', './*.{ts,js}')],
     synchronize: false,
     migrationsRun: true,
-    logging: ['warn', 'error']
+    logging: process.env.NODE_ENV !== 'production' ? ['query', 'warn', 'error'] : ['warn', 'error']
   })
 
   await AppDataSource.initialize()
