@@ -13,6 +13,8 @@ import VoiceService from './voice.services'
 import { UploadStatus } from '@/models/upload.base'
 import User from '@/models/user.model'
 import EmoticonsService from './emoticons.services'
+import { PageRequestDTO } from '@/dtos'
+import { getFindOptionsByPage } from '@/utils/page'
 
 @Service()
 class AdminServices {
@@ -69,6 +71,18 @@ class AdminServices {
       throw new Error('Not support type')
     }
     await this.fileServices.setFilePublicRead(body.file)
+  }
+
+  async getAllUserWithPage(page: PageRequestDTO, roleMatcher: RoleMatcherFn) {
+    const relations = ['group']
+    if (roleMatcher('/user/role')) {
+      relations.push('roles', 'group.roles')
+    }
+    const users = await User.findAndCount({
+      relations,
+      ...getFindOptionsByPage(page)
+    })
+    return users
   }
 }
 

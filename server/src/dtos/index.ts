@@ -1,3 +1,5 @@
+import { IsInt, Max, Min } from 'class-validator'
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export class HTTPResponseData<T = any> {
   declare code: number
@@ -18,5 +20,27 @@ export class HTTPResponseData<T = any> {
 
   static error<T = any>(code: number, message: string) {
     return new HTTPResponseData<T>(code, message)
+  }
+}
+
+export class PageRequestDTO {
+  @Min(1)
+  @IsInt()
+  declare page: number
+
+  @IsInt()
+  @Min(0)
+  @Max(100)
+  declare pageSize: number
+}
+
+export class PageDTO<T> {
+  declare total: number
+
+  declare data: T[]
+
+  constructor(total: number, data: T[]) {
+    this.total = total
+    this.data = data
   }
 }

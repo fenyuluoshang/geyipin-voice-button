@@ -11,6 +11,9 @@ export class VoiceTag extends BaseModel {
   @ManyToOne(() => Anchor)
   declare anchor: Anchor
 
+  @Column()
+  declare anchorId: number
+
   @ManyToMany(() => Voices, (voice) => voice.tags)
   declare voices: Voices[]
 }

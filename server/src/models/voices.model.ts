@@ -1,6 +1,5 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm'
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm'
 import { UploadModel } from './upload.base'
-import Anchor from './anchor.model'
 import VoiceTag from './voice-tag.model'
 
 @Entity()
@@ -10,9 +9,6 @@ class Voices extends UploadModel {
 
   @Column({ nullable: true })
   declare source?: string
-
-  @ManyToOne(() => Anchor)
-  declare anchor: Anchor
 
   @ManyToMany(() => VoiceTag, (tag) => tag.voices)
   @JoinTable()

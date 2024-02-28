@@ -1,7 +1,9 @@
 import VoiceTag from '@/models/voice-tag.model'
 import { AnchorDTO } from './anchor'
 import Voices from '@/models/voices.model'
-import { IsArray, IsInt, IsString, Length, Max, Min } from 'class-validator'
+import { IsArray, IsInt, IsOptional, IsString, Length, Max, Min } from 'class-validator'
+import { ArrayIsIn } from '@/decorators/validator'
+import { GetTagsFilter } from './tags'
 
 export class VoiceTagDTO {
   id: number
@@ -64,4 +66,25 @@ export class UploadSTSRequest {
   declare file: string
   @IsInt()
   declare anchor: number
+}
+
+export class VoiceFilter {
+  @IsString()
+  @IsOptional()
+  declare title?: string
+
+  @IsInt()
+  @IsOptional()
+  declare anchorId?: number
+
+  @IsOptional()
+  declare tags?: GetTagsFilter
+
+  @IsInt()
+  @IsOptional()
+  declare uploader: number
+
+  @ArrayIsIn(['anchor', 'tag', 'uploader'])
+  @IsOptional()
+  declare includes?: ('anchor' | 'tag' | 'uploader')[]
 }

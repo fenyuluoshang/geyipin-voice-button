@@ -2,6 +2,7 @@ import { AnchorCreateRequest, AnchorEditRequest } from '@/dtos/anchor'
 import { NotFoundError } from '@/errors'
 import Anchor from '@/models/anchor.model'
 import BliveCaptainModel from '@/models/bilive-captain.model'
+import { UploadStatus } from '@/models/upload.base'
 import moment from 'moment-timezone'
 import { Inject, Service } from 'typedi'
 import { DataSource } from 'typeorm'
@@ -25,7 +26,12 @@ class AnchorService {
 
   async getVoiceByAnchor(anchorPathName: string) {
     const anchor = await Anchor.findOne({
-      where: { pathName: anchorPathName },
+      where: {
+        pathName: anchorPathName,
+        voices: {
+          status: UploadStatus.ALLOW
+        }
+      },
       relations: {
         voices: {
           tags: true
@@ -37,7 +43,12 @@ class AnchorService {
 
   async getEmoticonsByAnchor(anchorPathName: string) {
     const anchor = await Anchor.findOne({
-      where: { pathName: anchorPathName },
+      where: {
+        pathName: anchorPathName,
+        emoticons: {
+          status: UploadStatus.ALLOW
+        }
+      },
       relations: {
         emoticons: {
           tags: true

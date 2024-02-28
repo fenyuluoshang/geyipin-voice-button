@@ -1,6 +1,7 @@
 import { Column, ManyToOne } from 'typeorm'
 import { BaseModel } from './index.base'
 import User from './user.model'
+import Anchor from './anchor.model'
 
 export enum UploadStatus {
   PENDING = 0,
@@ -14,6 +15,12 @@ export class UploadModel extends BaseModel {
 
   @Column({ nullable: true })
   declare uploaderId: number
+
+  @ManyToOne(() => Anchor)
+  declare anchor: Anchor
+
+  @Column()
+  declare anchorId: number
 
   @Column({
     type: 'simple-enum',
