@@ -136,19 +136,19 @@ onUnmounted(() => {
 
 .scroll-text {
   width: fit-content;
-  animation: scroll-text 3s linear infinite;
+  animation: scroll-text 10s linear infinite;
   white-space: nowrap;
 }
 
 @keyframes scroll-text {
-  30% {
+  50% {
     transform: translateX(0%);
   }
   80% {
-    transform: translateX(-150vw);
+    transform: translateX(calc(-100%));
   }
   99% {
-    transform: translateX(-150vw);
+    transform: translateX(calc(-100%));
   }
   100% {
     transform: translateX(0%);
