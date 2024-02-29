@@ -72,7 +72,7 @@ const createUserVisible = ref(false)
       ></el-pagination>
     </div>
     <admin-user-detail v-model:user="detailView" />
-    <admin-user-create-user v-model="createUserVisible" v-if="createUserRole" />
+    <admin-user-create-user v-if="createUserRole" v-model="createUserVisible" @success="refresh" />
   </el-card>
 </template>
 

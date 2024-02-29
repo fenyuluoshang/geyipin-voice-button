@@ -138,6 +138,7 @@ export class CreateUserRequestDTO {
 
   @IsPhoneNumber()
   @IsOptional()
+  @ValidateIf((o) => o.phone !== '')
   declare phone?: string
 
   @IsEmail()
