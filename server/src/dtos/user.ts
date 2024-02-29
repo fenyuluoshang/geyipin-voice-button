@@ -168,3 +168,13 @@ export class UserEditRequestDTO {
   @IsOptional()
   declare email?: string
 }
+
+export class CreateGroupRequestDTO {
+  @IsString()
+  declare title: string
+}
+
+export class EditGroupRequestDTO {
+  @IsString()
+  declare title: string
+}

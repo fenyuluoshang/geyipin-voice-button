@@ -13,6 +13,12 @@ class Role extends BaseModel {
 
   @ManyToOne(() => UserGroup, (group) => group.roles)
   declare group: UserGroup
+
+  @Column()
+  declare userId: number
+
+  @Column()
+  declare groupId: number
 }
 
 export default Role

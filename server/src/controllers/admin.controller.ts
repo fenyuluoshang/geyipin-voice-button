@@ -1,10 +1,11 @@
 import { RoleMatcher, UserInject } from '@/decorators/user.decorator'
 import { HTTPResponseData, PageDTO, PageRequestDTO } from '@/dtos'
 import { UpdateFileRequestDTO } from '@/dtos/admin'
-import { CreateUserRequestDTO, UserModelDTO } from '@/dtos/user'
+import { CreateUserRequestDTO, UserGroupDTO, UserModelDTO } from '@/dtos/user'
 import User from '@/models/user.model'
 import AdminServices from '@/services/admin.services'
 import UserServices from '@/services/user.services'
+import GroupServices from '@/services/group.services'
 import { RoleMatcherFn } from '@/utils/role_match'
 import { Body, Get, JsonController, Put, QueryParams } from 'routing-controllers'
 import { Inject } from 'typedi'
@@ -13,6 +14,8 @@ import { Inject } from 'typedi'
 class AdminController {
   @Inject()
   private declare adminServices: AdminServices
+  @Inject()
+  private declare groupSercices: GroupServices
 
   @Inject()
   private declare userService: UserServices
@@ -49,6 +52,14 @@ class AdminController {
     roleMatcher('/user/create')
     const result = await this.userService.createUserByAdmin(body)
     return HTTPResponseData.success(new UserModelDTO(result))
+  }
+
+  @Get('/groups')
+  async getGroups(@RoleMatcher() roleMatcher: RoleMatcherFn) {
+    roleMatcher('/group/list')
+    return HTTPResponseData.success(
+      (await this.groupSercices.list()).map((item) => new UserGroupDTO(item))
+    )
   }
 }
 
