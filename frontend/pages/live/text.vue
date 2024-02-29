@@ -65,7 +65,12 @@ onUnmounted(() => {
 </script>
 <template>
   <div class="scale-box" :style="{ transform: `scale(${scale})` }">
-    <div v-if="count !== -1" class="number-text numbox z-2">{{ count }}/1000</div>
+    <template v-if="count !== -1">
+      <div v-if="count < 1000" class="number-text numbox z-2">{{ count }}/1000</div>
+      <div v-else class="numbox z-2">
+        <div class="scroll-text number-text">{{ count }} 庆祝达成🎉</div>
+      </div>
+    </template>
     <div class="z-3">
       <div v-for="item in addAnimationList" :key="item.id" class="number-text add-box">
         +{{ item.size }}
@@ -126,6 +131,27 @@ onUnmounted(() => {
   100% {
     transform: translateY(-120%);
     opacity: 0;
+  }
+}
+
+.scroll-text {
+  width: fit-content;
+  animation: scroll-text 3s linear infinite;
+  white-space: nowrap;
+}
+
+@keyframes scroll-text {
+  30% {
+    transform: translateX(0%);
+  }
+  80% {
+    transform: translateX(-150vw);
+  }
+  99% {
+    transform: translateX(-150vw);
+  }
+  100% {
+    transform: translateX(0%);
   }
 }
 </style>
