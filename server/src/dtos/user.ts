@@ -1,4 +1,13 @@
-import { IsString, Length, Matches, ValidateIf } from 'class-validator'
+import {
+  IsEmail,
+  IsNumber,
+  IsOptional,
+  IsPhoneNumber,
+  IsString,
+  Length,
+  Matches,
+  ValidateIf
+} from 'class-validator'
 import User from '../models/user.model'
 import { envIsTrue } from '@/utils/env'
 import { union } from 'lodash'
@@ -111,4 +120,50 @@ export class SmsLoginRequestDTO {
   @IsString()
   @Matches(/\d{6}/)
   declare code: string
+}
+
+export class CreateUserRequestDTO {
+  @IsString()
+  declare username: string
+
+  @IsString()
+  declare nickName: string
+
+  @IsString()
+  declare password: string
+
+  @IsNumber()
+  @IsOptional()
+  declare groupId?: number
+
+  @IsPhoneNumber()
+  @IsOptional()
+  declare phone?: string
+
+  @IsEmail()
+  @IsOptional()
+  declare email?: string
+}
+
+export class ChangePasswordRequestDTO {
+  @IsString()
+  declare newPassword: string
+}
+
+export class UserEditRequestDTO {
+  @IsString()
+  @IsOptional()
+  declare username?: string
+
+  @IsString()
+  @IsOptional()
+  declare nickName?: string
+
+  @IsPhoneNumber()
+  @IsOptional()
+  declare phone?: string
+
+  @IsEmail()
+  @IsOptional()
+  declare email?: string
 }
