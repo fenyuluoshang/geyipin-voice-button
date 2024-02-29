@@ -80,6 +80,9 @@ class AdminServices {
     }
     const users = await User.findAndCount({
       relations,
+      order: {
+        id: 'ASC'
+      },
       ...getFindOptionsByPage(page)
     })
     return users

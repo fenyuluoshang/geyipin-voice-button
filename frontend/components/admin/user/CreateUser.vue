@@ -13,12 +13,13 @@ const props = withDefaults(
 
 const emit = defineEmits<{
   (event: 'update:modelValue', value: boolean): void
+  (event: 'success'): void
 }>()
 
 const visible = useVModel(props, 'modelValue', emit)
 
 const form = ref({
-  name: '',
+  username: '',
   nickName: '',
   password: '',
   mail: '',
@@ -27,15 +28,23 @@ const form = ref({
 
 const formComponent = ref<FormInstance>()
 
+const nuxtApp = useNuxtApp()
+
 async function submit() {
   await formComponent.value?.validate()
+  const result = await nuxtApp.$axios.put('/api/admin/user', form.value)
+  if (result.data.code === 1) {
+    visible.value = false
+    ElMessage.success('新增用户成功')
+    emit('success')
+  }
 }
 </script>
 <template>
   <el-dialog v-model="visible" title="新增用户">
     <el-form ref="formComponent" :model="form" label-width="100">
-      <el-form-item prop="name" label="用户名" required>
-        <el-input v-model="form.name" placeholder="请输入用户名"></el-input>
+      <el-form-item prop="username" label="用户名" required>
+        <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
       </el-form-item>
       <el-form-item prop="nickName" label="昵称" required>
         <el-input v-model="form.nickName" placeholder="请输入昵称"></el-input>

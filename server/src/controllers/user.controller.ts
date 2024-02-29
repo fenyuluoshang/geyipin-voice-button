@@ -1,7 +1,9 @@
 import { Body, Get, JsonController, Param, Post, Put, QueryParams, Res } from 'routing-controllers'
 import {
+  ChangePasswordRequestDTO,
   SendSmsRequestDTO,
   SmsLoginRequestDTO,
+  UserEditRequestDTO,
   UserLoginRequest,
   UserModelDTO,
   UserWithJWTDTO
@@ -63,6 +65,29 @@ class UserController {
   @Get('/roletest')
   async role(@Param('role') role: string, @RoleMatcher() roleMatcher: RoleMatcherFn) {
     return HTTPResponseData.success(roleMatcher(role))
+  }
+
+  @Post('/:id/profile')
+  async editUserProfile(
+    @Param('id') id: number,
+    @Body() body: UserEditRequestDTO,
+    @RoleMatcher() roleMatcher: RoleMatcherFn
+  ) {
+    roleMatcher('/admin/user/edit')
+    await this.userService.editUserProfilesByAdmin(id, body)
+    return HTTPResponseData.success(1)
+  }
+
+  @Post('/:id/password')
+  async editUserPassword(
+    @Param('id') id: number,
+    @Body() body: ChangePasswordRequestDTO,
+    @RoleMatcher() roleMatcher: RoleMatcherFn
+  ) {
+    roleMatcher('/admin/user/edit')
+    const result = await this.userService.changePasswordById(id, body.newPassword)
+    if (result.affected) return HTTPResponseData.success(1)
+    throw NotFoundError()
   }
 }
 

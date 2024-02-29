@@ -1,9 +1,10 @@
 import { RoleMatcher, UserInject } from '@/decorators/user.decorator'
 import { HTTPResponseData, PageDTO, PageRequestDTO } from '@/dtos'
 import { UpdateFileRequestDTO } from '@/dtos/admin'
-import { UserModelDTO } from '@/dtos/user'
+import { CreateUserRequestDTO, UserModelDTO } from '@/dtos/user'
 import User from '@/models/user.model'
 import AdminServices from '@/services/admin.services'
+import UserServices from '@/services/user.services'
 import { RoleMatcherFn } from '@/utils/role_match'
 import { Body, Get, JsonController, Put, QueryParams } from 'routing-controllers'
 import { Inject } from 'typedi'
@@ -12,6 +13,9 @@ import { Inject } from 'typedi'
 class AdminController {
   @Inject()
   private declare adminServices: AdminServices
+
+  @Inject()
+  private declare userService: UserServices
 
   @Get('/anchor')
   async getAnchorWithRole(@UserInject() _user: User, @RoleMatcher() roleMatcher: RoleMatcherFn) {
@@ -38,6 +42,13 @@ class AdminController {
         data[0].map((user) => new UserModelDTO(user))
       )
     )
+  }
+
+  @Put('/user')
+  async createUser(@Body() body: CreateUserRequestDTO, @RoleMatcher() roleMatcher: RoleMatcherFn) {
+    roleMatcher('/user/create')
+    const result = await this.userService.createUserByAdmin(body)
+    return HTTPResponseData.success(new UserModelDTO(result))
   }
 }
 

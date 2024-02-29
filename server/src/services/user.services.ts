@@ -1,5 +1,10 @@
 import { Inject, Service } from 'typedi'
-import { SmsLoginRequestDTO, UserLoginRequest } from '../dtos/user'
+import {
+  CreateUserRequestDTO,
+  SmsLoginRequestDTO,
+  UserEditRequestDTO,
+  UserLoginRequest
+} from '../dtos/user'
 import UserModel from '@/models/user.model'
 import { createHash } from 'node:crypto'
 import JWTServices from './jwt.services'
@@ -8,6 +13,7 @@ import { v4 as UUID } from 'uuid'
 import PhoneEncode from '@/models/phone-encode.model'
 import { EncodeVerifyFailed } from '@/errors/user'
 import CaptchaService from './captcha.services'
+import { NotFoundError } from '@/errors'
 
 @Service()
 class UserServices {
@@ -131,6 +137,60 @@ class UserServices {
       user,
       token: await this.jwtService.makeJwt(user)
     }
+  }
+
+  private async changePassword(id: number, password: string) {
+    const salt = Math.floor(1000 + Math.random() * 9000).toString()
+    const Md5Password = createHash('md5').update(`${password}:${salt}`).digest('hex').toString()
+    return UserModel.update(
+      {
+        id
+      },
+      {
+        pass: Md5Password,
+        salt
+      }
+    )
+  }
+
+  async changePasswordById(id: number | string, password: string) {
+    const user = await UserModel.findOneBy({ id: Number(id) })
+    if (!user) {
+      throw NotFoundError()
+    }
+    return this.changePassword(user.id, password)
+  }
+
+  async changePasswordByLoginUser(user: UserModel, password: string) {
+    return this.changePassword(user.id, password)
+  }
+
+  async editUserProfilesByAdmin(id: number, body: UserEditRequestDTO) {
+    const user = await UserModel.findOneBy({ id })
+    if (!user) throw NotFoundError()
+    if (body.email) user.mail = body.email
+    if (body.phone) user.phone = body.phone
+    if (body.nickName) user.nickName = body.nickName
+    if (body.username) user.name = body.username
+    return user.save()
+  }
+
+  async createUserByAdmin(body: CreateUserRequestDTO) {
+    const user = new UserModel()
+    user.name = body.username
+    user.mail = body.email
+    user.phone = body.phone
+    user.nickName = body.nickName
+    user.groupId = body.groupId
+
+    const salt = Math.floor(1000 + Math.random() * 9000).toString()
+    const Md5Password = createHash('md5')
+      .update(`${body.password}:${salt}`)
+      .digest('hex')
+      .toString()
+    user.pass = Md5Password
+
+    return user.save()
   }
 }
 
