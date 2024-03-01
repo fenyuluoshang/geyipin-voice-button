@@ -46,8 +46,9 @@ async function loadCaptainNum() {
 const interval = ref<ReturnType<typeof setInterval>>()
 
 function setScale() {
-  const width = window.screen.width
-  scale.value = width / 1242
+  const width = window.screen.width / 1242
+  const height = window.screen.height / 800
+  scale.value = Math.floor(Math.min(width, height) * 1000) / 1000
 }
 
 onMounted(() => {
@@ -64,30 +65,35 @@ onUnmounted(() => {
 })
 </script>
 <template>
-  <div class="scale-box" :style="{ transform: `scale(${scale})` }">
-    <template v-if="count !== -1">
-      <div v-if="count < 1000" class="number-text numbox z-2">{{ count }}/1000</div>
-      <div v-else class="numbox z-2">
-        <div class="scroll-text number-text">{{ count }} 庆祝达成🎉</div>
-      </div>
-    </template>
-    <div class="z-3">
-      <div v-for="item in addAnimationList" :key="item.id" class="number-text add-box">
-        +{{ item.size }}
+  <div class="flex justify-center h-[100vh]">
+    <div class="scale-box" :style="{ transform: `scale(${scale})` }">
+      <template v-if="count !== -1">
+        <div v-if="count < 1000" class="number-text numbox z-2">{{ count }}/1000</div>
+        <div v-else class="numbox z-2">
+          <div class="scroll-text number-text">{{ count }} 庆祝达成🎉</div>
+        </div>
+      </template>
+      <div class="z-3">
+        <div v-for="item in addAnimationList" :key="item.id" class="number-text add-box">
+          +{{ item.size }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+$scale-box-w: 1242px;
+$scale-box-h: 800px;
+
 .scale-box {
   position: absolute;
   top: 0;
   left: 0;
   transform-origin: 0 0;
   overflow: hidden;
-  width: 1242px;
-  height: 800px;
+  width: $scale-box-w;
+  height: $scale-box-h;
 
   .number-text {
     font-size: 255px;
@@ -107,7 +113,7 @@ onUnmounted(() => {
     top: 300px;
     left: 0;
 
-    width: 1242px;
+    width: $scale-box-w;
     height: 393px;
   }
 
@@ -145,10 +151,10 @@ onUnmounted(() => {
     transform: translateX(0%);
   }
   80% {
-    transform: translateX(calc(-100%));
+    transform: translateX(calc($scale-box-w - 105%));
   }
   99% {
-    transform: translateX(calc(-100%));
+    transform: translateX(calc($scale-box-w - 105%));
   }
   100% {
     transform: translateX(0%);
