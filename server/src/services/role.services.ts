@@ -86,6 +86,10 @@ class RoleServices {
         .execute()
     })
   }
+
+  async removeRole(roleId: number) {
+    await this.AppDataSource.createQueryBuilder().delete().whereInIds([roleId]).execute()
+  }
 }
 
 export default RoleServices
