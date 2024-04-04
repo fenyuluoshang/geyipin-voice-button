@@ -33,7 +33,8 @@ class VoiceService {
         where: {
           id: In(data.played.map((item) => item.voiceId))
         },
-        select: ['id', 'playTime']
+        select: ['id', 'playTime'],
+        transaction: true
       })
 
       if (voices.length !== data.played.length) {

@@ -1,12 +1,28 @@
 import { RoleMatcher, UserInject } from '@/decorators/user.decorator'
 import { HTTPResponseData, PageDTO, PageRequestDTO } from '@/dtos'
 import { UpdateFileRequestDTO } from '@/dtos/admin'
-import { CreateUserRequestDTO, UserModelDTO } from '@/dtos/user'
+import {
+  CreateUserRequestDTO,
+  EditRoleParamDTO,
+  EditRoleRequestDTO,
+  EditUserRequestDTO,
+  UserModelDTO
+} from '@/dtos/user'
 import User from '@/models/user.model'
 import AdminServices from '@/services/admin.services'
+import GroupServices from '@/services/group.services'
 import UserServices from '@/services/user.services'
 import { RoleMatcherFn } from '@/utils/role_match'
-import { Body, Get, JsonController, Put, QueryParams } from 'routing-controllers'
+import {
+  Body,
+  Get,
+  JsonController,
+  Param,
+  Params,
+  Post,
+  Put,
+  QueryParams
+} from 'routing-controllers'
 import { Inject } from 'typedi'
 
 @JsonController('/admin')
@@ -16,6 +32,9 @@ class AdminController {
 
   @Inject()
   private declare userService: UserServices
+
+  @Inject()
+  private declare groupService: GroupServices
 
   @Get('/anchor')
   async getAnchorWithRole(@UserInject() _user: User, @RoleMatcher() roleMatcher: RoleMatcherFn) {
@@ -49,6 +68,31 @@ class AdminController {
     roleMatcher('/user/create')
     const result = await this.userService.createUserByAdmin(body)
     return HTTPResponseData.success(new UserModelDTO(result))
+  }
+
+  @Post('/user/:id')
+  async editUser(
+    @Body() body: EditUserRequestDTO,
+    @Param('id') id: number,
+    @RoleMatcher() roleMatcher: RoleMatcherFn
+  ) {
+    roleMatcher('/user/edit')
+    return HTTPResponseData.success(await this.userService.editUserByAdmin(id, body))
+  }
+
+  @Post('/role/:type/:id')
+  async editRole(
+    @Body() body: EditRoleRequestDTO,
+    @Params() params: EditRoleParamDTO,
+    @RoleMatcher() roleMatcher: RoleMatcherFn
+  ) {
+    roleMatcher(`/${params.type}/role/edit`)
+    if (params.type === 'group') {
+      await this.groupService.updateGroupRole(params.id, body.roles)
+    } else {
+      await this.userService.updateUserRole(params.id, body.roles)
+    }
+    return HTTPResponseData.success('ok')
   }
 }
 

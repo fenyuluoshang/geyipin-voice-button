@@ -1,5 +1,7 @@
 import {
+  IsArray,
   IsEmail,
+  IsIn,
   IsNumber,
   IsOptional,
   IsPhoneNumber,
@@ -146,6 +148,40 @@ export class CreateUserRequestDTO {
   declare email?: string
 }
 
+export class EditUserRequestDTO {
+  @IsString()
+  declare username: string
+
+  @IsString()
+  declare nickName: string
+
+  @IsNumber()
+  @IsOptional()
+  declare groupId?: number
+
+  @IsPhoneNumber()
+  @IsOptional()
+  @ValidateIf((o) => o.phone !== '')
+  declare phone?: string
+
+  @IsEmail()
+  @IsOptional()
+  declare email?: string
+}
+
+export class EditRoleParamDTO {
+  @IsNumber()
+  declare id: number
+
+  @IsIn(['group', 'user'])
+  declare type: 'group' | 'user'
+}
+
+export class EditRoleRequestDTO {
+  @IsArray()
+  declare roles: string[]
+}
+
 export class ChangePasswordRequestDTO {
   @IsString()
   declare newPassword: string
@@ -167,4 +203,9 @@ export class UserEditRequestDTO {
   @IsEmail()
   @IsOptional()
   declare email?: string
+}
+
+export class createGroupRequestDTO {
+  @IsString()
+  declare title: string
 }
