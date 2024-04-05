@@ -1,27 +1,35 @@
-import { AnchorDTO } from './anchor'
+import { AnchorDTO } from './anchor';
+import { GetTagsFilter } from './tags';
 export declare class VoiceTagDTO {
-  id: number
-  title: string
-  anchor?: AnchorDTO
-  voices?: VoiceDTO[]
+    id: number;
+    title: string;
+    anchor?: AnchorDTO;
+    voices?: VoiceDTO[];
 }
 export declare class VoiceDTO {
-  id: number
-  title: string
-  source?: string
-  anchor?: AnchorDTO
-  tags?: VoiceTagDTO[]
-  playTime: bigint
+    id: number;
+    title: string;
+    source?: string;
+    anchor?: AnchorDTO;
+    tags?: VoiceTagDTO[];
+    playTime: bigint;
 }
 export declare class PlayRequestPlayed {
-  voiceId: number
-  time: number
+    voiceId: number;
+    time: number;
 }
 export declare class PlayRequestDTO {
-  played: PlayRequestPlayed[]
+    played: PlayRequestPlayed[];
 }
 export declare class UploadSTSRequest {
-  title: string
-  file: string
-  anchor: number
+    title: string;
+    file: string;
+    anchor: number;
+}
+export declare class VoiceFilter {
+    title?: string;
+    anchorId?: number;
+    tags?: GetTagsFilter;
+    uploader: number;
+    includes?: ('anchor' | 'tag' | 'uploader')[];
 }

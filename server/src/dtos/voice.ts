@@ -82,9 +82,17 @@ export class VoiceFilter {
 
   @IsInt()
   @IsOptional()
-  declare uploader: number
+  declare uploader?: number
 
   @ArrayIsIn(['anchor', 'tag', 'uploader'])
   @IsOptional()
   declare includes?: ('anchor' | 'tag' | 'uploader')[]
+}
+
+export class VoiceTagRequest {
+  @IsInt()
+  declare tagId: number
+
+  @IsArray()
+  declare voiceIds: number[]
 }

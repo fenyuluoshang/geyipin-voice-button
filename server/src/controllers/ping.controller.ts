@@ -12,7 +12,8 @@ class PingController {
       ff_test: testff,
       useSTS: envIsTrue('STS_UPLOAD'),
       mode: process.env.FILE_SAVE_MODE,
-      useCapcha: envIsTrue('USE_CAPCHA')
+      useCapcha: envIsTrue('USE_CAPCHA'),
+      sourceDomain: process.env.ALI_OSS_PUBLIC_DOMAIN
     })
   }
 }

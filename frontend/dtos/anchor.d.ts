@@ -16,6 +16,7 @@ export declare class AnchorDTO {
     updateAt?: Date;
     voices?: VoiceDTO[];
     biliveCaptain?: BliveCaptainDTO;
+    constructor(anchor: Anchor);
 }
 export declare class BliveCaptainDTO {
     id: number;
@@ -24,6 +25,7 @@ export declare class BliveCaptainDTO {
     sums: number;
     createAt?: Date;
     updateAt?: Date;
+    constructor(data: BliveCaptainModel);
 }
 export declare class AnchorCreateRequest {
     anchorName: string;

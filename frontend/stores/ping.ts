@@ -5,6 +5,7 @@ const usePingStore = defineStore('ping', () => {
     useSTS: boolean
     mode: string
     useCapcha: boolean
+    sourceDomain: string
   }>()
   async function loadPing() {
     const result = await nuxtApp.$axios.get('/api/ping')
