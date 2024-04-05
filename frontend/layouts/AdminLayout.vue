@@ -37,15 +37,17 @@ await useAsyncData(async () => {
 </script>
 <template>
   <div class="admin-layout h-[100vh]" v-loading="userStore.pending">
-    <el-container class="h-full">
-      <el-aside width="200px">
-        <layout-admin-layout-menu class="h-full" />
-      </el-aside>
-      <el-container>
-        <el-main>
-          <slot />
-        </el-main>
+    <client-only>
+      <el-container class="h-full">
+        <el-aside width="200px">
+          <layout-admin-layout-menu class="h-full" />
+        </el-aside>
+        <el-container>
+          <el-main>
+            <slot />
+          </el-main>
+        </el-container>
       </el-container>
-    </el-container>
+    </client-only>
   </div>
 </template>

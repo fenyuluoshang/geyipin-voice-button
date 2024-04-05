@@ -1,4 +1,4 @@
-import { PlayRequestDTO, VoiceFilter } from '@/dtos/voice'
+import { PlayRequestDTO, VoiceFilter, VoiceTagRequest } from '@/dtos/voice'
 import { NotFoundError } from '@/errors'
 import Anchor from '@/models/anchor.model'
 import User from '@/models/user.model'
@@ -10,11 +10,12 @@ import {
   FindOptionsRelations,
   FindOptionsWhere,
   In,
+  IsNull,
   Like
 } from 'typeorm'
 import FileServices from './file.services'
 import { FileNotExitError } from '@/errors/file'
-import { GetTagsFilter } from '@/dtos/tags'
+import { CreateTagRequest, GetTagsFilter } from '@/dtos/tags'
 import { PageRequestDTO } from '@/dtos'
 import { getFindOptionsByPage } from '@/utils/page'
 import VoiceTag from '@/models/voice-tag.model'
@@ -117,10 +118,13 @@ class VoiceService {
 
     if (filter.includes?.includes('voice') && !by?.includes('voice')) {
       const voiceOption = filter.voice && this.optionsByVoiceFilter(filter.voice, ['tag'])
-      where.voices = {
-        status: UploadStatus.ALLOW,
-        ...voiceOption?.where
-      }
+      where.voices = [
+        {
+          status: UploadStatus.ALLOW,
+          ...voiceOption?.where
+        },
+        { id: IsNull() }
+      ]
       relations.voices = (voiceOption?.relations as FindOptionsRelations<Voices>) || true
     }
 
@@ -132,6 +136,39 @@ class VoiceService {
       ...this.optionsByTagFilter(filter),
       ...getFindOptionsByPage(page)
     })
+  }
+
+  async createTag(data: CreateTagRequest) {
+    const tag = new VoiceTag()
+    tag.anchorId = data.anchorId
+    tag.title = data.title
+    return tag.save()
+  }
+
+  async list(data: VoiceFilter, page: PageRequestDTO) {
+    return Voices.findAndCount({
+      where: {
+        title: data.title ? Like(`%${data.title}%`) : undefined,
+        anchorId: data.anchorId,
+        uploaderId: data.uploader,
+        status: UploadStatus.ALLOW
+      },
+      ...getFindOptionsByPage(page)
+    })
+  }
+
+  async updateTagVoices(data: VoiceTagRequest) {
+    const tag = await VoiceTag.findOne({
+      where: { id: data.tagId },
+      relations: {
+        voices: true
+      }
+    })
+    if (!tag) {
+      throw NotFoundError()
+    }
+    tag.voices = await Voices.findBy({ id: In(data.voiceIds) })
+    await this.AppDataSource.manager.save(tag)
   }
 }
 

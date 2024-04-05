@@ -1,34 +1,4 @@
-export interface VoiceTagDTO {
-  title: string
-  anchor?: AnchorDTO
-  voices?: VoiceDTO[]
-}
-
-export interface VoiceDTO {
-  title: string
-  source?: string
-  anchor?: AnchorDTO
-  tags?: VoiceTagDTO[]
-  playTime: bigint
-}
-
-export interface AnchorDTO {
-  id: number
-  anchorName?: string
-  anchorTitle?: string
-  pathName?: string
-  biliId?: number
-  biliveId?: number
-  lastVideoBV?: string
-  primaryColor?: string
-  secondColor?: string
-  primaryColorDark?: string
-  secondColorDark?: string
-  btnColor?: string
-  createAt?: Date
-  updateAt?: Date
-  voices?: VoiceDTO[]
-}
+import { AnchorDTO } from "~/dtos/anchor"
 
 export const useAnchorConfigStore = defineStore('anchor', () => {
   const nuxtApp = useNuxtApp()

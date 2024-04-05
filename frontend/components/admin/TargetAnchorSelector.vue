@@ -1,12 +1,12 @@
 import { useVModel } from '@vueuse/core';
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core'
-import { AnchorRoles } from '~/dtos/admin';
+import { AnchorRoles } from '~/dtos/admin'
 import { useAdminAnchorDataStore } from '~/stores/admin'
 
 const props = defineProps<{
-  activeAnchor: number | undefined,
-  type: typeof AnchorRoles[number]
+  activeAnchor: number | undefined
+  type: (typeof AnchorRoles)[number]
 }>()
 
 const emit = defineEmits<{
@@ -38,16 +38,19 @@ watch(
 </script>
 <template>
   <el-card>
-    <div class="flex items-center">
-      <p>选择目标主播：</p>
-      <el-select class="max-w-[300px]" v-model="activeAnchor">
-        <el-option
-          v-for="item in anchorList"
-          :key="item.id"
-          :label="item.anchorName"
-          :value="item.id"
-        ></el-option>
-      </el-select>
+    <div class="flex justify-between">
+      <div class="flex items-center">
+        <p class="text-nowrap">选择目标主播：</p>
+        <el-select class="max-w-[300px] min-w-[180px]" v-model="activeAnchor">
+          <el-option
+            v-for="item in anchorList"
+            :key="item.id"
+            :label="item.anchorName"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </div>
+      <slot />
     </div>
   </el-card>
 </template>

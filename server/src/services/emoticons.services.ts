@@ -5,6 +5,8 @@ import User from '@/models/user.model'
 import { Inject, Service } from 'typedi'
 import FileServices from './file.services'
 import { FileNotExitError } from '@/errors/file'
+import EmoticonTag from '@/models/emoticon-tag.model'
+import { CreateTagRequest } from '@/dtos/tags'
 
 @Service()
 class EmoticonsService {
@@ -31,6 +33,13 @@ class EmoticonsService {
     }
     const emoticon = await this.createemoticonEntity({ source: data.file }, anchor, user)
     return await emoticon.save()
+  }
+
+  async createTag(data: CreateTagRequest) {
+    const tag = new EmoticonTag()
+    tag.anchorId = data.anchorId
+    tag.title = data.title
+    return tag.save()
   }
 }
 

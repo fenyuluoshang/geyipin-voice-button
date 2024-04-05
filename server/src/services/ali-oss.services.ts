@@ -93,7 +93,7 @@ class AliOssService {
   async ossGetDomain() {
     const client = this.getOssClient()
     const demain =
-      process.env.ALI_OSS_PUBLIC_DEMAIN ||
+      process.env.ALI_OSS_PUBLIC_DOMAIN ||
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       (await client.getBucketInfo()).bucket.ExtranetEndpoint
