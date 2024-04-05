@@ -26,3 +26,25 @@ export function createRoleMatch(user?: User): RoleMatcherFn {
     return result
   }
 }
+
+export function mergeRoles(origin: Role[], roles: string[]) {
+  const dropList: Role[] = []
+  const addList: Role[] = []
+  origin.forEach((item) => {
+    if (!roles.includes(item.roleStr)) {
+      dropList.push(item)
+    }
+  })
+
+  roles.forEach((item) => {
+    if (origin.findIndex((v) => v.roleStr === item) === -1) {
+      const roleNew = Role.create()
+      roleNew.roleStr = item
+      addList.push(roleNew)
+    }
+  })
+  return {
+    drop: dropList,
+    add: addList
+  }
+}

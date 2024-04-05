@@ -1,6 +1,7 @@
 import { Inject, Service } from 'typedi'
 import {
   CreateUserRequestDTO,
+  EditUserRequestDTO,
   SmsLoginRequestDTO,
   UserEditRequestDTO,
   UserLoginRequest
@@ -14,6 +15,8 @@ import PhoneEncode from '@/models/phone-encode.model'
 import { EncodeVerifyFailed } from '@/errors/user'
 import CaptchaService from './captcha.services'
 import { NotFoundError } from '@/errors'
+import UserGroup from '@/models/user-group.model'
+import { mergeRoles } from '@/utils/role_match'
 
 @Service()
 class UserServices {
@@ -191,6 +194,50 @@ class UserServices {
     user.pass = Md5Password
 
     return user.save()
+  }
+
+  async editUserByAdmin(id: number, body: EditUserRequestDTO) {
+    const user = await UserModel.findOneBy({ id: id })
+    if (!user) {
+      throw NotFoundError()
+    }
+    user.name = body.username || user.name
+    user.nickName = body.nickName || user.nickName
+    user.mail = body.email || user.mail
+    user.phone = body.phone || user.phone
+
+    if (body.groupId && user.groupId !== body.groupId) {
+      const group = await UserGroup.countBy({ id: body.groupId })
+      if (!group) {
+        throw NotFoundError()
+      }
+      user.groupId = body.groupId
+    }
+
+    return await user.save()
+  }
+
+  async updateUserRole(id: number, roles: string[]) {
+    return await this.AppDataSource.transaction(async (transaction) => {
+      const user = await UserModel.findOne({
+        where: { id },
+        relations: { roles: true },
+        transaction: true
+      })
+      if (!user) {
+        throw NotFoundError()
+      }
+      const mergeData = mergeRoles(user.roles, roles)
+      await Promise.all([
+        ...mergeData.add.map((item) => {
+          item.user = user
+          return transaction.save(item)
+        }),
+        ...mergeData.drop.map((item) => {
+          return transaction.remove(item)
+        })
+      ])
+    })
   }
 }
 
