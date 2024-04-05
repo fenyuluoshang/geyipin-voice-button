@@ -30,7 +30,7 @@ const { data, refresh, pending } = await useAsyncData(
     const res = await nuxtApp.$axios.post<HTTPResponseData<PageDTO<VoiceDTO>>>('/api/voice/list', {
       anchorId: props.activeAnchor,
       pageSize: 0,
-      page: 1,
+      page: 1
     })
     return res.data.data
   },
@@ -48,6 +48,12 @@ const options = computed(
 )
 
 const value = ref<number[]>([])
+
+watch(
+  () => props.activeAnchor,
+  () => refresh(),
+  { immediate: true }
+)
 
 watch(
   () => props.voices,
@@ -68,7 +74,7 @@ async function submit() {
 </script>
 <template>
   <el-dialog v-model="show" class="max-w-[50vw]" title="编辑音频和标签">
-    <el-transfer v-model="value" :data="options" />
+    <el-transfer v-loading="pending" v-model="value" :data="options" />
     <template #footer>
       <div class="dialog-footer">
         <el-button type="primary" @click="submit"> submit </el-button>
