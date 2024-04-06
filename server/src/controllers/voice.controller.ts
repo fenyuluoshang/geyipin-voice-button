@@ -12,7 +12,16 @@ import {
 import User from '@/models/user.model'
 import VoiceService from '@/services/voice.services'
 import { RoleMatcherFn } from '@/utils/role_match'
-import { Body, Get, JsonController, Post, Put, QueryParams } from 'routing-controllers'
+import {
+  Body,
+  Delete,
+  Get,
+  JsonController,
+  Param,
+  Post,
+  Put,
+  QueryParams
+} from 'routing-controllers'
 import { Inject } from 'typedi'
 
 @JsonController('/voice')
@@ -79,6 +88,12 @@ class VoiceController {
   @Post('/tag/voices')
   async tagVoices(@Body() body: VoiceTagRequest) {
     await this.voiceService.updateTagVoices(body)
+    return HTTPResponseData.success('ok')
+  }
+
+  @Delete('/tag/:id')
+  async deleteTags(@Param('id') id: number, @RoleMatcher() roleMatcher: RoleMatcherFn) {
+    await this.voiceService.deleteTags(id, roleMatcher)
     return HTTPResponseData.success('ok')
   }
 }

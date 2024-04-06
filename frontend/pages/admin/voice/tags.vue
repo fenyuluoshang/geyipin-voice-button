@@ -68,6 +68,13 @@ const voiceTagEditShow = computed({
 const voices = computed(() => {
   return data.value?.data.find((item) => item.id === voiceTagEditId.value)?.voices || []
 })
+
+async function submitDelete(id: number) {
+  const res = await nuxtApp.$axios.delete<HTTPResponseData>(`/api/voice/tag/${id}`)
+  if (res.data.code === 1) {
+    refresh()
+  }
+}
 </script>
 <template>
   <div class="h-full">
@@ -87,11 +94,6 @@ const voices = computed(() => {
                 </template>
               </el-table-column>
               <el-table-column prop="playTime" label="播放次数"></el-table-column>
-              <el-table-column label="操作">
-                <template #default>
-                  <el-button>删除</el-button>
-                </template>
-              </el-table-column>
             </el-table>
           </template>
         </el-table-column>
@@ -100,6 +102,11 @@ const voices = computed(() => {
         <el-table-column label="操作">
           <template #default="{ row }">
             <el-button @click="voiceTagEditId = row.id">添加音频</el-button>
+            <el-popconfirm title="确认删除？" @confirm="submitDelete(row.id)">
+              <template #reference>
+                <el-button type="danger">删除</el-button>
+              </template>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>

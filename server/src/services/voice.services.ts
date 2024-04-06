@@ -20,6 +20,7 @@ import { PageRequestDTO } from '@/dtos'
 import { getFindOptionsByPage } from '@/utils/page'
 import VoiceTag from '@/models/voice-tag.model'
 import { UploadStatus } from '@/models/upload.base'
+import { RoleMatcherFn } from '@/utils/role_match'
 
 @Service()
 class VoiceService {
@@ -169,6 +170,27 @@ class VoiceService {
     }
     tag.voices = await Voices.findBy({ id: In(data.voiceIds) })
     await this.AppDataSource.manager.save(tag)
+  }
+
+  async deleteTags(id: number, roleMatcher: RoleMatcherFn) {
+    return await this.AppDataSource.transaction(async (transaction) => {
+      const tag = await transaction.findOne(VoiceTag, {
+        where: { id },
+        relations: {
+          voices: true
+        },
+        transaction: true
+      })
+
+      if (!tag) {
+        throw NotFoundError()
+      }
+      roleMatcher(`/anchor/${tag.anchorId}/tag/delete`)
+
+      tag.voices = []
+      await transaction.save(tag)
+      await transaction.remove(tag)
+    })
   }
 }
 
