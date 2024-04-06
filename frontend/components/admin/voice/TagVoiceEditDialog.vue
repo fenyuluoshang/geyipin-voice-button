@@ -77,7 +77,7 @@ async function submit() {
     <el-transfer v-loading="pending" v-model="value" :data="options" />
     <template #footer>
       <div class="dialog-footer">
-        <el-button type="primary" @click="submit"> submit </el-button>
+        <el-button type="primary" @click="submit">submit</el-button>
       </div>
     </template>
   </el-dialog>
