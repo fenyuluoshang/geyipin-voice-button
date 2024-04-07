@@ -1,7 +1,9 @@
 import EmoticonTag from '@/models/emoticon-tag.model'
 import { AnchorDTO } from './anchor'
 import Emoticons from '@/models/emoticons.model'
-import { IsInt, IsString } from 'class-validator'
+import { IsArray, IsInt, IsOptional, IsString } from 'class-validator'
+import { GetTagsFilter } from './tags'
+import { ArrayIsIn } from '@/decorators/validator'
 
 export class EmoticonTagDTO {
   id: number
@@ -39,4 +41,29 @@ export class UploadSTSRequest {
   declare file: string
   @IsInt()
   declare anchor: number
+}
+
+export class EmoticonFilter {
+  @IsInt()
+  @IsOptional()
+  declare anchorId?: number
+
+  @IsOptional()
+  declare tags?: GetTagsFilter
+
+  @IsInt()
+  @IsOptional()
+  declare uploader?: number
+
+  @ArrayIsIn(['anchor', 'tag', 'uploader'])
+  @IsOptional()
+  declare includes?: ('anchor' | 'tag' | 'uploader')[]
+}
+
+export class EmoticonTagRequest {
+  @IsInt()
+  declare tagId: number
+
+  @IsArray()
+  declare emoticonsId: number[]
 }
