@@ -57,25 +57,42 @@ class EmoticonsService {
     return tag.save()
   }
 
-  optionsByEmotionFilter(filter: EmoticonFilter, by?: ('tag' | 'anchor' | 'user')[]) {
+  optionsByEmotionFilter(
+    roleMatcher: RoleMatcherFn,
+    filter: EmoticonFilter,
+    by?: ('tag' | 'anchor' | 'user')[]
+  ) {
     const where: FindOptionsWhere<Emoticons> = {}
     const relations: FindOptionsRelations<Emoticons> = {}
     const option: FindManyOptions<Emoticons> = { where, relations }
+
+    if (filter.all_status) {
+      if (filter.anchorId) {
+        roleMatcher(`/anchor/${filter.anchorId}/voice/check`)
+      } else {
+        roleMatcher('/admin/voice/check')
+      }
+    }
 
     if (filter.anchorId) {
       where.anchorId = filter.anchorId
     }
 
     if (filter.tags && !by?.includes('tag')) {
-      const tagOption = this.optionsByTagFilter(filter.tags, ['voice'])
+      const tagOption = this.optionsByTagFilter(roleMatcher, filter.tags, ['voice'])
       where.tags = tagOption.where
       relations.tags = (tagOption?.relations as FindOptionsRelations<Emoticons>) || true
+    }
+
+    if (filter.all_status) {
+      delete where.status
     }
 
     return option
   }
 
   optionsByTagFilter(
+    roleMatcher: RoleMatcherFn,
     filter: GetTagsFilter,
     by?: ('voice' | 'anchor' | 'user')[]
   ): FindManyOptions<EmoticonTag> {
@@ -90,7 +107,8 @@ class EmoticonsService {
     }
 
     if (filter.includes?.includes('voice') && !by?.includes('voice')) {
-      const voiceOption = filter.voice && this.optionsByEmotionFilter(filter.voice, ['tag'])
+      const voiceOption =
+        filter.voice && this.optionsByEmotionFilter(roleMatcher, filter.voice, ['tag'])
       where.emoticons = [
         {
           status: UploadStatus.ALLOW,
@@ -104,20 +122,16 @@ class EmoticonsService {
     return option
   }
 
-  async getTags(filter: GetTagsFilter, page: PageRequestDTO) {
+  async getTags(roleMatcher: RoleMatcherFn, filter: GetTagsFilter, page: PageRequestDTO) {
     return await EmoticonTag.findAndCount({
-      ...this.optionsByTagFilter(filter),
+      ...this.optionsByTagFilter(roleMatcher, filter),
       ...getFindOptionsByPage(page)
     })
   }
 
-  async list(data: EmoticonFilter, page: PageRequestDTO) {
+  async list(roleMatcher: RoleMatcherFn, data: EmoticonFilter, page: PageRequestDTO) {
     return Emoticons.findAndCount({
-      where: {
-        anchorId: data.anchorId,
-        uploaderId: data.uploader,
-        status: UploadStatus.ALLOW
-      },
+      ...this.optionsByEmotionFilter(roleMatcher, data),
       ...getFindOptionsByPage(page)
     })
   }

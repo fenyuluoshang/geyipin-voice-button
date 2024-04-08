@@ -81,8 +81,21 @@ class VoiceService {
     ).save()
   }
 
-  optionsByVoiceFilter(filter: VoiceFilter, by?: ('tag' | 'anchor' | 'user')[]) {
-    const where: FindOptionsWhere<Voices> = {}
+  optionsByVoiceFilter(
+    roleMatcher: RoleMatcherFn,
+    filter: VoiceFilter,
+    by?: ('tag' | 'anchor' | 'user')[]
+  ) {
+    if (filter.all_status) {
+      if (filter.anchorId) {
+        roleMatcher(`/anchor/${filter.anchorId}/voice/check`)
+      } else {
+        roleMatcher('/admin/voice/check')
+      }
+    }
+    const where: FindOptionsWhere<Voices> = {
+      status: UploadStatus.ALLOW
+    }
     const relations: FindOptionsRelations<Voices> = {}
     const option: FindManyOptions<Voices> = { where, relations }
 
@@ -95,15 +108,20 @@ class VoiceService {
     }
 
     if (filter.tags && !by?.includes('tag')) {
-      const tagOption = this.optionsByTagFilter(filter.tags, ['voice'])
+      const tagOption = this.optionsByTagFilter(roleMatcher, filter.tags, ['voice'])
       where.tags = tagOption.where
       relations.tags = (tagOption?.relations as FindOptionsRelations<VoiceTag>) || true
+    }
+
+    if (filter.all_status) {
+      delete where.status
     }
 
     return option
   }
 
   optionsByTagFilter(
+    roleMatcher: RoleMatcherFn,
     filter: GetTagsFilter,
     by?: ('voice' | 'anchor' | 'user')[]
   ): FindManyOptions<VoiceTag> {
@@ -118,7 +136,8 @@ class VoiceService {
     }
 
     if (filter.includes?.includes('voice') && !by?.includes('voice')) {
-      const voiceOption = filter.voice && this.optionsByVoiceFilter(filter.voice, ['tag'])
+      const voiceOption =
+        filter.voice && this.optionsByVoiceFilter(roleMatcher, filter.voice, ['tag'])
       where.voices = [
         {
           status: UploadStatus.ALLOW,
@@ -132,9 +151,9 @@ class VoiceService {
     return option
   }
 
-  async getTags(filter: GetTagsFilter, page: PageRequestDTO) {
+  async getTags(roleMatcher: RoleMatcherFn, filter: GetTagsFilter, page: PageRequestDTO) {
     return await VoiceTag.findAndCount({
-      ...this.optionsByTagFilter(filter),
+      ...this.optionsByTagFilter(roleMatcher, filter),
       ...getFindOptionsByPage(page)
     })
   }
@@ -146,14 +165,9 @@ class VoiceService {
     return tag.save()
   }
 
-  async list(data: VoiceFilter, page: PageRequestDTO) {
+  async list(roleMatcher: RoleMatcherFn, data: VoiceFilter, page: PageRequestDTO) {
     return Voices.findAndCount({
-      where: {
-        title: data.title ? Like(`%${data.title}%`) : undefined,
-        anchorId: data.anchorId,
-        uploaderId: data.uploader,
-        status: UploadStatus.ALLOW
-      },
+      ...this.optionsByVoiceFilter(roleMatcher, data),
       ...getFindOptionsByPage(page)
     })
   }

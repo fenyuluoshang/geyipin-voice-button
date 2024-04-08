@@ -52,8 +52,12 @@ class VoiceController {
   }
 
   @Get('/tags')
-  async getTags(@QueryParams() filter: GetTagsFilter, @QueryParams() page: PageRequestDTO) {
-    const data = await this.voiceService.getTags(filter, page)
+  async getTags(
+    @QueryParams() filter: GetTagsFilter,
+    @QueryParams() page: PageRequestDTO,
+    @RoleMatcher() roleMatcher: RoleMatcherFn
+  ) {
+    const data = await this.voiceService.getTags(roleMatcher, filter, page)
     return HTTPResponseData.success(
       new PageDTO(
         data[1],
@@ -63,8 +67,12 @@ class VoiceController {
   }
 
   @Post('/get_tags')
-  async postGetTags(@Body() filter: GetTagsFilter, @Body() page: PageRequestDTO) {
-    const data = await this.voiceService.getTags(filter, page)
+  async postGetTags(
+    @Body() filter: GetTagsFilter,
+    @Body() page: PageRequestDTO,
+    @RoleMatcher() roleMatcher: RoleMatcherFn
+  ) {
+    const data = await this.voiceService.getTags(roleMatcher, filter, page)
     return HTTPResponseData.success(data)
   }
 
@@ -75,8 +83,12 @@ class VoiceController {
   }
 
   @Post('/list')
-  async list(@Body() body: VoiceFilter, @Body() page: PageRequestDTO) {
-    const data = await this.voiceService.list(body, page)
+  async list(
+    @Body() body: VoiceFilter,
+    @Body() page: PageRequestDTO,
+    @RoleMatcher() roleMatcher: RoleMatcherFn
+  ) {
+    const data = await this.voiceService.list(roleMatcher, body, page)
     return HTTPResponseData.success(
       new PageDTO(
         data[1],

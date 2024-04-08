@@ -1,7 +1,7 @@
 import VoiceTag from '@/models/voice-tag.model'
 import { AnchorDTO } from './anchor'
 import Voices from '@/models/voices.model'
-import { IsArray, IsInt, IsOptional, IsString, Length, Max, Min } from 'class-validator'
+import { IsArray, IsBoolean, IsInt, IsOptional, IsString, Length, Max, Min } from 'class-validator'
 import { ArrayIsIn } from '@/decorators/validator'
 import { GetTagsFilter } from './tags'
 
@@ -87,6 +87,10 @@ export class VoiceFilter {
   @ArrayIsIn(['anchor', 'tag', 'uploader'])
   @IsOptional()
   declare includes?: ('anchor' | 'tag' | 'uploader')[]
+
+  @IsBoolean()
+  @IsOptional()
+  declare all_status?: boolean
 }
 
 export class VoiceTagRequest {
