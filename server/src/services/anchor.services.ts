@@ -14,7 +14,7 @@ class AnchorService {
 
   async getAllAnchor() {
     const anchor = await Anchor.find({
-      select: ['anchorName', 'anchorTitle', 'pathName']
+      select: ['id', 'anchorName', 'anchorTitle', 'pathName', 'biliId']
     })
     return anchor
   }
