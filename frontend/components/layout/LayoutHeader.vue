@@ -3,7 +3,7 @@ import Logo from '@/assets/logo.jpg'
 import { useSearchStore } from '@/stores/search'
 import { useConfigStore } from '@/stores/config'
 import { computed } from 'vue'
-import { useToggle } from '@vueuse/core'
+import { isClient, useToggle } from '@vueuse/core'
 
 const searchStore = useSearchStore()
 const config = useConfigStore()
@@ -42,6 +42,8 @@ const anchorStore = useAnchorConfigStore()
 await useAsyncData('anchorConfigStore', async () => {
   return await anchorStore.get()
 })
+
+const title = computed(() => route.meta.title || (isClient && window.document.title) || '')
 </script>
 
 <template>

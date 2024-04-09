@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 import { getMemsUrl } from '@/util'
 
+const anchorStore = useAnchorConfigStore()
+const { data: anchorConfig } = await useAsyncData('anchorConfigStore', async () => {
+  return await anchorStore.get()
+})
+
 defineOptions({
   name: 'VoiceButtonPage',
   title: ''
@@ -12,8 +17,17 @@ definePageMeta({
 })
 
 useSeoMeta({
-  title: '天才鸽表情',
-  keywords: '鸽一品,天才鸽,虚拟主播,语音按钮',
+  title: () => `${anchorConfig.value?.anchorTitle || ''}表情`,
+  keywords: () => {
+    const keywords = ['虚拟主播', '语音按钮', ' 表情包']
+    if (anchorConfig.value?.anchorTitle) {
+      keywords.unshift(anchorConfig.value.anchorTitle)
+    }
+    if (anchorConfig.value?.anchorName) {
+      keywords.unshift(anchorConfig.value.anchorName)
+    }
+    return keywords.join(',')
+  },
   description:
     '本站是由粉丝收集整理的主播直播时的语音合集，虚拟主播鸽一品是一名活跃于Bilibili上的UP主，个人势虚拟UP主'
 })
