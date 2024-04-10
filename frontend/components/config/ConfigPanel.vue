@@ -85,9 +85,12 @@ const { data: anchorConfig } = await useAsyncData('anchorConfigStore', async () 
               allowfullscreen="true"
             >
             </iframe>
-            <img src="@/assets/qwq1.gif" class="float-left ml-[12px] select-none" />
-            <img src="@/assets/qwq2.jpg" class="float-left ml-[12px] select-none" />
-            <img src="@/assets/qwq3.jpg" class="float-left ml-[12px] select-none" />
+            <img
+              v-for="item in anchorConfig?.homepageExt?.home_qwq_img"
+              :key="item"
+              :src="item"
+              class="float-left ml-[12px] select-none"
+            />
           </div>
         </el-scrollbar>
       </div>

@@ -68,6 +68,9 @@ class Anchor extends BaseModel {
 
   @Column({ nullable: true })
   declare bgImgDark: string
+
+  @Column({ type: 'json', nullable: true })
+  declare homepageExt?: Map<string, any>
 }
 
 export default Anchor

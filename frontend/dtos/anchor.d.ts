@@ -23,6 +23,7 @@ export declare class AnchorDTO {
   icon?: string
   bgImg?: string
   bgImgDark?: string
+  homepageExt: any
 }
 export declare class BliveCaptainDTO {
   id: number

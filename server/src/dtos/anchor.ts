@@ -27,6 +27,7 @@ export class AnchorDTO {
   icon?: string
   bgImg?: string
   bgImgDark?: string
+  homepageExt: any
 
   constructor(anchor: Anchor) {
     this.id = anchor.id
@@ -47,6 +48,7 @@ export class AnchorDTO {
     this.icon = anchor.icon
     this.bgImg = anchor.bgImg
     this.bgImgDark = anchor.bgImgDark
+    this.homepageExt = anchor.homepageExt
 
     if (anchor.voices) this.voices = anchor.voices.map((item) => new VoiceDTO(item))
     this.biliveCaptain = anchor.biliveCaptain && new BliveCaptainDTO(anchor.biliveCaptain)

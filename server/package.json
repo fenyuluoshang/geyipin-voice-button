@@ -8,7 +8,7 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only ./src/main.ts",
     "lint": "eslint .",
     "migration:create": "npm run typeorm migration:create",
-    "migration:generate": "npm run typeorm migration:generate <name> -- -d ./src/data-source.ts",
+    "migration:generate": "npm run typeorm migration:generate anchor-ext -- -d ./src/data-source.ts",
     "typeorm": "typeorm-ts-node-commonjs",
     "build": "tsc",
     "build:dto": "tsc --project tsconfig.dto.json --declaration --emitDeclarationOnly"
