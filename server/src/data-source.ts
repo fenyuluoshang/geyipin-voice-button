@@ -5,7 +5,7 @@ import { loadEnv } from './config'
 
 loadEnv(process.env.NODE_ENV || 'production', path.resolve(__dirname, '../'), '')
 
-export const AppDataSource = new DataSource({
+const AppDataSource = new DataSource({
   type: 'postgres',
   url: process.env.PG_DATA_URL,
   synchronize: false,
@@ -14,3 +14,5 @@ export const AppDataSource = new DataSource({
   migrations: [path.resolve(__dirname, './migrations', './*.{ts,js}')],
   subscribers: []
 })
+
+export default AppDataSource

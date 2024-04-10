@@ -48,6 +48,18 @@ class Anchor extends BaseModel {
 
   @OneToOne(() => BliveCaptainModel, (bliveCaptain) => bliveCaptain.anchor)
   declare biliveCaptain?: BliveCaptainModel
+
+  @Column({ nullable: true })
+  declare favIcon: string
+
+  @Column({ nullable: true })
+  declare icon: string
+
+  @Column({ nullable: true })
+  declare bgImg: string
+
+  @Column({ nullable: true })
+  declare bgImgDark: string
 }
 
 export default Anchor

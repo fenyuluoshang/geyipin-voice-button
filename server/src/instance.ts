@@ -37,6 +37,8 @@ async function startup(app: express.Express) {
     logging: process.env.NODE_ENV !== 'production' ? ['query', 'warn', 'error'] : ['warn', 'error']
   })
 
+  console.log(AppDataSource.migrations)
+
   await AppDataSource.initialize()
   Container.set('AppDataSource', AppDataSource)
 

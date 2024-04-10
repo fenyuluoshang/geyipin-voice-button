@@ -20,6 +20,10 @@ export class AnchorDTO {
   updateAt?: Date
   voices?: VoiceDTO[]
   biliveCaptain?: BliveCaptainDTO
+  favIcon?: string
+  icon?: string
+  bgImg?: string
+  bgImgDark?: string
 
   constructor(anchor: Anchor) {
     this.id = anchor.id
@@ -36,6 +40,10 @@ export class AnchorDTO {
     this.btnColor = anchor.btnColor
     this.createAt = anchor.createAt
     this.updateAt = anchor.updateAt
+    this.favIcon = anchor.favIcon
+    this.icon = anchor.icon
+    this.bgImg = anchor.bgImg
+    this.bgImgDark = anchor.bgImgDark
 
     if (anchor.voices) this.voices = anchor.voices.map((item) => new VoiceDTO(item))
     this.biliveCaptain = anchor.biliveCaptain && new BliveCaptainDTO(anchor.biliveCaptain)

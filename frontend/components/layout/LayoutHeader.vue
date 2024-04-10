@@ -39,7 +39,7 @@ watch(
 
 const anchorStore = useAnchorConfigStore()
 
-await useAsyncData('anchorConfigStore', async () => {
+const { data: anchorConfig } = await useAsyncData('anchorConfigStore', async () => {
   return await anchorStore.get()
 })
 
@@ -57,7 +57,7 @@ const title = computed(() => route.meta.title || (isClient && window.document.ti
     <div class="flex h-full ml-[6px]">
       <div class="flex items-center">
         <div class="w-[30px] h-[30px] mr-2">
-          <img alt="鸽一品" class="w-full h-full" :src="Logo" />
+          <img alt="鸽一品" class="w-full h-full" :src="anchorConfig?.icon || Logo" />
         </div>
         <span class="text-white font-semibold max-md:text-[14px]">{{ route.meta.title }}</span>
       </div>

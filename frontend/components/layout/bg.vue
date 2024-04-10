@@ -4,7 +4,15 @@ import BG_DARK from '@/assets/bg-dark.jpg'
 
 const isDark = useSharedDark()
 
-const bg_img = computed(() => (isDark.value ? BG_DARK : BG))
+const anchorStore = useAnchorConfigStore()
+
+const { data: anchorConfig } = await useAsyncData('anchorConfigStore', async () => {
+  return await anchorStore.get()
+})
+
+const bg_img = computed(() =>
+  isDark.value ? anchorConfig.value?.bgImgDark || BG_DARK : anchorConfig.value?.bgImg || BG
+)
 </script>
 <template>
   <client-only>

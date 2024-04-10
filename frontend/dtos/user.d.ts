@@ -1,71 +1,71 @@
 export declare class UserLoginRequest {
-    userName: string;
-    password: string;
-    captchaVerifyParam: string;
+  userName: string
+  password: string
+  captchaVerifyParam: string
 }
 export declare class RoleDTO {
-    roleStr: string;
-    id: number;
-    user?: UserModelDTO;
-    group?: UserGroupDTO;
+  roleStr: string
+  id: number
+  user?: UserModelDTO
+  group?: UserGroupDTO
 }
 export declare class UserGroupDTO {
-    title?: string;
-    id: number;
-    users?: UserModelDTO[];
-    roles?: RoleDTO[];
+  title?: string
+  id: number
+  users?: UserModelDTO[]
+  roles?: RoleDTO[]
 }
 export declare class UserModelDTO {
-    id: number;
-    nickName?: string;
-    name: string;
-    phone?: string;
-    mail?: string;
-    roleMerge?: string[];
-    roles?: RoleDTO[];
-    group?: UserGroupDTO;
+  id: number
+  nickName?: string
+  name: string
+  phone?: string
+  mail?: string
+  roleMerge?: string[]
+  roles?: RoleDTO[]
+  group?: UserGroupDTO
 }
 export declare class UserWithJWTDTO extends UserModelDTO {
-    jwt: string;
+  jwt: string
 }
 export declare class SendSmsRequestDTO {
-    phone: string;
+  phone: string
 }
 export declare class SmsLoginRequestDTO {
-    phone: string;
-    code: string;
+  phone: string
+  code: string
 }
 export declare class CreateUserRequestDTO {
-    username: string;
-    nickName: string;
-    password: string;
-    groupId?: number;
-    phone?: string;
-    email?: string;
+  username: string
+  nickName: string
+  password: string
+  groupId?: number
+  phone?: string
+  email?: string
 }
 export declare class EditUserRequestDTO {
-    username: string;
-    nickName: string;
-    groupId?: number;
-    phone?: string;
-    email?: string;
+  username: string
+  nickName: string
+  groupId?: number
+  phone?: string
+  email?: string
 }
 export declare class EditRoleParamDTO {
-    id: number;
-    type: 'group' | 'user';
+  id: number
+  type: 'group' | 'user'
 }
 export declare class EditRoleRequestDTO {
-    roles: string[];
+  roles: string[]
 }
 export declare class ChangePasswordRequestDTO {
-    newPassword: string;
+  newPassword: string
 }
 export declare class UserEditRequestDTO {
-    username?: string;
-    nickName?: string;
-    phone?: string;
-    email?: string;
+  username?: string
+  nickName?: string
+  phone?: string
+  email?: string
 }
 export declare class createGroupRequestDTO {
-    title: string;
+  title: string
 }

@@ -31,6 +31,10 @@ useSeoMeta({
     '本站是由粉丝收集整理的主播直播时的语音合集，虚拟主播鸽一品是一名活跃于Bilibili上的UP主，个人势虚拟UP主'
 })
 
+useHead({
+  link: [{ rel: 'icon', href: () => anchorConfig.value?.favIcon || '/favicon.ico' }]
+})
+
 const configStore = useConfigStore()
 const playingStore = usePlayingStore()
 
