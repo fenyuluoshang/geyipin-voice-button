@@ -2,7 +2,8 @@ import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { useConfigStore } from './config'
 import { changeAudioVolumeFixed, getAudioUrl } from '@/util/index'
-import { VoiceDTO } from '~/dtos/voice'
+import { PlayRequestPlayed, VoiceDTO } from '~/dtos/voice'
+import { useThrottleFn } from '@vueuse/core'
 
 export const usePlayingStore = defineStore('playing', () => {
   const configStore = useConfigStore()
@@ -17,6 +18,45 @@ export const usePlayingStore = defineStore('playing', () => {
       })
     }
   )
+
+  const playedUploadList = ref<number[]>([])
+  const nuxtApp = useNuxtApp()
+
+  const uploadPlayedRequest = useThrottleFn(
+    async () => {
+      if (!playedUploadList.value.length) {
+        return
+      }
+      const map: Map<number, number> = new Map()
+      playedUploadList.value.forEach((item) => {
+        if (map.has(item)) map.set(item, map.get(item)! + 1)
+        else {
+          map.set(item, 1)
+        }
+      })
+
+      const body: PlayRequestPlayed[] = []
+      Array.from(map.keys()).forEach((item) => {
+        body.push({
+          voiceId: item,
+          time: map.get(item)!
+        })
+      })
+
+      await nuxtApp.$axios.post(`/api/voice/play`, {
+        played: body
+      })
+
+      playedUploadList.value = []
+    },
+    1000,
+    true
+  )
+
+  function uploadPlayed(id: number) {
+    playedUploadList.value.push(id)
+    uploadPlayedRequest()
+  }
 
   function play(voice: VoiceDTO) {
     const path = getAudioUrl(voice.source!)
@@ -37,6 +77,7 @@ export const usePlayingStore = defineStore('playing', () => {
       playedList.value.push(voice)
     })
     audio.play()
+    uploadPlayed(voice.id)
   }
 
   function onKeyDown(ev: KeyboardEvent) {

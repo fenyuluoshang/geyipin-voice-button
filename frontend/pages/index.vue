@@ -84,7 +84,7 @@ const { data } = await useAsyncData(async () => {
           target="_blank"
           >邮件投稿</el-button
         >
-        <el-button
+        <!-- <el-button
           class="submit-link"
           type="success"
           round
@@ -92,7 +92,7 @@ const { data } = await useAsyncData(async () => {
           href="https://wj.qq.com/s2/13991165/8aa2/"
           target="_blank"
           >腾讯问卷</el-button
-        >
+        > -->
         <!-- <el-button class="submit-link" type="success" round tag="a" target="_blank">Github</el-button> -->
         <el-button
           class="submit-link"

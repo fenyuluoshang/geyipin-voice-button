@@ -1,7 +1,17 @@
 import VoiceTag from '@/models/voice-tag.model'
 import { AnchorDTO } from './anchor'
 import Voices from '@/models/voices.model'
-import { IsArray, IsBoolean, IsInt, IsOptional, IsString, Length, Max, Min } from 'class-validator'
+import {
+  ArrayMaxSize,
+  ArrayMinSize,
+  IsArray,
+  IsBoolean,
+  IsInt,
+  IsOptional,
+  IsString,
+  Max,
+  Min
+} from 'class-validator'
 import { ArrayIsIn } from '@/decorators/validator'
 import { GetTagsFilter } from './tags'
 
@@ -55,7 +65,8 @@ export class PlayRequestPlayed {
 
 export class PlayRequestDTO {
   @IsArray()
-  @Length(1, 12)
+  @ArrayMinSize(1)
+  @ArrayMaxSize(16)
   declare played: PlayRequestPlayed[]
 }
 

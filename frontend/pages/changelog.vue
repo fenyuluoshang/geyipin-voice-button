@@ -8,7 +8,11 @@
           <ul class="list-inside list-disc leading-6 mt-2 text-[--text-color-primary]">
             <li>Add Admin Login 增加了管理员登录</li>
             <li>Add Voice Upload For Guest 增加了游客上传音频的功能</li>
-            <li>...(I have no idea to write more here because there are too many things todo or finished for the next release 因为下个版本有太多的事情在做或者被完成，这里不知道写什么了)</li>
+            <li>
+              ...(I have no idea to write more here because there are too many things todo or
+              finished for the next release
+              因为下个版本有太多的事情在做或者被完成，这里不知道写什么了)
+            </li>
             <li>This update is a part for next version 这个更新是下个大版本的一部分</li>
           </ul>
         </el-card>
@@ -72,10 +76,14 @@
 <script setup lang="ts">
 defineOptions({
   name: 'ChangeLogPage',
-  title: ''
 })
 
 definePageMeta({
-  layout: 'with-head'
+  layout: 'with-head',
+  page: 'changelog'
+})
+
+useSeoMeta({
+  title: '更新日志'
 })
 </script>
