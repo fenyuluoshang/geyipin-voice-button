@@ -63,8 +63,8 @@ const title = computed(() => route.meta.title || (isClient && window.document.ti
       </div>
       <div class="btn-groups ml-[4px] flex gap-[4px] items-center">
         <a
-          v-if="config.config.bili_link"
-          :href="config.config.bili_link"
+          v-if="anchorConfig?.biliId"
+          :href="`https://space.bilibili.com/${anchorConfig.biliId}`"
           class="h-[26px] w-[26px] max-md:h-[22px] max-md:w-[22px] rounded-full bg-opacity-75 bg-white flex items-center justify-center"
           data-test-id="bili_link"
           alt="哔哩哔哩"
