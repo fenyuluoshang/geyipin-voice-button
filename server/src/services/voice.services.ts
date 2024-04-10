@@ -47,7 +47,7 @@ class VoiceService {
         voices.map((item) => {
           const add = data.played.find((palyed) => item.id === palyed.voiceId)?.time
           return transaction.update(Voices, item.id, {
-            playTime: item.playTime + BigInt(add || 0)
+            playTime: BigInt(item.playTime) + BigInt(add || 0)
           })
         })
       )
