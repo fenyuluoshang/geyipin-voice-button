@@ -1,3 +1,4 @@
+import { EmoticonTagDTO } from './emoticon'
 import { VoiceDTO, VoiceTagDTO } from './voice'
 export declare class AnchorDTO {
   id: number
@@ -16,6 +17,7 @@ export declare class AnchorDTO {
   updateAt?: Date
   voices?: VoiceDTO[]
   voiceTags?: VoiceTagDTO[]
+  emoticonTags?: EmoticonTagDTO[]
   biliveCaptain?: BliveCaptainDTO
   favIcon?: string
   icon?: string

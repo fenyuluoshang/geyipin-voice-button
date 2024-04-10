@@ -2,6 +2,7 @@ import Anchor from '@/models/anchor.model'
 import { VoiceDTO, VoiceTagDTO } from './voice'
 import { IsNumber, IsOptional, IsString } from 'class-validator'
 import BliveCaptainModel from '@/models/bilive-captain.model'
+import { EmoticonTagDTO } from './emoticon'
 
 export class AnchorDTO {
   id: number
@@ -20,6 +21,7 @@ export class AnchorDTO {
   updateAt?: Date
   voices?: VoiceDTO[]
   voiceTags?: VoiceTagDTO[]
+  emoticonTags?: EmoticonTagDTO[]
   biliveCaptain?: BliveCaptainDTO
   favIcon?: string
   icon?: string
@@ -50,6 +52,8 @@ export class AnchorDTO {
     this.biliveCaptain = anchor.biliveCaptain && new BliveCaptainDTO(anchor.biliveCaptain)
 
     if (anchor.voiceTags) this.voiceTags = anchor.voiceTags.map((item) => new VoiceTagDTO(item))
+    if (anchor.emoticonTags)
+      this.emoticonTags = anchor.emoticonTags.map((item) => new EmoticonTagDTO(item))
   }
 }
 

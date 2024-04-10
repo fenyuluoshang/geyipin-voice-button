@@ -5,7 +5,7 @@ export function getAudioUrl(path: string) {
 
 export function getMemsUrl(path: string) {
   const config = useRuntimeConfig()
-  return `${config.public.MEMS_PATH}${path}`
+  return `${config.public.SOURCE_PATH}${path}`
 }
 
 let audioCtx: AudioContext

@@ -50,13 +50,18 @@ class AnchorService {
     const anchor = await Anchor.findOne({
       where: {
         pathName: anchorPathName,
-        emoticons: {
-          status: UploadStatus.ALLOW
+        emoticonTags: {
+          emoticons: [
+            {
+              status: UploadStatus.ALLOW
+            },
+            { id: IsNull() }
+          ]
         }
       },
       relations: {
-        emoticons: {
-          tags: true
+        emoticonTags: {
+          emoticons: true
         }
       }
     })

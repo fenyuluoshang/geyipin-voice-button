@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { getMemsUrl } from '@/util'
+import { HTTPResponseData } from '~/dtos'
+import { AnchorDTO } from '~/dtos/anchor'
+import { getMemsUrl } from '~/util';
 
 const anchorStore = useAnchorConfigStore()
 const { data: anchorConfig } = await useAsyncData('anchorConfigStore', async () => {
@@ -36,23 +38,37 @@ useHead({
   link: [{ rel: 'icon', href: () => anchorConfig.value?.favIcon || '/favicon.ico' }]
 })
 
-const configStore = useConfigStore()
+const nuxtApp = useNuxtApp()
 
-const memsList = computed(() => {
-  return configStore.config.mems.map((item) => getMemsUrl(item))
+const domainData = useDomain()
+
+const { data: emoticonDatas } = await useAsyncData(async () => {
+  return (
+    await nuxtApp.$axios.get<HTTPResponseData<AnchorDTO>>(
+      `/api/anchor/${domainData.value.anchor}/emoticons`
+    )
+  ).data.data
 })
+
 </script>
 <template>
-  <div>
-    <el-image
-      class="w-[80px] h-[80px]"
-      v-for="(item, index) in memsList"
-      :key="index"
-      :src="item"
-      :preview-src-list="memsList"
-      :initial-index="index"
-      fit="cover"
-      lazy
-    />
-  </div>
+  <el-main>
+    <el-card v-for="item in emoticonDatas?.emoticonTags" :key="item.id" class="w-full mb-[16px]">
+      <template #header>
+        <div class="card-header">
+          <span>{{ item.title }}</span>
+        </div>
+      </template>
+      <el-image
+        class="w-[80px] h-[80px]"
+        v-for="(item2, index) in item.emoticons"
+        :key="item2.id"
+        :src="getMemsUrl(item2.source!)"
+        :preview-src-list="item.emoticons?.map((item) => getMemsUrl(item.source!))"
+        :initial-index="index"
+        fit="cover"
+        lazy
+      />
+    </el-card>
+  </el-main>
 </template>

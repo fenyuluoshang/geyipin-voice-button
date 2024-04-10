@@ -99,7 +99,7 @@ const { data: anchorConfig } = await useAsyncData('anchorConfigStore', async () 
           <span class="text-[--primary-color]">特别感谢广大粉丝和主播对本站做出的大力支持</span
           >，也希望大家玩的开心，有宝贵意见也欢迎通过各种渠道联系到我喵！
         </p>
-        <p>关注鸽一品谢谢喵</p>
+        <p>关注{{ anchorConfig?.anchorName || '主播' }}谢谢喵</p>
         <p class="font-sans text-sm">
           <a
             href="https://github.com/fenyuluoshang/geyipin-voice-button"
