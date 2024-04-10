@@ -10,6 +10,7 @@ export default defineNuxtConfig({
       VOICE_PATH:
         process.env.voicePATH || (process.env.cdnURL || '/').replace(/\/$/, '') + '/voices/',
       MEMS_PATH: process.env.voicePATH || (process.env.cdnURL || '/').replace(/\/$/, '') + '/mems/',
+      SOURCE_PATH: process.env.SOURCE_PATH || (process.env.cdnURL || '/').replace(/\/$/, ''),
       API_DOMAIN: process.env.API_DOMAIN,
       MAIN_DOMAIN: process.env.MAIN_DOMAIN
     }

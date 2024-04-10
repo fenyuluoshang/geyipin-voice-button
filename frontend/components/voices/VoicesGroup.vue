@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { Voice } from '@/types/index'
+import { VoiceDTO } from '~/dtos/voice';
 
 defineProps<{
   name: string
-  list: Voice[]
+  list: VoiceDTO[]
 }>()
 </script>
 

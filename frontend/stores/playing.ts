@@ -2,12 +2,12 @@ import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { useConfigStore } from './config'
 import { changeAudioVolumeFixed, getAudioUrl } from '@/util/index'
-import type { Voice } from '@/types'
+import { VoiceDTO } from '~/dtos/voice'
 
 export const usePlayingStore = defineStore('playing', () => {
   const configStore = useConfigStore()
   const playingList = ref<HTMLAudioElement[]>([])
-  const playedList = ref<Voice[]>([])
+  const playedList = ref<VoiceDTO[]>([])
 
   watch(
     () => configStore.config.low_voice_mode,
@@ -18,8 +18,8 @@ export const usePlayingStore = defineStore('playing', () => {
     }
   )
 
-  function play(voice: Voice) {
-    const path = getAudioUrl(voice.file)
+  function play(voice: VoiceDTO) {
+    const path = getAudioUrl(voice.source!)
     const audio = new Audio(path)
     audio.style.display = 'none'
     if (configStore.config.only_one_play_mode) {

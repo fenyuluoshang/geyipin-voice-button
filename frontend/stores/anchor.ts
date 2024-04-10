@@ -24,9 +24,15 @@ export const useAnchorConfigStore = defineStore('anchor', () => {
     return domainConfig.value
   }
 
+  const pageName = computed(() => ({
+    voice: `${domainConfig.value?.anchorTitle || '音频'}按钮`,
+    emoticons: `${domainConfig.value?.anchorTitle || ''}表情包`
+  }))
+
   return {
     config: domainConfig,
     load,
-    get
+    get,
+    pageName
   }
 })

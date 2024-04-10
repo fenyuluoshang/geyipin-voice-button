@@ -2,7 +2,7 @@
 import { useConfigStore } from '@/stores/config'
 import { computed, onMounted, ref } from 'vue'
 import { ElScrollbar } from 'element-plus'
-import KeyboardSetting from './KeyboardSetting.vue';
+import KeyboardSetting from './KeyboardSetting.vue'
 
 const configStore = useConfigStore()
 
@@ -59,6 +59,11 @@ onMounted(() => {
     }
   }, 1000)
 })
+
+const anchorStore = useAnchorConfigStore()
+const { data: anchorConfig } = await useAsyncData('anchorConfigStore', async () => {
+  return await anchorStore.get()
+})
 </script>
 
 <template>
@@ -71,7 +76,8 @@ onMounted(() => {
         <el-scrollbar ref="scrollbar" always class="!h-[180px]">
           <div class="flex h-[180px] pb-[10px]">
             <iframe
-              src="//player.bilibili.com/player.html?bvid=BV18u4m1K7qa"
+              v-if="anchorConfig?.lastVideoBV"
+              :src="`//player.bilibili.com/player.html?bvid=${anchorConfig?.lastVideoBV}`"
               scrolling="no"
               border="0"
               frameborder="no"

@@ -5,7 +5,7 @@ import { AnchorDTO } from '~/dtos/anchor'
 
 const nuxtApp = useNuxtApp()
 
-const { data, refresh, pending } = await useAsyncData(
+const { data } = await useAsyncData(
   async () => {
     const res = await nuxtApp.$axios.get<HTTPResponseData<AnchorDTO[]>>('/api/anchor/all', {})
     return res.data.data

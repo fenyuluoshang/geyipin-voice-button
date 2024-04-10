@@ -20,7 +20,7 @@ const show = useVModel(props, 'modelValue', emit)
 
 const nuxtApp = useNuxtApp()
 
-const { data, refresh, pending } = await useAsyncData(
+const { data, refresh } = await useAsyncData(
   async () => {
     if (!props.activeAnchor) {
       return {

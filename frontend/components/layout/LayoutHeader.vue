@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import Logo from '@/assets/logo.jpg'
 import { useSearchStore } from '@/stores/search'
-import { useConfigStore } from '@/stores/config'
 import { computed } from 'vue'
-import { isClient, useToggle } from '@vueuse/core'
+import { useToggle } from '@vueuse/core'
 
 const searchStore = useSearchStore()
-const config = useConfigStore()
 
 const searchInput = computed({
   get: () => searchStore.search,
@@ -43,7 +41,9 @@ const { data: anchorConfig } = await useAsyncData('anchorConfigStore', async () 
   return await anchorStore.get()
 })
 
-const title = computed(() => route.meta.title || (isClient && window.document.title) || '')
+const title = computed(
+  () => anchorStore.pageName[route.meta.page as keyof typeof anchorStore.pageName]
+)
 </script>
 
 <template>
@@ -59,7 +59,7 @@ const title = computed(() => route.meta.title || (isClient && window.document.ti
         <div class="w-[30px] h-[30px] mr-2">
           <img alt="鸽一品" class="w-full h-full" :src="anchorConfig?.icon || Logo" />
         </div>
-        <span class="text-white font-semibold max-md:text-[14px]">{{ route.meta.title }}</span>
+        <span class="text-white font-semibold max-md:text-[14px]">{{ title }}</span>
       </div>
       <div class="btn-groups ml-[4px] flex gap-[4px] items-center">
         <a

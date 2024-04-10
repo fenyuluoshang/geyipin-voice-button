@@ -5,7 +5,7 @@ import BliveCaptainModel from '@/models/bilive-captain.model'
 import { UploadStatus } from '@/models/upload.base'
 import moment from 'moment-timezone'
 import { Inject, Service } from 'typedi'
-import { DataSource } from 'typeorm'
+import { DataSource, IsNull } from 'typeorm'
 
 @Service()
 class AnchorService {
@@ -28,13 +28,18 @@ class AnchorService {
     const anchor = await Anchor.findOne({
       where: {
         pathName: anchorPathName,
-        voices: {
-          status: UploadStatus.ALLOW
+        voiceTags: {
+          voices: [
+            {
+              status: UploadStatus.ALLOW
+            },
+            { id: IsNull() }
+          ]
         }
       },
       relations: {
-        voices: {
-          tags: true
+        voiceTags: {
+          voices: true
         }
       }
     })

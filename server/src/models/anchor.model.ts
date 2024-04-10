@@ -3,6 +3,7 @@ import { BaseModel } from './index.base'
 import Voices from './voices.model'
 import Emoticons from './emoticons.model'
 import BliveCaptainModel from './bilive-captain.model'
+import VoiceTag from './voice-tag.model'
 
 @Entity()
 class Anchor extends BaseModel {
@@ -48,6 +49,9 @@ class Anchor extends BaseModel {
 
   @OneToOne(() => BliveCaptainModel, (bliveCaptain) => bliveCaptain.anchor)
   declare biliveCaptain?: BliveCaptainModel
+
+  @OneToMany(() => VoiceTag, (tag) => tag.anchor)
+  declare voiceTags: VoiceTag[]
 
   @Column({ nullable: true })
   declare favIcon: string

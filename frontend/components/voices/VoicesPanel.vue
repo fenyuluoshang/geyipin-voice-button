@@ -1,41 +1,27 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-import type { Voice } from '@/types/index'
-import { useConfigStore } from '@/stores/config';
+import { HTTPResponseData } from '~/dtos'
+import { AnchorDTO } from '~/dtos/anchor'
 
-const config = useConfigStore()
+const nuxtApp = useNuxtApp()
 
-const voiceGroup = computed(() => {
-  const groups: Record<
-    string,
-    {
-      name: string
-      list: Voice[]
-    }
-  > = {}
+const domainData = useDomain()
 
-  config.config.voices.forEach((item: Voice) => {
-    if (!groups[item.group_name]) {
-      groups[item.group_name] = {
-        name: item.group_name,
-        list: []
-      }
-    }
-
-    groups[item.group_name].list.push(item)
-  })
-
-  return Object.values(groups)
+const { data: voicesData } = await useAsyncData(async () => {
+  return (
+    await nuxtApp.$axios.get<HTTPResponseData<AnchorDTO>>(
+      `/api/anchor/${domainData.value.anchor}/voices`
+    )
+  ).data.data
 })
 </script>
 
 <template>
   <div>
     <voices-group
-      v-for="item in voiceGroup"
-      :key="item.name"
-      :name="item.name"
-      :list="item.list"
+      v-for="item in voicesData?.voiceTags"
+      :key="item.id"
+      :name="item.title"
+      :list="item.voices || []"
     />
   </div>
 </template>

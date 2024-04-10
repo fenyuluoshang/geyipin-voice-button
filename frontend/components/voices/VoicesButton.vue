@@ -3,10 +3,11 @@ import { useConfigStore } from '@/stores/config'
 import { useSearchStore } from '@/stores/search'
 import { usePlayingStore } from '@/stores/playing'
 import { computed } from 'vue'
-import type { Voice } from '@/types'
+import { VoiceDTO } from '~/dtos/voice'
+
 const props = defineProps<{
   name: string
-  voice: Voice
+  voice: VoiceDTO
 }>()
 
 const searchStore = useSearchStore()

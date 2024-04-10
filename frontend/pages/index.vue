@@ -12,11 +12,12 @@ const { data: anchorConfig } = await useAsyncData('anchorConfigStore', async () 
 })
 
 definePageMeta({
-  layout: 'with-head'
+  layout: 'with-head',
+  page: 'voice'
 })
 
 useSeoMeta({
-  title: () => `${anchorConfig.value?.anchorTitle || '音频'}按钮`,
+  title: () => anchorStore.pageName.voice,
   keywords: () => {
     const keywords = ['虚拟主播', '语音按钮']
     if (anchorConfig.value?.anchorTitle) {

@@ -1,8 +1,5 @@
-export type Voice = {
-  group_name: string
-  title: string
-  file: string
-}
+import { VoiceDTO } from "~/dtos/voice"
+
 
 export type Config = {
   page_name: string
@@ -12,6 +9,6 @@ export type Config = {
   in_setting: boolean
   keyboard_binding_map: Record<string, {
     index: number,
-    voice: Voice
+    voice: VoiceDTO
   } | -1>
 }

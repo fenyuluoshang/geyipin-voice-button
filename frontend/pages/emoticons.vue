@@ -13,11 +13,11 @@ defineOptions({
 
 definePageMeta({
   layout: 'with-head',
-  title: '天才鸽表情'
+  page: 'emoticons'
 })
 
 useSeoMeta({
-  title: () => `${anchorConfig.value?.anchorTitle || ''}表情`,
+  title: () => anchorStore.pageName.emoticons,
   keywords: () => {
     const keywords = ['虚拟主播', '语音按钮', ' 表情包']
     if (anchorConfig.value?.anchorTitle) {
