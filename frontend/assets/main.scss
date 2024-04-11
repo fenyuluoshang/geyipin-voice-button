@@ -23,7 +23,7 @@
 body {
   color: var(--text-color-primary);
   font-size: 16px;
-  cursor: url('@/assets/mouse.gif'), auto;
+  // cursor: url('@/assets/mouse.gif'), auto;
   min-height: 100vh;
 }
 
@@ -32,7 +32,7 @@ body {
 .el-slider__runway,
 .el-scrollbar__thumb,
 .el-slider__button {
-  cursor: url('@/assets/mouse-pointer.gif'), pointer !important;
+  // cursor: url('@/assets/mouse-pointer.gif'), pointer !important;
 }
 
 @font-face {

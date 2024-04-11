@@ -97,12 +97,19 @@ const { data: anchorConfig } = await useAsyncData('anchorConfigStore', async () 
       <el-divider direction="vertical" class="!h-[unset] max-sm:hidden" />
       <div class="flex-1">
         <h2 class="text-2xl">关于本站</h2>
-        <p>本站仅为爱好者自制作品，与主播不存在直接关联</p>
-        <p>
-          <span class="text-[--primary-color]">特别感谢广大粉丝和主播对本站做出的大力支持</span
-          >，也希望大家玩的开心，有宝贵意见也欢迎通过各种渠道联系到我喵！
-        </p>
-        <p>关注{{ anchorConfig?.anchorName || '主播' }}谢谢喵</p>
+        <el-scrollbar class="!h-[180px]">
+          <p v-if="anchorConfig?.homepageExt?.info_ext_text" class="whitespace-pre-wrap">
+            {{ anchorConfig?.homepageExt?.info_ext_text }}
+          </p>
+          <template v-else>
+            <p>本站仅为爱好者自制作品，与主播不存在直接关联</p>
+            <p>
+              <span class="text-[--primary-color]">特别感谢广大粉丝和主播对本站做出的大力支持</span
+              >，也希望大家玩的开心，有宝贵意见也欢迎通过各种渠道联系到我喵！
+            </p>
+            <p>关注{{ anchorConfig?.anchorName || '主播' }}谢谢喵</p>
+          </template>
+        </el-scrollbar>
         <p class="font-sans text-sm">
           <a
             href="https://github.com/fenyuluoshang/geyipin-voice-button"
