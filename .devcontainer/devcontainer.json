@@ -13,6 +13,26 @@
 		3000,
 		5432,
 		5173
+	],
+	// "customizations": {
+	// 	"vscode": {
+	// 		"extensions": [
+	// 			"dbaeumer.vscode-eslint",
+	// 			"esbenp.prettier-vscode",
+	// 			"eamodio.gitlens",
+	// 			"vue.volar",
+	// 			"vitest.explorer",
+	// 			"bradlc.vscode-tailwindcss"
+	// 		]
+	// 	}
+	// },
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"eamodio.gitlens",
+		"vue.volar",
+		"vitest.explorer",
+		"bradlc.vscode-tailwindcss"
 	]
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "yarn install",
