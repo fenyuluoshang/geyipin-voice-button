@@ -13,9 +13,12 @@ import { containerRegister } from './container'
 import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import { CorsOptionData, CorsWhiteListUpdate } from './cache/cors-white-list'
+import checkBeforeInit from './utils/check-before-init'
 
 async function startup(app: express.Express) {
   loadEnv(process.env.NODE_ENV || 'production', path.resolve(__dirname, '../'), '')
+
+  await checkBeforeInit()
 
   app.use(cookieParser())
 
